@@ -1,0 +1,116 @@
+const stats = [
+  { value: '10K+', label: 'Developers' },
+  { value: '50M+', label: 'Transactions' },
+  { value: '99.9%', label: 'Uptime' },
+]
+
+const codeLines = [
+  { num: '1', tokens: [{ color: '#ccff00', text: 'import' }, { color: '#fff', text: ' { SnapChain } ' }, { color: '#ccff00', text: 'from' }, { color: '#a3e635', text: " 'snapchain'" }, { color: '#fff', text: ';' }] },
+  { num: '2', tokens: [] },
+  { num: '3', tokens: [{ color: '#ccff00', text: 'const' }, { color: '#fff', text: ' chain = ' }, { color: '#ccff00', text: 'new' }, { color: '#fff', text: ' SnapChain(' }] },
+  { num: '4', tokens: [{ color: '#fff', text: '  network: ' }, { color: '#a3e635', text: "'mainnet'" }, { color: '#fff', text: ',' }] },
+  { num: '5', tokens: [{ color: '#fff', text: '  consensus: ' }, { color: '#a3e635', text: "'poa'" }, { color: '#fff', text: ',' }] },
+  { num: '6', tokens: [{ color: '#fff', text: '});' }] },
+  { num: '7', tokens: [] },
+  { num: '8', tokens: [{ color: '#71717a', text: '// Deploy in seconds' }] },
+  { num: '9', tokens: [{ color: '#ccff00', text: 'await' }, { color: '#fff', text: ' chain.' }, { color: '#ccff00', text: 'deploy' }, { color: '#fff', text: '(); ' }, { color: '#71717a', text: '// Done! 🚀' }] },
+]
+
+export default function Hero() {
+  return (
+    <section id="hero" className="relative bg-[#050505] min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      <div className="absolute inset-0 bg-[#050505]">
+        <div className="absolute inset-0 grid-pattern opacity-50" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] radial-glow" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#ccff00]/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#a3e635]/5 rounded-full blur-[120px]" />
+        <svg className="absolute inset-0 w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#ccff00" stopOpacity="0" />
+              <stop offset="50%" stopColor="#ccff00" stopOpacity="1" />
+              <stop offset="100%" stopColor="#ccff00" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <line x1="0" y1="30%" x2="100%" y2="30%" stroke="url(#lineGrad)" strokeWidth="1" className="animate-pulse" />
+          <line x1="0" y1="70%" x2="100%" y2="70%" stroke="url(#lineGrad)" strokeWidth="1" className="animate-pulse" style={{ animationDelay: '1s' }} />
+        </svg>
+      </div>
+
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="text-center max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#111111] border border-[#27272a] mb-8">
+            <span className="w-2 h-2 rounded-full bg-[#ccff00] animate-pulse" />
+            <span className="text-sm text-[#a1a1aa]">Now in Public Beta</span>
+          </div>
+
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-[1.1] mb-6">
+            Build on <span className="text-gradient">Blockchain</span>
+            <br />at Lightning Speed
+          </h1>
+
+          <p className="text-lg sm:text-xl text-[#a1a1aa] max-w-2xl mx-auto mb-10 leading-relaxed">
+            The all-in-one platform for deploying, scaling, and managing blockchain infrastructure.
+            From testnet to mainnet in minutes, not months.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button className="btn-primary group text-base px-8 py-4">
+              Start Building Free
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="transition-transform duration-300 group-hover:translate-x-1">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
+            <button className="btn-secondary group text-base px-8 py-4">
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="text-[#ccff00]">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Watch Demo
+            </button>
+          </div>
+
+          <div className="grid grid-cols-3 gap-8 mt-16 pt-16 border-t border-[#27272a]">
+            {stats.map(s => (
+              <div key={s.label} className="text-center">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">{s.value}</div>
+                <div className="text-sm text-[#71717a]">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative mt-20 mx-auto max-w-5xl">
+          <div className="relative rounded-2xl overflow-hidden border border-[#27272a] bg-[#111111]">
+            <div className="flex items-center gap-2 px-4 py-3 bg-[#0a0a0a] border-b border-[#27272a]">
+              <div className="flex gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+                <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+                <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+              </div>
+              <div className="flex-1 text-center">
+                <span className="text-xs text-[#71717a]">deploy.js</span>
+              </div>
+            </div>
+            <div className="p-6 font-mono text-sm">
+              <div className="flex gap-4">
+                <div className="text-[#71717a] select-none leading-6">
+                  {codeLines.map(l => <div key={l.num}>{l.num}</div>)}
+                </div>
+                <div className="flex-1 leading-6">
+                  {codeLines.map((line, i) => (
+                    <div key={i}>
+                      {line.tokens.map((tok, j) => (
+                        <span key={j} style={{ color: tok.color }}>{tok.text}</span>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
