@@ -5,6 +5,12 @@ const partners = [
   { name: 'Paradigm', abbr: 'PD' },
   { name: 'Sequoia', abbr: 'SQ' },
   { name: 'Binance Labs', abbr: 'BL' },
+  { name: 'Multicoin', abbr: 'MC' },
+  { name: 'Pantera', abbr: 'PT' },
+  { name: 'Dragonfly', abbr: 'DF' },
+  { name: 'Framework', abbr: 'FW' },
+  { name: 'Electric', abbr: 'EC' },
+  { name: 'Galaxy', abbr: 'GX' },
 ]
 
 const bullets = [
@@ -22,7 +28,7 @@ export default function TrustedPartners() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Partner logos grid */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-4 gap-4">
             {partners.map((p, i) => (
               <div key={i} className="partner-logo group">
                 <div className="text-center">
