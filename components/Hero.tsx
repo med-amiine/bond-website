@@ -168,8 +168,9 @@ export default function Hero() {
 
         {/* Code block - starts hidden, fades in last */}
         <div ref={codeRef} style={{ opacity: 0, visibility: 'hidden' }} className="relative mt-20 mx-auto max-w-5xl">
-          <div className="relative rounded-2xl overflow-hidden border border-[#27272a] bg-[#111111]">
-            <div className="flex items-center gap-2 px-4 py-3 bg-[#0a0a0a] border-b border-[#27272a]">
+          <div className="relative rounded-xl overflow-hidden bg-[#0a0a0a] border border-[#27272a]">
+            {/* Window header */}
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-[#27272a]/50">
               <div className="flex gap-1.5">
                 <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
                 <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
@@ -179,22 +180,38 @@ export default function Hero() {
                 <span className="text-xs text-[#71717a]">deploy.js</span>
               </div>
             </div>
-            <div className="p-6 font-mono text-sm">
-              <div className="flex gap-4">
-                <div className="text-[#71717a] select-none leading-6">
-                  {codeLines.map(l => <div key={l.num}>{l.num}</div>)}
-                </div>
-                <div className="flex-1 leading-6">
-                  {codeLines.map((line, i) => (
-                    <div key={i}>
-                      {line.tokens.map((tok, j) => (
-                        <span key={j} style={{ color: tok.color }}>{tok.text}</span>
-                      ))}
-                    </div>
-                  ))}
-                </div>
+            
+            {/* Code content - single line with line numbers inline */}
+            <div className="px-4 py-4 font-mono text-sm overflow-x-auto">
+              <div className="flex items-center gap-3 whitespace-nowrap">
+                <span className="text-[#3f3f46] select-none">1 2 3 4 5 6 7 8 9</span>
+                <span className="text-[#ccff00]">import</span>
+                <span className="text-white">{'{'} SnapChain {'}'} </span>
+                <span className="text-[#ccff00]">from</span>
+                <span className="text-[#a3e635]">&apos;snapchain&apos;</span>
+                <span className="text-white">;</span>
+                <span className="text-[#ccff00]">const</span>
+                <span className="text-white">chain = </span>
+                <span className="text-[#ccff00]">new</span>
+                <span className="text-white">SnapChain({'{'}</span>
+                <span className="text-white">network: </span>
+                <span className="text-[#a3e635]">&apos;mainnet&apos;</span>
+                <span className="text-white">,</span>
+                <span className="text-white">consensus: </span>
+                <span className="text-[#a3e635]">&apos;poa&apos;</span>
+                <span className="text-white">,</span>
+                <span className="text-white">{'}'});</span>
+                <span className="text-[#71717a]">// Deploy in seconds</span>
+                <span className="text-[#ccff00]">await</span>
+                <span className="text-white">chain.</span>
+                <span className="text-[#ccff00]">deploy</span>
+                <span className="text-white">();</span>
+                <span className="text-[#71717a]">// Done! 🚀</span>
               </div>
             </div>
+            
+            {/* Green line at bottom */}
+            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#ccff00]/60 shadow-[0_0_10px_rgba(204,255,0,0.5)]" />
           </div>
         </div>
       </div>
