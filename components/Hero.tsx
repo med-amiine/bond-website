@@ -43,14 +43,14 @@ export default function Hero() {
     if (!section || !headline || !subtext || !buttons || !stats || !code) return
 
     const ctx = gsap.context(() => {
-      // Set initial hidden state
-      gsap.set([headline, subtext, buttons, stats, code], { opacity: 0, y: 30 })
+      // Set initial hidden state (inline styles handle SSR, this ensures JS state)
+      gsap.set([headline, subtext, buttons, stats, code], { opacity: 0, visibility: 'hidden', y: 30 })
 
       // Create timeline for sequential fade in
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
-          start: 'top 80%',
+          start: 'top 85%',
           toggleActions: 'play none none reverse',
         }
       })
@@ -58,6 +58,7 @@ export default function Hero() {
       // Headline first
       tl.to(headline, {
         opacity: 1,
+        visibility: 'visible',
         y: 0,
         duration: 0.7,
         ease: 'power2.out',
@@ -65,6 +66,7 @@ export default function Hero() {
       // Subtext second
       .to(subtext, {
         opacity: 1,
+        visibility: 'visible',
         y: 0,
         duration: 0.6,
         ease: 'power2.out',
@@ -72,6 +74,7 @@ export default function Hero() {
       // Buttons third
       .to(buttons, {
         opacity: 1,
+        visibility: 'visible',
         y: 0,
         duration: 0.6,
         ease: 'power2.out',
@@ -79,6 +82,7 @@ export default function Hero() {
       // Stats fourth
       .to(stats, {
         opacity: 1,
+        visibility: 'visible',
         y: 0,
         duration: 0.6,
         ease: 'power2.out',
@@ -86,6 +90,7 @@ export default function Hero() {
       // Code block last
       .to(code, {
         opacity: 1,
+        visibility: 'visible',
         y: 0,
         duration: 0.7,
         ease: 'power2.out',
@@ -124,19 +129,19 @@ export default function Hero() {
           </div>
 
           {/* Headline - starts hidden, fades in */}
-          <h1 ref={headlineRef} className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-[1.1] mb-6">
+          <h1 ref={headlineRef} style={{ opacity: 0, visibility: 'hidden' }} className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-[1.1] mb-6">
             Build on <span className="text-gradient">Blockchain</span>
             <br />at Lightning Speed
           </h1>
 
           {/* Subtext - starts hidden, fades in */}
-          <p ref={subtextRef} className="text-lg sm:text-xl text-[#a1a1aa] max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p ref={subtextRef} style={{ opacity: 0, visibility: 'hidden' }} className="text-lg sm:text-xl text-[#a1a1aa] max-w-2xl mx-auto mb-10 leading-relaxed">
             The all-in-one platform for deploying, scaling, and managing blockchain infrastructure.
             From testnet to mainnet in minutes, not months.
           </p>
 
           {/* Buttons - starts hidden, fades in */}
-          <div ref={buttonsRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div ref={buttonsRef} style={{ opacity: 0, visibility: 'hidden' }} className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button className="btn-primary group text-base px-8 py-4">
               Start Building Free
               <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="transition-transform duration-300 group-hover:translate-x-1">
@@ -153,7 +158,7 @@ export default function Hero() {
           </div>
 
           {/* Stats - starts hidden, fades in */}
-          <div ref={statsRef} className="grid grid-cols-3 gap-8 mt-16 pt-16 border-t border-[#27272a]">
+          <div ref={statsRef} style={{ opacity: 0, visibility: 'hidden' }} className="grid grid-cols-3 gap-8 mt-16 pt-16 border-t border-[#27272a]">
             {stats.map(s => (
               <div key={s.label} className="text-center">
                 <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">{s.value}</div>
@@ -164,7 +169,7 @@ export default function Hero() {
         </div>
 
         {/* Code block - starts hidden, fades in last */}
-        <div ref={codeRef} className="relative mt-20 mx-auto max-w-5xl">
+        <div ref={codeRef} style={{ opacity: 0, visibility: 'hidden' }} className="relative mt-20 mx-auto max-w-5xl">
           <div className="relative rounded-2xl overflow-hidden border border-[#27272a] bg-[#111111]">
             <div className="flex items-center gap-2 px-4 py-3 bg-[#0a0a0a] border-b border-[#27272a]">
               <div className="flex gap-1.5">
