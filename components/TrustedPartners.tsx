@@ -28,22 +28,22 @@ export default function TrustedPartners() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Partner logos grid with fade mask */}
-          <div className="relative">
+          <div className="relative px-3">
             {/* Fade masks */}
             <div className="absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-[#050505] to-transparent z-10 pointer-events-none" />
             <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-[#050505] to-transparent z-10 pointer-events-none" />
             
             <div 
-              className="grid grid-cols-4 gap-4"
+              className="grid grid-cols-4 gap-4 py-2"
               style={{
                 maskImage: 'linear-gradient(to bottom, transparent 0%, black 30px, black calc(100% - 30px), transparent 100%)',
                 WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 30px, black calc(100% - 30px), transparent 100%)'
               }}
             >
               {partners.map((p, i) => (
-                <div key={i} className="partner-logo group">
-                  <div className="text-center">
-                    <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a1a1a] flex items-center justify-center mb-2 group-hover:bg-[#ccff00]/10 transition-colors duration-300">
+                <div key={i} className="partner-logo group relative">
+                  <div className="text-center p-1 -m-1">
+                    <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a1a1a] flex items-center justify-center mb-2 group-hover:bg-[#ccff00]/10 group-hover:shadow-[0_0_15px_rgba(204,255,0,0.3)] transition-all duration-300">
                       <span className="text-lg font-bold text-[#71717a] group-hover:text-[#ccff00] transition-colors duration-300">{p.abbr}</span>
                     </div>
                     <span className="text-xs text-[#71717a] group-hover:text-[#a1a1aa] transition-colors duration-300">{p.name}</span>
