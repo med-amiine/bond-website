@@ -44,207 +44,193 @@ const snapStats = [
 ]
 
 export default function SnapV1() {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const cardsRef = useRef<HTMLDivElement[]>([])
-  const [activeIndex, setActiveIndex] = useState(0)
-  const triggersRef = useRef<ScrollTrigger[]>([])
+  const sectionRef = useRef<HTMLElement>(null)
+  const [currentCard, setCurrentCard] = useState(1)
 
   useEffect(() => {
     const section = sectionRef.current
     if (!section) return
 
-    const cards = cardsRef.current.filter(Boolean)
-    if (cards.length === 0) return
+    const ctx = gsap.context(() => {
+      const cardElements = gsap.utils.toArray<HTMLElement>('.feature-card')
+      
+      // Set initial states - first card visible, others hidden below
+      gsap.set(cardElements[0], { y: 0, opacity: 1, scale: 1 })
+      cardElements.slice(1).forEach(card => {
+        gsap.set(card, { y: 100, opacity: 0, scale: 0.95 })
+      })
 
-    // Clear any existing triggers
-    triggersRef.current.forEach(t => t.kill())
-    triggersRef.current = []
-
-    // Create timeline with ScrollTrigger
-    const tl = gsap.timeline({
-      scrollTrigger: {
+      // Main scroll trigger - FAST duration (150% instead of 300-400%)
+      ScrollTrigger.create({
         trigger: section,
         start: 'top top',
-        end: '+=300%', // Creates 300vh of scroll while pinned
+        end: '+=150%', // REDUCED: Faster scroll distance
         pin: true,
-        pinSpacing: true,
-        scrub: 0.5,
+        scrub: 0.3, // REDUCED: Snappier response
         snap: {
-          snapTo: 1 / (features.length - 1),
-          duration: { min: 0.2, max: 0.3 },
-          ease: 'power1.inOut',
+          snapTo: [0, 0.25, 0.5, 0.75, 1], // Snap to exact card positions
+          duration: { min: 0.1, max: 0.2 },
+          ease: 'power2.out',
+          delay: 0
         },
         onUpdate: (self) => {
           const progress = self.progress
-          const cardIndex = Math.min(Math.floor(progress * features.length), features.length - 1)
-          setActiveIndex(cardIndex)
-        },
-      },
-    })
+          const rawIndex = progress * 4
+          const currentIndex = Math.min(Math.floor(rawIndex), 3)
+          const localProgress = rawIndex - currentIndex // 0-1 within current card transition
+          
+          setCurrentCard(currentIndex + 1)
+          
+          cardElements.forEach((card, i) => {
+            if (i < currentIndex) {
+              // Cards above - exited up
+              gsap.set(card, { 
+                y: -80, 
+                opacity: 0, 
+                scale: 0.92,
+                zIndex: 10 - i 
+              })
+            } else if (i === currentIndex) {
+              // Current card - entering/settling
+              const yOffset = (1 - localProgress) * 60 // Start 60px down, settle to 0
+              const scale = 0.95 + (0.05 * localProgress) // 0.95 to 1.0
+              const opacity = Math.min(localProgress * 1.5, 1) // Faster fade in
+              
+              gsap.set(card, { 
+                y: currentIndex === 0 ? 0 : yOffset, 
+                opacity: currentIndex === 0 ? 1 : opacity, 
+                scale: currentIndex === 0 ? 1 : scale,
+                zIndex: 20 
+              })
+            } else {
+              // Cards below - waiting to enter
+              gsap.set(card, { 
+                y: 80, 
+                opacity: 0, 
+                scale: 0.95,
+                zIndex: 10 - i 
+              })
+            }
+          })
+        }
+      })
+    }, section)
 
-    // Store trigger for cleanup
-    if (tl.scrollTrigger) {
-      triggersRef.current.push(tl.scrollTrigger)
-    }
-
-    // Animate each card transition
-    // Card 0 starts visible, others start below
-    gsap.set(cards[0], { y: 0, opacity: 1, scale: 1 })
-    cards.slice(1).forEach((card) => {
-      gsap.set(card, { y: 100, opacity: 0, scale: 0.9 })
-    })
-
-    // Card 0 exits, Card 1 enters
-    tl.to(cards[0], { y: -100, opacity: 0, scale: 0.9, duration: 0.25 }, 0)
-      .to(cards[1], { y: 0, opacity: 1, scale: 1, duration: 0.25 }, 0)
-
-    // Card 1 exits, Card 2 enters
-    tl.to(cards[1], { y: -100, opacity: 0, scale: 0.9, duration: 0.25 }, 0.33)
-      .to(cards[2], { y: 0, opacity: 1, scale: 1, duration: 0.25 }, 0.33)
-
-    // Card 2 exits, Card 3 enters
-    tl.to(cards[2], { y: -100, opacity: 0, scale: 0.9, duration: 0.25 }, 0.66)
-      .to(cards[3], { y: 0, opacity: 1, scale: 1, duration: 0.25 }, 0.66)
-
-    return () => {
-      triggersRef.current.forEach(t => t.kill())
-      triggersRef.current = []
-    }
+    return () => ctx.revert()
   }, [])
 
   return (
-    <section
-      id="build-section"
+    <section 
       ref={sectionRef}
-      className="sticky top-0 h-screen w-full bg-[#050505] z-20"
+      id="features"
+      className="relative z-20 bg-[#050505]"
     >
-      {/* Background glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#c8f420]/5 rounded-full blur-[150px]" />
-      </div>
-
-      <div className="relative z-10 h-full w-full flex items-center">
-        <div className="w-full max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left Column - Static content */}
-            <div className="max-w-xl">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1a1a1a] border border-[#c8f420]/30 mb-6">
-                <span className="text-[#c8f420]">✨</span>
-                <span className="text-sm text-[#9ca3af]">Snap V1 is here</span>
+      <div className="sticky top-0 h-screen flex items-center px-6 lg:px-24 max-w-[1400px] mx-auto">
+        {/* Left Column - Static Content */}
+        <div className="w-full lg:w-1/2 pr-0 lg:pr-16 z-10">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#ccff00]/30 bg-[#ccff00]/10 text-[#ccff00] text-sm font-medium mb-6 backdrop-blur-sm">
+            <span className="animate-pulse">✨</span>
+            <span>Snap V1 is here</span>
+          </div>
+          
+          {/* Headline */}
+          <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-[1.1] tracking-tight">
+            Everything you need to <span className="text-[#ccff00]">build</span>
+          </h2>
+          
+          {/* Subtext */}
+          <p className="text-[#71717a] text-lg mb-8 max-w-md leading-relaxed">
+            From deployment to scaling, SnapChain provides all the tools you need to launch and manage blockchain infrastructure at any scale.
+          </p>
+          
+          {/* CTAs */}
+          <div className="flex flex-wrap gap-4 mb-12">
+            <button className="btn-primary group">
+              Get Started Free 
+              <span className="group-hover:translate-x-1 transition-transform inline-block ml-1">→</span>
+            </button>
+            <button className="btn-secondary">
+              View Documentation
+            </button>
+          </div>
+          
+          {/* Stats */}
+          <div className="flex gap-8 lg:gap-12">
+            {snapStats.map((stat) => (
+              <div key={stat.label}>
+                <div className="text-3xl lg:text-4xl font-bold text-white tracking-tight">{stat.value}</div>
+                <div className="text-[#71717a] text-sm mt-1">{stat.label}</div>
               </div>
+            ))}
+          </div>
+        </div>
 
-              {/* Headline */}
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6">
-                Everything you need to{' '}
-                <span className="text-[#c8f420]">build</span>
-              </h2>
-
-              {/* Subtext */}
-              <p className="text-lg text-[#9ca3af] mb-8 max-w-[480px]">
-                From deployment to scaling, SnapChain provides all the tools you need to launch and manage blockchain infrastructure at any scale.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-4 mb-12">
-                <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#c8f420] text-black font-semibold text-sm hover:scale-105 transition-transform">
-                  Get Started Free
-                  <span>→</span>
-                </button>
-                <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-transparent text-white font-medium text-sm border border-white/20 hover:bg-white/5 transition-colors">
-                  View Documentation
-                </button>
-              </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/10">
-                {snapStats.map((stat) => (
-                  <div key={stat.label}>
-                    <div className="text-2xl font-bold text-white">{stat.value}</div>
-                    <div className="text-sm text-[#9ca3af]">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Column - Stacked Cards Container */}
-            <div className="hidden lg:block relative" style={{ height: '320px' }}>
-              {/* Cards stacked with absolute positioning */}
-              {features.map((feature, index) => {
-                const isActive = index === activeIndex
-
-                return (
-                  <div
-                    key={index}
-                    ref={(el) => {
-                      if (el) cardsRef.current[index] = el
-                    }}
-                    className="feature-card absolute inset-0 rounded-2xl p-6"
-                    style={{
-                      zIndex: features.length - index,
-                      background: 'rgba(26, 26, 26, 0.9)',
-                      border: `1px solid ${isActive ? 'rgba(200, 244, 32, 0.3)' : 'rgba(255, 255, 255, 0.1)'}`,
-                      backdropFilter: 'blur(10px)',
-                      willChange: 'transform, opacity',
-                      backfaceVisibility: 'hidden',
-                    }}
-                  >
-                    {/* Card Header */}
-                    <div className="flex items-start gap-4 mb-4">
-                      <div
-                        className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
-                        style={{
-                          background: isActive ? 'rgba(200, 244, 32, 0.2)' : 'rgba(200, 244, 32, 0.1)',
-                        }}
-                      >
-                        {feature.icon}
-                      </div>
-                      <div className="flex-1">
-                        <h3
-                          className="text-lg font-semibold mb-1"
-                          style={{ color: isActive ? '#c8f420' : '#ffffff' }}
-                        >
-                          {feature.title}
-                        </h3>
-                        <div className="flex items-center gap-2">
-                          <span className="text-2xl font-bold text-[#c8f420]">{feature.stat}</span>
-                          <span className="text-sm text-white/60">{feature.statLabel}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-[#9ca3af] text-sm mb-6 leading-relaxed">
-                      {feature.description}
-                    </p>
-
-                    {/* Explore Button */}
-                    <button
-                      className="px-6 py-2.5 rounded-full text-sm font-medium transition-all"
-                      style={{
-                        background: isActive ? 'rgba(200, 244, 32, 0.2)' : 'rgba(255, 255, 255, 0.05)',
-                        color: isActive ? '#c8f420' : '#9ca3af',
-                        border: `1px solid ${isActive ? 'rgba(200, 244, 32, 0.4)' : 'rgba(255, 255, 255, 0.1)'}`,
-                      }}
-                    >
-                      Explore
-                    </button>
-                  </div>
-                )
-              })}
-
-              {/* Progress Indicator */}
-              <div className="absolute -bottom-12 left-0 flex items-center gap-2 text-sm text-gray-400">
-                <span className="current-card text-white font-medium">{activeIndex + 1}</span>
-                <span>/</span>
-                <span>{features.length}</span>
-                <div className="ml-2 h-1 w-24 bg-gray-800 rounded-full overflow-hidden">
-                  <div
-                    className="progress-bar h-full bg-[#c8f420] transition-all duration-100"
-                    style={{ width: `${((activeIndex + 1) / features.length) * 100}%` }}
-                  />
+        {/* Right Column - Stacked Cards */}
+        <div className="hidden lg:block w-1/2 relative h-[420px]">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="feature-card absolute inset-0 bg-[#111111] border border-[#27272a] rounded-2xl p-8 flex flex-col justify-between backdrop-blur-sm"
+              style={{ 
+                willChange: 'transform, opacity',
+                backfaceVisibility: 'hidden',
+                zIndex: 4 - index // Lightning Fast (index 0) = z-4, etc.
+              }}
+            >
+              <div>
+                {/* Icon */}
+                <div className="w-12 h-12 bg-[#ccff00]/10 rounded-xl flex items-center justify-center text-[#ccff00] text-2xl mb-6">
+                  {feature.icon}
                 </div>
+                
+                {/* Title */}
+                <h3 className="text-[#ccff00] font-semibold text-lg mb-1">{feature.title}</h3>
+                
+                {/* Metric */}
+                <div className="flex items-baseline gap-3 mb-4">
+                  <span className="text-4xl font-bold text-white tracking-tight">{feature.stat}</span>
+                  <span className="text-[#71717a] text-sm">{feature.statLabel}</span>
+                </div>
+                
+                {/* Description */}
+                <p className="text-[#a1a1aa] leading-relaxed text-[15px]">
+                  {feature.description}
+                </p>
               </div>
+              
+              {/* Explore Button */}
+              <button className="w-fit px-6 py-2.5 border border-[#27272a] text-white rounded-full text-sm font-medium hover:border-[#ccff00]/50 hover:text-[#ccff00] transition-all duration-300 mt-6">
+                Explore
+              </button>
+            </div>
+          ))}
+
+          {/* Progress Indicator - Lines Above AND Below */}
+          <div className="absolute -bottom-20 left-0 right-0 flex flex-col items-center">
+            {/* TOP LINE - New addition */}
+            <div className="w-28 h-[3px] bg-[#27272a] rounded-full mb-3 overflow-hidden">
+              <div 
+                className="h-full bg-[#ccff00] rounded-full transition-all duration-300 ease-out"
+                style={{ width: `${(currentCard / 4) * 100}%` }}
+              />
+            </div>
+            
+            {/* Counter */}
+            <div className="flex items-center gap-3 font-mono text-sm tabular-nums">
+              <span className="text-[#ccff00] font-bold text-base min-w-[20px] text-center">
+                {currentCard}
+              </span>
+              <span className="text-[#71717a]">/</span>
+              <span className="text-[#71717a] min-w-[20px] text-center">4</span>
+            </div>
+            
+            {/* BOTTOM LINE */}
+            <div className="w-28 h-[3px] bg-[#27272a] rounded-full mt-3 overflow-hidden">
+              <div 
+                className="h-full bg-[#ccff00] rounded-full transition-all duration-300 ease-out"
+                style={{ width: `${(currentCard / 4) * 100}%` }}
+              />
             </div>
           </div>
         </div>
