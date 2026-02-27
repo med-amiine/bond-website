@@ -1,3 +1,11 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
 const stats = [
   { value: '10K+', label: 'Developers' },
   { value: '50M+', label: 'Transactions' },
@@ -17,8 +25,100 @@ const codeLines = [
 ]
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const headlineRef = useRef<HTMLHeadingElement>(null)
+  const subtextRef = useRef<HTMLParagraphElement>(null)
+  const buttonsRef = useRef<HTMLDivElement>(null)
+  const statsRef = useRef<HTMLDivElement>(null)
+  const codeRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const section = sectionRef.current
+    const headline = headlineRef.current
+    const subtext = subtextRef.current
+    const buttons = buttonsRef.current
+    const stats = statsRef.current
+    const code = codeRef.current
+
+    if (!section || !headline || !subtext || !buttons || !stats || !code) return
+
+    const ctx = gsap.context(() => {
+      // Fade in headline first
+      gsap.from(headline, {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+        opacity: 0,
+        y: 40,
+        duration: 0.7,
+        ease: 'power2.out',
+      })
+
+      // Fade in subtext second
+      gsap.from(subtext, {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 75%',
+          toggleActions: 'play none none reverse',
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.6,
+        delay: 0.15,
+        ease: 'power2.out',
+      })
+
+      // Fade in buttons third
+      gsap.from(buttons, {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          toggleActions: 'play none none reverse',
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.6,
+        delay: 0.3,
+        ease: 'power2.out',
+      })
+
+      // Fade in stats fourth
+      gsap.from(stats, {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 65%',
+          toggleActions: 'play none none reverse',
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.6,
+        delay: 0.45,
+        ease: 'power2.out',
+      })
+
+      // Fade in code block last
+      gsap.from(code, {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 60%',
+          toggleActions: 'play none none reverse',
+        },
+        opacity: 0,
+        y: 40,
+        duration: 0.7,
+        delay: 0.6,
+        ease: 'power2.out',
+      })
+    }, section)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="hero" className="relative bg-[#050505] min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section id="hero" ref={sectionRef} className="relative bg-[#050505] min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      {/* Background */}
       <div className="absolute inset-0 bg-[#050505]">
         <div className="absolute inset-0 grid-pattern opacity-50" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] radial-glow" />
@@ -44,17 +144,20 @@ export default function Hero() {
             <span className="text-sm text-[#a1a1aa]">Now in Public Beta</span>
           </div>
 
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-[1.1] mb-6">
+          {/* Headline - fades in first */}
+          <h1 ref={headlineRef} className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-[1.1] mb-6">
             Build on <span className="text-gradient">Blockchain</span>
             <br />at Lightning Speed
           </h1>
 
-          <p className="text-lg sm:text-xl text-[#a1a1aa] max-w-2xl mx-auto mb-10 leading-relaxed">
+          {/* Subtext - fades in second */}
+          <p ref={subtextRef} className="text-lg sm:text-xl text-[#a1a1aa] max-w-2xl mx-auto mb-10 leading-relaxed">
             The all-in-one platform for deploying, scaling, and managing blockchain infrastructure.
             From testnet to mainnet in minutes, not months.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          {/* Buttons - fade in third */}
+          <div ref={buttonsRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button className="btn-primary group text-base px-8 py-4">
               Start Building Free
               <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="transition-transform duration-300 group-hover:translate-x-1">
@@ -70,7 +173,8 @@ export default function Hero() {
             </button>
           </div>
 
-          <div className="grid grid-cols-3 gap-8 mt-16 pt-16 border-t border-[#27272a]">
+          {/* Stats - fade in fourth */}
+          <div ref={statsRef} className="grid grid-cols-3 gap-8 mt-16 pt-16 border-t border-[#27272a]">
             {stats.map(s => (
               <div key={s.label} className="text-center">
                 <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">{s.value}</div>
@@ -80,7 +184,8 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative mt-20 mx-auto max-w-5xl">
+        {/* Code block - fades in last */}
+        <div ref={codeRef} className="relative mt-20 mx-auto max-w-5xl">
           <div className="relative rounded-2xl overflow-hidden border border-[#27272a] bg-[#111111]">
             <div className="flex items-center gap-2 px-4 py-3 bg-[#0a0a0a] border-b border-[#27272a]">
               <div className="flex gap-1.5">
