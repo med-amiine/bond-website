@@ -118,9 +118,9 @@ export default function SnapV1() {
     <section 
       ref={sectionRef}
       id="features"
-      className="relative z-20 bg-[#050505]"
+      className="relative z-10 bg-[#050505]"
     >
-      <div className="sticky top-0 h-screen flex items-center px-6 lg:px-24 max-w-[1400px] mx-auto">
+      <div className="min-h-screen flex items-center px-6 lg:px-24 max-w-[1400px] mx-auto py-20">
         {/* Left Column - Static Content */}
         <div ref={titleRef} className="w-full lg:w-1/2 pr-0 lg:pr-16 z-10">
           {/* Badge */}
