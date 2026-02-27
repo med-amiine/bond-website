@@ -19,15 +19,16 @@ export default function Home() {
         <Partners />
       </div>
 
-      {/* SnapV1 - scrolls normally, gets covered */}
-      <SnapV1 />
+      {/* SnapV1 - sticky, stays in place while being covered */}
+      <div className="sticky top-0 z-20">
+        <SnapV1 />
+      </div>
 
-      {/* Frameworks - THE CURTAIN: slides up to cover SnapV1 */}
+      {/* Frameworks - THE CURTAIN: scrolls up to cover SnapV1 */}
       <div 
         className="relative z-30 bg-[#050505]"
         style={{
           boxShadow: '0 -30px 60px rgba(0,0,0,0.8)',
-          marginTop: '-50vh', // Overlap previous section
         }}
       >
         <div className="border-t border-[#ccff00]/20">
