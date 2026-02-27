@@ -43,74 +43,53 @@ export default function Hero() {
     if (!section || !headline || !subtext || !buttons || !stats || !code) return
 
     const ctx = gsap.context(() => {
-      // Fade in headline first
-      gsap.from(headline, {
+      // Set initial hidden state
+      gsap.set([headline, subtext, buttons, stats, code], { opacity: 0, y: 30 })
+
+      // Create timeline for sequential fade in
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: 'top 80%',
           toggleActions: 'play none none reverse',
-        },
-        opacity: 0,
-        y: 40,
+        }
+      })
+
+      // Headline first
+      tl.to(headline, {
+        opacity: 1,
+        y: 0,
         duration: 0.7,
         ease: 'power2.out',
       })
-
-      // Fade in subtext second
-      gsap.from(subtext, {
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 75%',
-          toggleActions: 'play none none reverse',
-        },
-        opacity: 0,
-        y: 30,
+      // Subtext second
+      .to(subtext, {
+        opacity: 1,
+        y: 0,
         duration: 0.6,
-        delay: 0.15,
         ease: 'power2.out',
-      })
-
-      // Fade in buttons third
-      gsap.from(buttons, {
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 70%',
-          toggleActions: 'play none none reverse',
-        },
-        opacity: 0,
-        y: 30,
+      }, '-=0.4')
+      // Buttons third
+      .to(buttons, {
+        opacity: 1,
+        y: 0,
         duration: 0.6,
-        delay: 0.3,
         ease: 'power2.out',
-      })
-
-      // Fade in stats fourth
-      gsap.from(stats, {
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 65%',
-          toggleActions: 'play none none reverse',
-        },
-        opacity: 0,
-        y: 30,
+      }, '-=0.3')
+      // Stats fourth
+      .to(stats, {
+        opacity: 1,
+        y: 0,
         duration: 0.6,
-        delay: 0.45,
         ease: 'power2.out',
-      })
-
-      // Fade in code block last
-      gsap.from(code, {
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 60%',
-          toggleActions: 'play none none reverse',
-        },
-        opacity: 0,
-        y: 40,
+      }, '-=0.3')
+      // Code block last
+      .to(code, {
+        opacity: 1,
+        y: 0,
         duration: 0.7,
-        delay: 0.6,
         ease: 'power2.out',
-      })
+      }, '-=0.3')
     }, section)
 
     return () => ctx.revert()
@@ -144,19 +123,19 @@ export default function Hero() {
             <span className="text-sm text-[#a1a1aa]">Now in Public Beta</span>
           </div>
 
-          {/* Headline - fades in first */}
+          {/* Headline - starts hidden, fades in */}
           <h1 ref={headlineRef} className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-[1.1] mb-6">
             Build on <span className="text-gradient">Blockchain</span>
             <br />at Lightning Speed
           </h1>
 
-          {/* Subtext - fades in second */}
+          {/* Subtext - starts hidden, fades in */}
           <p ref={subtextRef} className="text-lg sm:text-xl text-[#a1a1aa] max-w-2xl mx-auto mb-10 leading-relaxed">
             The all-in-one platform for deploying, scaling, and managing blockchain infrastructure.
             From testnet to mainnet in minutes, not months.
           </p>
 
-          {/* Buttons - fade in third */}
+          {/* Buttons - starts hidden, fades in */}
           <div ref={buttonsRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button className="btn-primary group text-base px-8 py-4">
               Start Building Free
@@ -173,7 +152,7 @@ export default function Hero() {
             </button>
           </div>
 
-          {/* Stats - fade in fourth */}
+          {/* Stats - starts hidden, fades in */}
           <div ref={statsRef} className="grid grid-cols-3 gap-8 mt-16 pt-16 border-t border-[#27272a]">
             {stats.map(s => (
               <div key={s.label} className="text-center">
@@ -184,7 +163,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Code block - fades in last */}
+        {/* Code block - starts hidden, fades in last */}
         <div ref={codeRef} className="relative mt-20 mx-auto max-w-5xl">
           <div className="relative rounded-2xl overflow-hidden border border-[#27272a] bg-[#111111]">
             <div className="flex items-center gap-2 px-4 py-3 bg-[#0a0a0a] border-b border-[#27272a]">
