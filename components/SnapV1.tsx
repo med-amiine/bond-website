@@ -18,18 +18,18 @@ const features = [
     statLabel: 'Security Uptime',
   },
   {
+    icon: '📈',
+    title: 'Scalable Infra',
+    description: 'Scale from testnet to mainnet seamlessly with auto-scaling infrastructure.',
+    stat: '∞',
+    statLabel: 'Scalability',
+  },
+  {
     icon: '🔧',
     title: '24/7 Support',
     description: 'Round-the-clock expert support from our team of blockchain engineers.',
     stat: '24/7',
     statLabel: 'Expert Support',
-  },
-  {
-    icon: '🔌',
-    title: 'No-Code Integration',
-    description: 'Integrate with your existing stack using our REST APIs and SDKs.',
-    stat: '50+',
-    statLabel: 'Integrations',
   },
 ]
 
@@ -41,8 +41,8 @@ const snapStats = [
 
 export default function SnapV1() {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const [activeCard, setActiveCard] = useState(0)
-  const [isLocked, setIsLocked] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,12 +50,19 @@ export default function SnapV1() {
 
       const section = sectionRef.current
       const rect = section.getBoundingClientRect()
-      const scrollProgress = -rect.top / window.innerHeight
+      const windowHeight = window.innerHeight
 
-      // Card switching: each card takes 25% of scroll
-      const cardIndex = Math.min(Math.max(Math.floor(scrollProgress), 0), features.length - 1)
-      setActiveCard(cardIndex)
-      setIsLocked(rect.top <= 0 && scrollProgress < features.length)
+      // Calculate progress through the section (0 to 1)
+      const scrolled = -rect.top
+      const totalScrollable = section.offsetHeight - windowHeight
+      const rawProgress = Math.max(0, Math.min(1, scrolled / totalScrollable))
+      
+      setProgress(rawProgress)
+
+      // Determine active card based on progress
+      // 0-0.25 = card 0, 0.25-0.5 = card 1, etc.
+      const cardIndex = Math.min(Math.floor(rawProgress * features.length), features.length - 1)
+      setActiveIndex(cardIndex)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -65,25 +72,21 @@ export default function SnapV1() {
 
   return (
     <section
-      id="build-section"
+      id="features"
       ref={sectionRef}
-      className="relative bg-[#050505] overflow-hidden"
-      style={{
-        position: 'sticky',
-        top: 0,
-        height: '100vh',
-        zIndex: 10,
-      }}
+      className="relative bg-[#050505]"
+      style={{ height: '400vh' }} // Exactly 400vh as requested
     >
-      {/* Background glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#c8f420]/5 rounded-full blur-[150px]" />
-      </div>
+      {/* Sticky container - this is what stays pinned */}
+      <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
+        {/* Background glow */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#c8f420]/5 rounded-full blur-[150px]" />
+        </div>
 
-      <div className="relative z-10 w-full h-full flex items-center">
-        <div className="w-full max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left Column */}
+            {/* Left Column - Static content */}
             <div className="max-w-xl">
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1a1a1a] border border-[#c8f420]/30 mb-6">
@@ -94,7 +97,7 @@ export default function SnapV1() {
               {/* Headline */}
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6">
                 Everything you need to{' '}
-                <span className="text-[#c8f420] animate-pulse">build</span>
+                <span className="text-[#c8f420]">build</span>
               </h2>
 
               {/* Subtext */}
@@ -124,33 +127,36 @@ export default function SnapV1() {
               </div>
             </div>
 
-            {/* Right Column - Feature Cards Stack */}
-            <div className="relative h-[400px]">
+            {/* Right Column - Stacked Cards Container */}
+            <div className="hidden lg:block relative" style={{ height: '360px' }}>
+              {/* Cards stacked with absolute positioning */}
               {features.map((feature, index) => {
-                const isActive = index === activeCard
-                const isPast = index < activeCard
-                const isFuture = index > activeCard
+                const isActive = index === activeIndex
+                const isPast = index < activeIndex
+                const isFuture = index > activeIndex
 
-                // Calculate position
+                // Calculate card position based on scroll progress
                 let translateY = 0
                 let scale = 1
                 let opacity = 1
-                let zIndex = features.length - index
+                let zIndex = features.length - index // Lightning Fast = 4, Security = 3, etc.
 
                 if (isPast) {
-                  // Cards slide up and fade when done
-                  translateY = -20 * (activeCard - index)
-                  scale = 1 - (activeCard - index) * 0.05
-                  opacity = Math.max(0.3, 1 - (activeCard - index) * 0.4)
-                  zIndex = 10 - (activeCard - index)
+                  // Cards that have been shown - exit upward
+                  const depth = activeIndex - index
+                  translateY = -80 - depth * 20
+                  scale = 1 - depth * 0.05
+                  opacity = Math.max(0, 1 - depth * 0.5)
+                  zIndex = 10 - depth
                 } else if (isFuture) {
-                  // Cards wait below
-                  translateY = 100 + (index - activeCard) * 50
-                  scale = 0.95
-                  opacity = index === activeCard + 1 ? 0.5 : 0
-                  zIndex = 5 - (index - activeCard)
+                  // Cards coming up - enter from below
+                  const depth = index - activeIndex
+                  translateY = 100 + depth * 30
+                  scale = 0.9 - depth * 0.02
+                  opacity = depth === 1 ? 0.3 : 0
+                  zIndex = 5 - depth
                 } else {
-                  // Active card
+                  // Active card - centered
                   translateY = 0
                   scale = 1
                   opacity = 1
@@ -160,9 +166,8 @@ export default function SnapV1() {
                 return (
                   <div
                     key={index}
-                    className="absolute inset-x-0 top-0 rounded-2xl p-6 transition-all duration-500 ease-out"
+                    className="absolute inset-0 rounded-2xl p-6 transition-all duration-300"
                     style={{
-                      height: '320px',
                       transform: `translateY(${translateY}px) scale(${scale})`,
                       opacity,
                       zIndex,
@@ -215,34 +220,29 @@ export default function SnapV1() {
                       Explore
                     </button>
 
-                    {/* Progress bar */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/5 rounded-b-2xl overflow-hidden">
-                      {isActive && (
+                    {/* Progress bar on active card */}
+                    {isActive && (
+                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/5 rounded-b-2xl overflow-hidden">
                         <div
                           className="h-full bg-[#c8f420] transition-all duration-300"
-                          style={{ width: `${((activeCard + 1) / features.length) * 100}%` }}
+                          style={{ width: `${((activeIndex + 1) / features.length) * 100}%` }}
                         />
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                 )
               })}
 
-              {/* Card Counter */}
-              <div className="absolute -bottom-8 left-0 flex items-center gap-3">
-                <span className="text-sm text-[#9ca3af]">
-                  {activeCard + 1} / {features.length}
-                </span>
-                <div className="flex gap-1">
-                  {features.map((_, i) => (
-                    <div
-                      key={i}
-                      className="w-8 h-1 rounded-full transition-all duration-300"
-                      style={{
-                        background: i <= activeCard ? '#c8f420' : 'rgba(255, 255, 255, 0.2)',
-                      }}
-                    />
-                  ))}
+              {/* Progress Indicator */}
+              <div className="absolute -bottom-12 left-0 flex items-center gap-2 text-sm">
+                <span className="text-white font-medium">{activeIndex + 1}</span>
+                <span className="text-gray-500">/</span>
+                <span className="text-gray-500">{features.length}</span>
+                <div className="w-24 h-1 bg-gray-800 rounded-full overflow-hidden ml-2">
+                  <div
+                    className="h-full bg-[#c8f420] transition-all duration-300"
+                    style={{ width: `${((activeIndex + 1) / features.length) * 100}%` }}
+                  />
                 </div>
               </div>
             </div>
