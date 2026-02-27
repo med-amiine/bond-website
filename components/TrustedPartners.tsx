@@ -1,11 +1,3 @@
-'use client'
-
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
-
 const partners = [
   { name: 'a16z', abbr: 'a16z' },
   { name: 'Coinbase Ventures', abbr: 'CB' },
@@ -22,59 +14,17 @@ const bullets = [
 ]
 
 export default function TrustedPartners() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const contentRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const section = sectionRef.current
-    const contentEl = contentRef.current
-
-    if (!section || !contentEl) return
-
-    const ctx = gsap.context(() => {
-      // Fade in content from right
-      gsap.from(contentEl, {
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-        opacity: 0,
-        x: 80,
-        duration: 0.5,
-        ease: 'power2.out',
-      })
-
-      // Staggered fade for partner items from right
-      const items = gsap.utils.toArray<HTMLElement>('.partner-item')
-      gsap.from(items, {
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 75%',
-          toggleActions: 'play none none reverse',
-        },
-        opacity: 0,
-        x: 60,
-        duration: 0.4,
-        stagger: 0.06,
-        ease: 'power2.out',
-      })
-    }, section)
-
-    return () => ctx.revert()
-  }, [])
-
   return (
-    <section ref={sectionRef} className="relative py-32 overflow-hidden" style={{ position: 'relative', zIndex: 1 }}>
+    <section className="relative py-32 overflow-hidden">
       <div className="absolute inset-0 bg-[#050505]" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#27272a] to-transparent" />
 
-      <div ref={contentRef} className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Partner logos grid with fade */}
+          {/* Partner logos grid */}
           <div className="grid grid-cols-3 gap-4">
             {partners.map((p, i) => (
-              <div key={i} className="partner-item partner-logo group">
+              <div key={i} className="partner-logo group">
                 <div className="text-center">
                   <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a1a1a] flex items-center justify-center mb-2 group-hover:bg-[#ccff00]/10 transition-colors duration-300">
                     <span className="text-lg font-bold text-[#71717a] group-hover:text-[#ccff00] transition-colors duration-300">{p.abbr}</span>
