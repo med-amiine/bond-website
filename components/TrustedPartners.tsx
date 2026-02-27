@@ -71,12 +71,16 @@ export default function TrustedPartners() {
 
       <div ref={contentRef} className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Partner logos list */}
-          <div className="space-y-6">
+          {/* Partner logos grid with fade */}
+          <div className="grid grid-cols-3 gap-4">
             {partners.map((p, i) => (
-              <div key={i} className="partner-item group">
-                <div className="text-[#ccff00] text-2xl font-bold mb-1">{p.abbr}</div>
-                <div className="text-white text-sm">{p.name}</div>
+              <div key={i} className="partner-item partner-logo group">
+                <div className="text-center">
+                  <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a1a1a] flex items-center justify-center mb-2 group-hover:bg-[#ccff00]/10 transition-colors duration-300">
+                    <span className="text-lg font-bold text-[#71717a] group-hover:text-[#ccff00] transition-colors duration-300">{p.abbr}</span>
+                  </div>
+                  <span className="text-xs text-[#71717a] group-hover:text-[#a1a1aa] transition-colors duration-300">{p.name}</span>
+                </div>
               </div>
             ))}
           </div>
