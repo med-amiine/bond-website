@@ -168,6 +168,9 @@ export default function Hero() {
 
         {/* Code block - starts hidden, fades in last */}
         <div ref={codeRef} style={{ opacity: 0, visibility: 'hidden' }} className="relative mt-20 mx-auto max-w-5xl">
+          {/* Green glow behind code block */}
+          <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#ccff00]/10 rounded-full blur-[120px] pointer-events-none" />
+          
           <div className="relative rounded-2xl overflow-hidden border border-[#27272a] bg-[#111111]">
             <div className="flex items-center gap-2 px-4 py-3 bg-[#0a0a0a] border-b border-[#27272a]">
               <div className="flex gap-1.5">
