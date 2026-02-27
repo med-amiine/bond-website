@@ -47,7 +47,7 @@ export default function Testimonials() {
     if (!section || !titleEl || !cardEl) return
 
     const ctx = gsap.context(() => {
-      // Fade in title
+      // Fade in title from bottom
       gsap.from(titleEl, {
         scrollTrigger: {
           trigger: section,
@@ -55,12 +55,12 @@ export default function Testimonials() {
           toggleActions: 'play none none reverse',
         },
         opacity: 0,
-        y: 40,
-        duration: 0.6,
+        y: 50,
+        duration: 0.4,
         ease: 'power2.out',
       })
 
-      // Fade in card
+      // Fade in card from bottom
       gsap.from(cardEl, {
         scrollTrigger: {
           trigger: section,
@@ -68,9 +68,9 @@ export default function Testimonials() {
           toggleActions: 'play none none reverse',
         },
         opacity: 0,
-        y: 30,
-        duration: 0.6,
-        delay: 0.2,
+        y: 40,
+        duration: 0.4,
+        delay: 0.1,
         ease: 'power2.out',
       })
     }, section)
