@@ -20,10 +20,15 @@ export default function Home() {
       </div>
 
       {/* Section 2: Everything you need to build (z-20) - Covers Hero, gets covered by Frameworks */}
-      <SnapV1 />
+      <div className="relative z-20">
+        <SnapV1 />
+      </div>
 
-      {/* Section 3: Works with your favorite tools (z-30) - Covers SnapV1 */}
-      <div className="relative z-30 bg-[#050505]">
+      {/* Section 3: Works with your favorite tools (z-30) - Curtain covers SnapV1 */}
+      <div 
+        className="sticky top-0 z-30 bg-[#050505]"
+        style={{ boxShadow: '0 -20px 40px rgba(0,0,0,0.5)' }}
+      >
         <Frameworks />
         <TrustedPartners />
         <Testimonials />
