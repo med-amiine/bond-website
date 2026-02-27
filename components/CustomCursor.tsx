@@ -41,9 +41,9 @@ export default function CustomCursor() {
       isFirstVisible.current = true
     }
 
-    // Track hoverable elements
+    // Track hoverable elements (exclude elements with data-cursor-default)
     const setupHoverListeners = () => {
-      const hoverables = document.querySelectorAll('a, button, [role="button"], input, textarea, select, [data-cursor-hover], .btn-primary, .btn-secondary, .card-dark, .partner-logo, .network-tag, .fw-tag, .testimonial-nav-btn, .testimonial-nav-dot, .footer-social-btn, .footer-link')
+      const hoverables = document.querySelectorAll('a, button, [role="button"], input, textarea, select, [data-cursor-hover], .btn-primary, .btn-secondary, .card-dark:not([data-cursor-default]), .partner-logo, .network-tag, .fw-tag, .testimonial-nav-btn, .testimonial-nav-dot, .footer-social-btn, .footer-link')
       
       const enterHandler = () => setIsHovering(true)
       const leaveHandler = () => setIsHovering(false)

@@ -103,7 +103,7 @@ export default function Testimonials() {
 
         {/* Card with fade-in */}
         <div ref={cardRef} className="relative">
-          <div className="card-dark p-8 sm:p-12 relative overflow-hidden">
+          <div className="card-dark p-8 sm:p-12 relative overflow-hidden" data-cursor-default>
             {/* Big quote icon */}
             <div className="absolute top-8 right-8 opacity-10">
               <svg width="80" height="80" fill="currentColor" viewBox="0 0 24 24" className="text-[#ccff00]">

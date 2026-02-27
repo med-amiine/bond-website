@@ -97,7 +97,7 @@ export default function Footer() {
         </div>
 
         {/* Newsletter card */}
-        <div className="card-dark p-6 mb-10">
+        <div className="card-dark p-6 mb-10" data-cursor-default>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <h3 className="text-white font-semibold mb-1">Stay updated</h3>
