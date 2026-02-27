@@ -233,40 +233,81 @@ export default function SnapV1() {
             })}
           </div>
 
-          {/* Dual Tracker - Bottom Right */}
+          {/* Node Network Tracker - Bottom Right */}
           <div className="flex justify-end mt-6">
-            <div 
-              className="flex items-center gap-3 px-4 py-2 rounded-full"
-              style={{
-                background: 'rgba(24, 24, 27, 0.5)',
-                backdropFilter: 'blur(4px)',
-                border: '1px solid rgba(39, 39, 42, 1)',
-              }}
-            >
-              {/* Fraction Counter */}
-              <div className="flex items-center gap-1 text-sm font-medium tabular-nums">
-                <span className="text-[#c8ff00] w-5 text-right">
-                  {String(currentCard + 1).padStart(2, '0')}
-                </span>
-                <span className="text-zinc-600">/</span>
-                <span className="text-zinc-500 w-5">04</span>
-              </div>
+            <div className="flex flex-col items-center gap-2">
+              {/* SVG Node Network */}
+              <svg width="120" height="24" viewBox="0 0 120 24" fill="none" aria-label={`Block ${String(currentCard + 1).padStart(2, '0')} of 04`}>
+                {/* Connection Lines */}
+                <line x1="12" y1="12" x2="36" y2="12" strokeWidth="2" 
+                  stroke={currentCard >= 1 ? 'rgba(200, 255, 0, 0.3)' : '#27272a'} 
+                  className="transition-all duration-500"/>
+                <line x1="44" y1="12" x2="68" y2="12" strokeWidth="2" 
+                  stroke={currentCard >= 2 ? 'rgba(200, 255, 0, 0.3)' : '#27272a'} 
+                  className="transition-all duration-500"/>
+                <line x1="76" y1="12" x2="100" y2="12" strokeWidth="2" 
+                  stroke={currentCard >= 3 ? 'rgba(200, 255, 0, 0.3)' : '#27272a'} 
+                  className="transition-all duration-500"/>
+                
+                {/* Node 1 */}
+                <circle cx="12" cy="12" r="6" 
+                  fill={currentCard >= 0 ? '#c8ff00' : '#27272a'} 
+                  stroke={currentCard >= 0 ? '#c8ff00' : '#3f3f46'} 
+                  strokeWidth="1.5"
+                  className="transition-all duration-500"/>
+                {currentCard === 0 && (
+                  <circle cx="12" cy="12" r="12" fill="none" stroke="rgba(200, 255, 0, 0.4)" strokeWidth="1" opacity="0.6">
+                    <animate attributeName="r" values="6;12" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.6;0" dur="2s" repeatCount="indefinite"/>
+                  </circle>
+                )}
+                
+                {/* Node 2 */}
+                <circle cx="40" cy="12" r="6" 
+                  fill={currentCard >= 1 ? '#c8ff00' : '#27272a'} 
+                  stroke={currentCard >= 1 ? '#c8ff00' : '#3f3f46'} 
+                  strokeWidth="1.5"
+                  className="transition-all duration-500"/>
+                {currentCard === 1 && (
+                  <circle cx="40" cy="12" r="12" fill="none" stroke="rgba(200, 255, 0, 0.4)" strokeWidth="1" opacity="0.6">
+                    <animate attributeName="r" values="6;12" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.6;0" dur="2s" repeatCount="indefinite"/>
+                  </circle>
+                )}
+                
+                {/* Node 3 */}
+                <circle cx="68" cy="12" r="6" 
+                  fill={currentCard >= 2 ? '#c8ff00' : '#27272a'} 
+                  stroke={currentCard >= 2 ? '#c8ff00' : '#3f3f46'} 
+                  strokeWidth="1.5"
+                  className="transition-all duration-500"/>
+                {currentCard === 2 && (
+                  <circle cx="68" cy="12" r="12" fill="none" stroke="rgba(200, 255, 0, 0.4)" strokeWidth="1" opacity="0.6">
+                    <animate attributeName="r" values="6;12" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.6;0" dur="2s" repeatCount="indefinite"/>
+                  </circle>
+                )}
+                
+                {/* Node 4 */}
+                <circle cx="96" cy="12" r="6" 
+                  fill={currentCard >= 3 ? '#c8ff00' : '#27272a'} 
+                  stroke={currentCard >= 3 ? '#c8ff00' : '#3f3f46'} 
+                  strokeWidth="1.5"
+                  className="transition-all duration-500"/>
+                {currentCard === 3 && (
+                  <circle cx="96" cy="12" r="12" fill="none" stroke="rgba(200, 255, 0, 0.4)" strokeWidth="1" opacity="0.6">
+                    <animate attributeName="r" values="6;12" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.6;0" dur="2s" repeatCount="indefinite"/>
+                  </circle>
+                )}
+              </svg>
               
-              {/* Divider */}
-              <div className="w-px h-4 bg-zinc-700"></div>
-              
-              {/* Segmented Progress */}
-              <div className="flex gap-1.5">
-                {[0, 1, 2, 3].map((segment) => (
-                  <div
-                    key={segment}
-                    className="h-1 w-6 rounded-full transition-all duration-500"
-                    style={{
-                      background: segment <= currentCard ? '#c8ff00' : 'rgba(39, 39, 42, 1)',
-                      opacity: segment < currentCard ? 0.3 : 1,
-                    }}
-                  />
-                ))}
+              {/* Counter Text */}
+              <div className="text-[11px] tracking-wide font-mono">
+                <span className="text-zinc-500">Block </span>
+                <span className="text-[#c8ff00] font-semibold">{String(currentCard + 1).padStart(2, '0')}</span>
+                <span className="text-zinc-500"> of </span>
+                <span className="text-zinc-600">04</span>
               </div>
             </div>
           </div>
