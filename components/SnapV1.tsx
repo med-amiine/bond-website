@@ -94,26 +94,14 @@ export default function SnapV1() {
         pin: true,
         scrub: 0.3,
         snap: {
-          snapTo: (progress, self) => {
+          snapTo: (progress) => {
             const snapPoints = [0, 0.25, 0.5, 0.75, 1]
-            const velocity = self.getVelocity()
-            
-            // Only snap if user is actively scrolling or very close to a snap point
-            // Low velocity + not near snap point = don't snap (allow stopping between)
             const nearestIndex = Math.round(progress * 4)
-            const nearestPoint = snapPoints[nearestIndex]
-            const distance = Math.abs(progress - nearestPoint)
-            
-            // If low velocity and far from snap point, stay where user stopped
-            if (Math.abs(velocity) < 50 && distance > 0.05) {
-              return progress
-            }
-            
-            return nearestPoint
+            return snapPoints[nearestIndex] ?? 0
           },
-          duration: { min: 0.15, max: 0.35 },
+          duration: { min: 0.2, max: 0.4 },
           ease: 'power2.out',
-          delay: 0,
+          delay: 0.1,
         },
         onUpdate: (self) => {
           const progress = self.progress
