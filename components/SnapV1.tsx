@@ -1,6 +1,10 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const features = [
   {
@@ -41,50 +45,86 @@ const snapStats = [
 
 export default function SnapV1() {
   const sectionRef = useRef<HTMLDivElement>(null)
+  const cardsRef = useRef<HTMLDivElement[]>([])
   const [activeIndex, setActiveIndex] = useState(0)
-  const [progress, setProgress] = useState(0)
+  const triggersRef = useRef<ScrollTrigger[]>([])
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return
+    const section = sectionRef.current
+    if (!section) return
 
-      const section = sectionRef.current
-      const rect = section.getBoundingClientRect()
-      const windowHeight = window.innerHeight
+    const cards = cardsRef.current.filter(Boolean)
+    if (cards.length === 0) return
 
-      // Calculate progress through the section (0 to 1)
-      const scrolled = -rect.top
-      const totalScrollable = section.offsetHeight - windowHeight
-      const rawProgress = Math.max(0, Math.min(1, scrolled / totalScrollable))
-      
-      setProgress(rawProgress)
+    // Clear any existing triggers
+    triggersRef.current.forEach(t => t.kill())
+    triggersRef.current = []
 
-      // Determine active card based on progress
-      // 0-0.25 = card 0, 0.25-0.5 = card 1, etc.
-      const cardIndex = Math.min(Math.floor(rawProgress * features.length), features.length - 1)
-      setActiveIndex(cardIndex)
+    // Create timeline with ScrollTrigger
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: '+=300%', // Creates 300vh of scroll while pinned
+        pin: true,
+        pinSpacing: true,
+        scrub: 0.5,
+        snap: {
+          snapTo: 1 / (features.length - 1),
+          duration: { min: 0.2, max: 0.3 },
+          ease: 'power1.inOut',
+        },
+        onUpdate: (self) => {
+          const progress = self.progress
+          const cardIndex = Math.min(Math.floor(progress * features.length), features.length - 1)
+          setActiveIndex(cardIndex)
+        },
+      },
+    })
+
+    // Store trigger for cleanup
+    if (tl.scrollTrigger) {
+      triggersRef.current.push(tl.scrollTrigger)
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
+    // Animate each card transition
+    // Card 0 starts visible, others start below
+    gsap.set(cards[0], { y: 0, opacity: 1, scale: 1 })
+    cards.slice(1).forEach((card) => {
+      gsap.set(card, { y: 100, opacity: 0, scale: 0.9 })
+    })
+
+    // Card 0 exits, Card 1 enters
+    tl.to(cards[0], { y: -100, opacity: 0, scale: 0.9, duration: 0.25 }, 0)
+      .to(cards[1], { y: 0, opacity: 1, scale: 1, duration: 0.25 }, 0)
+
+    // Card 1 exits, Card 2 enters
+    tl.to(cards[1], { y: -100, opacity: 0, scale: 0.9, duration: 0.25 }, 0.33)
+      .to(cards[2], { y: 0, opacity: 1, scale: 1, duration: 0.25 }, 0.33)
+
+    // Card 2 exits, Card 3 enters
+    tl.to(cards[2], { y: -100, opacity: 0, scale: 0.9, duration: 0.25 }, 0.66)
+      .to(cards[3], { y: 0, opacity: 1, scale: 1, duration: 0.25 }, 0.66)
+
+    return () => {
+      triggersRef.current.forEach(t => t.kill())
+      triggersRef.current = []
+    }
   }, [])
 
   return (
     <section
-      id="features"
+      id="build-section"
       ref={sectionRef}
-      className="relative bg-[#050505]"
-      style={{ height: '400vh' }} // Exactly 400vh as requested
+      className="sticky top-0 h-screen w-full bg-[#050505] z-20"
     >
-      {/* Sticky container - this is what stays pinned */}
-      <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
-        {/* Background glow */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#c8f420]/5 rounded-full blur-[150px]" />
-        </div>
+      {/* Background glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#c8f420]/5 rounded-full blur-[150px]" />
+      </div>
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="relative z-10 h-full w-full flex items-center">
+        <div className="w-full max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Column - Static content */}
             <div className="max-w-xl">
@@ -128,55 +168,25 @@ export default function SnapV1() {
             </div>
 
             {/* Right Column - Stacked Cards Container */}
-            <div className="hidden lg:block relative" style={{ height: '360px' }}>
+            <div className="hidden lg:block relative" style={{ height: '320px' }}>
               {/* Cards stacked with absolute positioning */}
               {features.map((feature, index) => {
                 const isActive = index === activeIndex
-                const isPast = index < activeIndex
-                const isFuture = index > activeIndex
-
-                // Calculate card position based on scroll progress
-                let translateY = 0
-                let scale = 1
-                let opacity = 1
-                let zIndex = features.length - index // Lightning Fast = 4, Security = 3, etc.
-
-                if (isPast) {
-                  // Cards that have been shown - exit upward
-                  const depth = activeIndex - index
-                  translateY = -80 - depth * 20
-                  scale = 1 - depth * 0.05
-                  opacity = Math.max(0, 1 - depth * 0.5)
-                  zIndex = 10 - depth
-                } else if (isFuture) {
-                  // Cards coming up - enter from below
-                  const depth = index - activeIndex
-                  translateY = 100 + depth * 30
-                  scale = 0.9 - depth * 0.02
-                  opacity = depth === 1 ? 0.3 : 0
-                  zIndex = 5 - depth
-                } else {
-                  // Active card - centered
-                  translateY = 0
-                  scale = 1
-                  opacity = 1
-                  zIndex = 50
-                }
 
                 return (
                   <div
                     key={index}
-                    className="absolute inset-0 rounded-2xl p-6 transition-all duration-300"
+                    ref={(el) => {
+                      if (el) cardsRef.current[index] = el
+                    }}
+                    className="feature-card absolute inset-0 rounded-2xl p-6"
                     style={{
-                      transform: `translateY(${translateY}px) scale(${scale})`,
-                      opacity,
-                      zIndex,
-                      background: 'rgba(26, 26, 26, 0.8)',
+                      zIndex: features.length - index,
+                      background: 'rgba(26, 26, 26, 0.9)',
                       border: `1px solid ${isActive ? 'rgba(200, 244, 32, 0.3)' : 'rgba(255, 255, 255, 0.1)'}`,
                       backdropFilter: 'blur(10px)',
-                      boxShadow: isActive
-                        ? '0 25px 80px rgba(0, 0, 0, 0.6), 0 0 40px rgba(200, 244, 32, 0.1)'
-                        : '0 15px 40px rgba(0, 0, 0, 0.4)',
+                      willChange: 'transform, opacity',
+                      backfaceVisibility: 'hidden',
                     }}
                   >
                     {/* Card Header */}
@@ -219,28 +229,18 @@ export default function SnapV1() {
                     >
                       Explore
                     </button>
-
-                    {/* Progress bar on active card */}
-                    {isActive && (
-                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/5 rounded-b-2xl overflow-hidden">
-                        <div
-                          className="h-full bg-[#c8f420] transition-all duration-300"
-                          style={{ width: `${((activeIndex + 1) / features.length) * 100}%` }}
-                        />
-                      </div>
-                    )}
                   </div>
                 )
               })}
 
               {/* Progress Indicator */}
-              <div className="absolute -bottom-12 left-0 flex items-center gap-2 text-sm">
-                <span className="text-white font-medium">{activeIndex + 1}</span>
-                <span className="text-gray-500">/</span>
-                <span className="text-gray-500">{features.length}</span>
-                <div className="w-24 h-1 bg-gray-800 rounded-full overflow-hidden ml-2">
+              <div className="absolute -bottom-12 left-0 flex items-center gap-2 text-sm text-gray-400">
+                <span className="current-card text-white font-medium">{activeIndex + 1}</span>
+                <span>/</span>
+                <span>{features.length}</span>
+                <div className="ml-2 h-1 w-24 bg-gray-800 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-[#c8f420] transition-all duration-300"
+                    className="progress-bar h-full bg-[#c8f420] transition-all duration-100"
                     style={{ width: `${((activeIndex + 1) / features.length) * 100}%` }}
                   />
                 </div>
