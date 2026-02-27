@@ -13,17 +13,23 @@ export default function Home() {
     <main className="bg-[#050505]">
       <Navbar />
 
-      {/* Hero Section - z-10 */}
+      {/* Hero - scrolls normally */}
       <div className="relative z-10">
         <Hero />
         <Partners />
       </div>
 
-      {/* SnapV1 Section - sticky, covers Hero */}
+      {/* SnapV1 - scrolls normally, gets covered */}
       <SnapV1 />
 
-      {/* Frameworks Section - sticky, covers SnapV1 (THE CURTAIN) */}
-      <div className="sticky top-0 z-30 bg-[#050505] min-h-screen shadow-[0_-30px_60px_rgba(0,0,0,0.8)]">
+      {/* Frameworks - THE CURTAIN: slides up to cover SnapV1 */}
+      <div 
+        className="relative z-30 bg-[#050505]"
+        style={{
+          boxShadow: '0 -30px 60px rgba(0,0,0,0.8)',
+          marginTop: '-50vh', // Overlap previous section
+        }}
+      >
         <div className="border-t border-[#ccff00]/20">
           <Frameworks />
           <TrustedPartners />

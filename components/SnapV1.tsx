@@ -118,7 +118,7 @@ export default function SnapV1() {
     <section 
       ref={sectionRef}
       id="features"
-      className="sticky top-0 z-20 bg-[#050505] min-h-screen"
+      className="relative z-20 bg-[#050505]"
     >
       <div className="min-h-screen flex items-center px-6 lg:px-24 max-w-[1400px] mx-auto py-20">
         {/* Left Column - Static Content */}
