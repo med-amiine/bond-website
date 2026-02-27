@@ -1,12 +1,47 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
 const perks = ['No credit card required', 'Free forever tier', 'Cancel anytime']
 
 export default function FooterCTA() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const section = sectionRef.current
+    const contentEl = contentRef.current
+
+    if (!section || !contentEl) return
+
+    const ctx = gsap.context(() => {
+      // Fade in content
+      gsap.from(contentEl, {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+        opacity: 0,
+        y: 40,
+        duration: 0.6,
+        ease: 'power2.out',
+      })
+    }, section)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section ref={sectionRef} className="relative py-32 overflow-hidden" style={{ position: 'relative', zIndex: 1 }}>
       <div className="absolute inset-0 bg-[#050505]" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#ccff00]/10 rounded-full blur-[150px]" />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div ref={contentRef} className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-3xl overflow-hidden">
           {/* Card background */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#111111] to-[#0a0a0a]" />

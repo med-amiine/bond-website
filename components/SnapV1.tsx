@@ -45,14 +45,46 @@ const snapStats = [
 
 export default function SnapV1() {
   const sectionRef = useRef<HTMLElement>(null)
+  const titleRef = useRef<HTMLDivElement>(null)
+  const cardsContainerRef = useRef<HTMLDivElement>(null)
   const [currentCard, setCurrentCard] = useState(1)
 
   useEffect(() => {
     const section = sectionRef.current
-    if (!section) return
+    const titleEl = titleRef.current
+    const cardsContainer = cardsContainerRef.current
+    
+    if (!section || !titleEl || !cardsContainer) return
 
     const ctx = gsap.context(() => {
       const cardElements = gsap.utils.toArray<HTMLElement>('.feature-card')
+      
+      // Fade in animation for title when section enters viewport
+      gsap.from(titleEl, {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+        opacity: 0,
+        y: 40,
+        duration: 0.6,
+        ease: 'power2.out',
+      })
+
+      // Fade in animation for cards container
+      gsap.from(cardsContainer, {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+        opacity: 0,
+        y: 40,
+        duration: 0.6,
+        delay: 0.2,
+        ease: 'power2.out',
+      })
       
       // Set initial states - first card visible, others hidden below
       gsap.set(cardElements[0], { y: 0, opacity: 1, scale: 1 })
@@ -71,7 +103,7 @@ export default function SnapV1() {
           snapTo: [0, 0.25, 0.5, 0.75, 1], // Snap to exact card positions
           duration: { min: 0.1, max: 0.2 },
           ease: 'power2.out',
-          delay: 0
+          delay: 0,
         },
         onUpdate: (self) => {
           const progress = self.progress
@@ -88,7 +120,7 @@ export default function SnapV1() {
                 y: -80, 
                 opacity: 0, 
                 scale: 0.92,
-                zIndex: 10 - i 
+                zIndex: 10 - i,
               })
             } else if (i === currentIndex) {
               // Current card - entering/settling
@@ -100,7 +132,7 @@ export default function SnapV1() {
                 y: currentIndex === 0 ? 0 : yOffset, 
                 opacity: currentIndex === 0 ? 1 : opacity, 
                 scale: currentIndex === 0 ? 1 : scale,
-                zIndex: 20 
+                zIndex: 20,
               })
             } else {
               // Cards below - waiting to enter
@@ -108,11 +140,11 @@ export default function SnapV1() {
                 y: 80, 
                 opacity: 0, 
                 scale: 0.95,
-                zIndex: 10 - i 
+                zIndex: 10 - i,
               })
             }
           })
-        }
+        },
       })
     }, section)
 
@@ -126,8 +158,8 @@ export default function SnapV1() {
       className="relative z-20 bg-[#050505]"
     >
       <div className="sticky top-0 h-screen flex items-center px-6 lg:px-24 max-w-[1400px] mx-auto">
-        {/* Left Column - Static Content */}
-        <div className="w-full lg:w-1/2 pr-0 lg:pr-16 z-10">
+        {/* Left Column - Static Content with fade-in */}
+        <div ref={titleRef} className="w-full lg:w-1/2 pr-0 lg:pr-16 z-10">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#ccff00]/30 bg-[#ccff00]/10 text-[#ccff00] text-sm font-medium mb-6 backdrop-blur-sm">
             <span className="animate-pulse">✨</span>
@@ -166,8 +198,8 @@ export default function SnapV1() {
           </div>
         </div>
 
-        {/* Right Column - Stacked Cards */}
-        <div className="hidden lg:block w-1/2 relative h-[420px]">
+        {/* Right Column - Stacked Cards with fade-in */}
+        <div ref={cardsContainerRef} className="hidden lg:block w-1/2 relative h-[420px]">
           {features.map((feature, index) => (
             <div
               key={index}
@@ -175,7 +207,7 @@ export default function SnapV1() {
               style={{ 
                 willChange: 'transform, opacity',
                 backfaceVisibility: 'hidden',
-                zIndex: 4 - index // Lightning Fast (index 0) = z-4, etc.
+                zIndex: 4 - index, // Lightning Fast (index 0) = z-4, etc.
               }}
             >
               <div>
@@ -208,7 +240,7 @@ export default function SnapV1() {
 
           {/* Progress Indicator - Lines Above AND Below */}
           <div className="absolute -bottom-20 left-0 right-0 flex flex-col items-center">
-            {/* TOP LINE - New addition */}
+            {/* TOP LINE */}
             <div className="w-28 h-[3px] bg-[#27272a] rounded-full mb-3 overflow-hidden">
               <div 
                 className="h-full bg-[#ccff00] rounded-full transition-all duration-300 ease-out"

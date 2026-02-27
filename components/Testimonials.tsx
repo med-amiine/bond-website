@@ -1,10 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const testimonials = [
   {
-    quote: 'SnapChain reduced our deployment time from weeks to hours. The infrastructure is rock-solid and the team is incredibly responsive.',
+    quote: "SnapChain reduced our deployment time from weeks to hours. The infrastructure is rock-solid and the team is incredibly responsive.",
     author: 'Sarah Chen',
     role: 'CTO at BlockFi',
     avatar: 'SC',
@@ -31,6 +35,48 @@ const testimonials = [
 
 export default function Testimonials() {
   const [active, setActive] = useState(0)
+  const sectionRef = useRef<HTMLElement>(null)
+  const titleRef = useRef<HTMLDivElement>(null)
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const section = sectionRef.current
+    const titleEl = titleRef.current
+    const cardEl = cardRef.current
+
+    if (!section || !titleEl || !cardEl) return
+
+    const ctx = gsap.context(() => {
+      // Fade in title
+      gsap.from(titleEl, {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+        opacity: 0,
+        y: 40,
+        duration: 0.6,
+        ease: 'power2.out',
+      })
+
+      // Fade in card
+      gsap.from(cardEl, {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 75%',
+          toggleActions: 'play none none reverse',
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.6,
+        delay: 0.2,
+        ease: 'power2.out',
+      })
+    }, section)
+
+    return () => ctx.revert()
+  }, [])
 
   function prev() {
     setActive(i => (i - 1 + testimonials.length) % testimonials.length)
@@ -42,19 +88,21 @@ export default function Testimonials() {
   const t = testimonials[active]
 
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section ref={sectionRef} className="relative py-32 overflow-hidden" style={{ position: 'relative', zIndex: 1 }}>
       <div className="absolute inset-0 bg-[#050505]" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#ccff00]/5 rounded-full blur-[150px]" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        {/* Title with fade-in */}
+        <div ref={titleRef} className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-6">
             Loved by <span className="text-gradient">developers</span>
           </h2>
           <p className="text-lg text-[#a1a1aa]">See what our customers have to say about SnapChain.</p>
         </div>
 
-        <div className="relative">
+        {/* Card with fade-in */}
+        <div ref={cardRef} className="relative">
           <div className="card-dark p-8 sm:p-12 relative overflow-hidden">
             {/* Big quote icon */}
             <div className="absolute top-8 right-8 opacity-10">
