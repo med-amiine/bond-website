@@ -13,30 +13,24 @@ export default function Home() {
     <main className="bg-[#050505] overflow-x-hidden">
       <Navbar />
 
-      {/* Section 1: Hero (z-10) - Gets covered */}
+      {/* Layer 1: Hero (gets covered) */}
       <div className="relative z-10">
         <Hero />
         <Partners />
       </div>
 
-      {/* Section 2: Everything you need to build (z-20) - Scrolls normally */}
-      <div className="relative z-20 bg-[#050505]">
-        <SnapV1 />
-      </div>
+      {/* Layer 2: SnapV1 (sticky, covers Hero, gets covered by Frameworks) */}
+      <SnapV1 />
 
-      {/* Section 3: Works with your favorite tools (z-30) - Curtain effect */}
-      <div 
-        className="relative z-30 bg-[#050505] border-t border-[#ccff00]/10"
-        style={{ 
-          boxShadow: '0 -20px 40px rgba(0,0,0,0.5)',
-          marginTop: '-2px' // Prevent gap
-        }}
-      >
-        <Frameworks />
-        <TrustedPartners />
-        <Testimonials />
-        <FooterCTA />
-        <Footer />
+      {/* Layer 3: Frameworks+ (sticky, covers SnapV1) */}
+      <div className="sticky top-0 z-30 bg-[#050505] min-h-screen">
+        <div className="border-t border-[#ccff00]/10 shadow-[0_-20px_40px_rgba(0,0,0,0.5)]">
+          <Frameworks />
+          <TrustedPartners />
+          <Testimonials />
+          <FooterCTA />
+          <Footer />
+        </div>
       </div>
     </main>
   )
