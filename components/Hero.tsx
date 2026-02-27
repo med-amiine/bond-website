@@ -168,25 +168,32 @@ export default function Hero() {
 
         {/* Code block - starts hidden, fades in last */}
         <div ref={codeRef} style={{ opacity: 0, visibility: 'hidden' }} className="relative mt-20 mx-auto max-w-5xl">
-          <div className="relative rounded-2xl overflow-hidden border border-[#27272a] bg-[#111111]">
-            <div className="flex items-center gap-2 px-4 py-3 bg-[#0a0a0a] border-b border-[#27272a]">
-              <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-                <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-                <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+          {/* Glow effect behind */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-[#ccff00]/20 via-[#a3e635]/20 to-[#ccff00]/20 rounded-2xl blur-xl opacity-50" />
+          
+          <div className="relative rounded-2xl overflow-hidden bg-[#0d0d0d]/80 backdrop-blur-xl border border-[#27272a]/50">
+            {/* Window header */}
+            <div className="flex items-center gap-2 px-4 py-3 bg-[#111111]/50 border-b border-[#27272a]/50">
+              <div className="flex gap-2">
+                <div className="w-3 h-3 rounded-full bg-[#ff5f56] border border-[#e0443e]/30" />
+                <div className="w-3 h-3 rounded-full bg-[#ffbd2e] border border-[#dea123]/30" />
+                <div className="w-3 h-3 rounded-full bg-[#27c93f] border border-[#1aab29]/30" />
               </div>
               <div className="flex-1 text-center">
-                <span className="text-xs text-[#71717a]">deploy.js</span>
+                <span className="text-xs text-[#71717a] font-mono">deploy.js</span>
               </div>
+              <div className="w-16" />{/* Spacer for balance */}
             </div>
-            <div className="p-6 font-mono text-sm">
+            
+            {/* Code content */}
+            <div className="p-6 font-mono text-sm bg-gradient-to-b from-[#0d0d0d] to-[#111111]">
               <div className="flex gap-4">
-                <div className="text-[#71717a] select-none leading-6">
+                <div className="text-[#3f3f46] select-none leading-6 text-right min-w-[1.5rem]">
                   {codeLines.map(l => <div key={l.num}>{l.num}</div>)}
                 </div>
-                <div className="flex-1 leading-6">
+                <div className="flex-1 leading-6 overflow-x-auto">
                   {codeLines.map((line, i) => (
-                    <div key={i}>
+                    <div key={i} className={line.tokens.length === 0 ? 'h-6' : ''}>
                       {line.tokens.map((tok, j) => (
                         <span key={j} style={{ color: tok.color }}>{tok.text}</span>
                       ))}
@@ -195,6 +202,9 @@ export default function Hero() {
                 </div>
               </div>
             </div>
+            
+            {/* Bottom gradient line */}
+            <div className="h-px bg-gradient-to-r from-transparent via-[#ccff00]/30 to-transparent" />
           </div>
         </div>
       </div>
