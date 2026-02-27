@@ -86,7 +86,7 @@ export default function SnapV1() {
         ease: 'power2.out',
       })
 
-      // Main scroll trigger
+      // Main scroll trigger with velocity-aware snap
       ScrollTrigger.create({
         trigger: section,
         start: 'top top',
@@ -94,8 +94,24 @@ export default function SnapV1() {
         pin: true,
         scrub: 0.3,
         snap: {
-          snapTo: [0, 0.25, 0.5, 0.75, 1],
-          duration: { min: 0.1, max: 0.2 },
+          snapTo: (progress, self) => {
+            const snapPoints = [0, 0.25, 0.5, 0.75, 1]
+            const velocity = self.getVelocity()
+            
+            // Only snap if user is actively scrolling or very close to a snap point
+            // Low velocity + not near snap point = don't snap (allow stopping between)
+            const nearestIndex = Math.round(progress * 4)
+            const nearestPoint = snapPoints[nearestIndex]
+            const distance = Math.abs(progress - nearestPoint)
+            
+            // If low velocity and far from snap point, stay where user stopped
+            if (Math.abs(velocity) < 50 && distance > 0.05) {
+              return progress
+            }
+            
+            return nearestPoint
+          },
+          duration: { min: 0.15, max: 0.35 },
           ease: 'power2.out',
           delay: 0,
         },
