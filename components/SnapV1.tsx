@@ -4,10 +4,9 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-gsap.registerPlugin(ScrollTrigger)
-
 const features = [
   {
+    id: 'fast',
     icon: '⚡',
     title: 'Lightning Fast',
     description: 'Deploy your blockchain in under 60 seconds with our optimized infrastructure.',
@@ -15,6 +14,7 @@ const features = [
     statLabel: 'Deployment Time',
   },
   {
+    id: 'security',
     icon: '🛡️',
     title: 'Enterprise Security',
     description: 'Bank-grade security with multi-sig wallets, audit trails, and compliance tools.',
@@ -22,6 +22,7 @@ const features = [
     statLabel: 'Security Uptime',
   },
   {
+    id: 'scale',
     icon: '📈',
     title: 'Scalable Infra',
     description: 'Scale from testnet to mainnet seamlessly with auto-scaling infrastructure.',
@@ -29,6 +30,7 @@ const features = [
     statLabel: 'Scalability',
   },
   {
+    id: 'support',
     icon: '🔧',
     title: '24/7 Support',
     description: 'Round-the-clock expert support from our team of blockchain engineers.',
@@ -47,7 +49,7 @@ export default function SnapV1() {
   const sectionRef = useRef<HTMLElement>(null)
   const titleRef = useRef<HTMLDivElement>(null)
   const cardsContainerRef = useRef<HTMLDivElement>(null)
-  const [currentCard, setCurrentCard] = useState(1)
+  const [currentCard, setCurrentCard] = useState(0)
 
   useEffect(() => {
     const section = sectionRef.current
@@ -57,9 +59,7 @@ export default function SnapV1() {
     if (!section || !titleEl || !cardsContainer) return
 
     const ctx = gsap.context(() => {
-      const cardElements = gsap.utils.toArray<HTMLElement>('.feature-card')
-      
-      // Fade in animation for title when section enters viewport
+      // Fade in animation for title
       gsap.from(titleEl, {
         scrollTrigger: {
           trigger: section,
@@ -85,65 +85,24 @@ export default function SnapV1() {
         delay: 0.2,
         ease: 'power2.out',
       })
-      
-      // Set initial states - first card visible, others hidden below
-      gsap.set(cardElements[0], { y: 0, opacity: 1, scale: 1 })
-      cardElements.slice(1).forEach(card => {
-        gsap.set(card, { y: 100, opacity: 0, scale: 0.95 })
-      })
 
-      // Main scroll trigger - FAST duration (150% instead of 300-400%)
+      // Main scroll trigger
       ScrollTrigger.create({
         trigger: section,
         start: 'top top',
-        end: '+=150%', // REDUCED: Faster scroll distance
+        end: '+=150%',
         pin: true,
-        scrub: 0.3, // REDUCED: Snappier response
+        scrub: 0.3,
         snap: {
-          snapTo: [0, 0.25, 0.5, 0.75, 1], // Snap to exact card positions
+          snapTo: [0, 0.25, 0.5, 0.75, 1],
           duration: { min: 0.1, max: 0.2 },
           ease: 'power2.out',
           delay: 0,
         },
         onUpdate: (self) => {
           const progress = self.progress
-          const rawIndex = progress * 4
-          const currentIndex = Math.min(Math.floor(rawIndex), 3)
-          const localProgress = rawIndex - currentIndex // 0-1 within current card transition
-          
-          setCurrentCard(currentIndex + 1)
-          
-          cardElements.forEach((card, i) => {
-            if (i < currentIndex) {
-              // Cards above - exited up
-              gsap.set(card, { 
-                y: -80, 
-                opacity: 0, 
-                scale: 0.92,
-                zIndex: 10 - i,
-              })
-            } else if (i === currentIndex) {
-              // Current card - entering/settling
-              const yOffset = (1 - localProgress) * 60 // Start 60px down, settle to 0
-              const scale = 0.95 + (0.05 * localProgress) // 0.95 to 1.0
-              const opacity = Math.min(localProgress * 1.5, 1) // Faster fade in
-              
-              gsap.set(card, { 
-                y: currentIndex === 0 ? 0 : yOffset, 
-                opacity: currentIndex === 0 ? 1 : opacity, 
-                scale: currentIndex === 0 ? 1 : scale,
-                zIndex: 20,
-              })
-            } else {
-              // Cards below - waiting to enter
-              gsap.set(card, { 
-                y: 80, 
-                opacity: 0, 
-                scale: 0.95,
-                zIndex: 10 - i,
-              })
-            }
-          })
+          const cardIndex = Math.min(Math.floor(progress * 4), 3)
+          setCurrentCard(cardIndex)
         },
       })
     }, section)
@@ -158,7 +117,7 @@ export default function SnapV1() {
       className="relative z-20 bg-[#050505]"
     >
       <div className="sticky top-0 h-screen flex items-center px-6 lg:px-24 max-w-[1400px] mx-auto">
-        {/* Left Column - Static Content with fade-in */}
+        {/* Left Column - Static Content */}
         <div ref={titleRef} className="w-full lg:w-1/2 pr-0 lg:pr-16 z-10">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#ccff00]/30 bg-[#ccff00]/10 text-[#ccff00] text-sm font-medium mb-6 backdrop-blur-sm">
@@ -198,71 +157,117 @@ export default function SnapV1() {
           </div>
         </div>
 
-        {/* Right Column - Stacked Cards with fade-in */}
-        <div ref={cardsContainerRef} className="hidden lg:block w-1/2 relative h-[420px]">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="feature-card absolute inset-0 bg-[#111111] border border-[#27272a] rounded-2xl p-8 flex flex-col justify-between backdrop-blur-sm"
-              style={{ 
-                willChange: 'transform, opacity',
-                backfaceVisibility: 'hidden',
-                zIndex: 4 - index, // Lightning Fast (index 0) = z-4, etc.
+        {/* Right Column - Card Carousel */}
+        <div ref={cardsContainerRef} className="hidden lg:block w-1/2 relative">
+          {/* Cards Container */}
+          <div className="relative h-[400px] overflow-hidden">
+            {features.map((feature, index) => {
+              const isActive = index === currentCard
+              const isPast = index < currentCard
+              const isFuture = index > currentCard
+              
+              return (
+                <div
+                  key={feature.id}
+                  className="absolute inset-0 rounded-2xl p-8 flex flex-col justify-between transition-all duration-700 ease-out"
+                  style={{
+                    background: 'rgba(20, 20, 20, 0.6)',
+                    backdropFilter: 'blur(12px)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    opacity: isActive ? 1 : 0,
+                    transform: isPast 
+                      ? 'translateX(-100%) scale(0.95)' 
+                      : isFuture 
+                        ? 'translateX(100%) scale(0.95)' 
+                        : 'translateX(0) scale(1)',
+                    zIndex: isActive ? 10 : 0,
+                  }}
+                >
+                  <div>
+                    {/* Icon */}
+                    <div 
+                      className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-6"
+                      style={{ 
+                        background: 'rgba(39, 39, 42, 0.5)',
+                        border: '1px solid rgba(63, 63, 70, 1)'
+                      }}
+                    >
+                      {feature.icon}
+                    </div>
+                    
+                    {/* Title */}
+                    <h3 className="text-[#c8ff00] font-semibold text-xl mb-1">{feature.title}</h3>
+                    
+                    {/* Metric */}
+                    <div className="flex items-baseline gap-3 mb-4">
+                      <span className="text-3xl font-bold text-white tracking-tight">{feature.stat}</span>
+                      <span className="text-zinc-500 text-sm">{feature.statLabel}</span>
+                    </div>
+                    
+                    {/* Description */}
+                    <p className="text-zinc-400 text-sm leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </div>
+                  
+                  {/* Explore Button */}
+                  <button 
+                    className="w-fit px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 mt-6"
+                    style={{
+                      border: '1px solid rgba(63, 63, 70, 1)',
+                      color: 'white',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(204, 255, 0, 0.5)'
+                      e.currentTarget.style.color = '#ccff00'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(63, 63, 70, 1)'
+                      e.currentTarget.style.color = 'white'
+                    }}
+                  >
+                    Explore
+                  </button>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Dual Tracker - Bottom Right */}
+          <div className="flex justify-end mt-6">
+            <div 
+              className="flex items-center gap-3 px-4 py-2 rounded-full"
+              style={{
+                background: 'rgba(24, 24, 27, 0.5)',
+                backdropFilter: 'blur(4px)',
+                border: '1px solid rgba(39, 39, 42, 1)',
               }}
             >
-              <div>
-                {/* Icon */}
-                <div className="w-12 h-12 bg-[#ccff00]/10 rounded-xl flex items-center justify-center text-[#ccff00] text-2xl mb-6">
-                  {feature.icon}
-                </div>
-                
-                {/* Title */}
-                <h3 className="text-[#ccff00] font-semibold text-lg mb-1">{feature.title}</h3>
-                
-                {/* Metric */}
-                <div className="flex items-baseline gap-3 mb-4">
-                  <span className="text-4xl font-bold text-white tracking-tight">{feature.stat}</span>
-                  <span className="text-[#71717a] text-sm">{feature.statLabel}</span>
-                </div>
-                
-                {/* Description */}
-                <p className="text-[#a1a1aa] leading-relaxed text-[15px]">
-                  {feature.description}
-                </p>
+              {/* Fraction Counter */}
+              <div className="flex items-center gap-1 text-sm font-medium tabular-nums">
+                <span className="text-[#c8ff00] w-5 text-right">
+                  {String(currentCard + 1).padStart(2, '0')}
+                </span>
+                <span className="text-zinc-600">/</span>
+                <span className="text-zinc-500 w-5">04</span>
               </div>
               
-              {/* Explore Button */}
-              <button className="w-fit px-6 py-2.5 border border-[#27272a] text-white rounded-full text-sm font-medium hover:border-[#ccff00]/50 hover:text-[#ccff00] transition-all duration-300 mt-6">
-                Explore
-              </button>
-            </div>
-          ))}
-
-          {/* Progress Indicator - Lines Above AND Below */}
-          <div className="absolute -bottom-20 left-0 right-0 flex flex-col items-center">
-            {/* TOP LINE */}
-            <div className="w-28 h-[3px] bg-[#27272a] rounded-full mb-3 overflow-hidden">
-              <div 
-                className="h-full bg-[#ccff00] rounded-full transition-all duration-300 ease-out"
-                style={{ width: `${(currentCard / 4) * 100}%` }}
-              />
-            </div>
-            
-            {/* Counter */}
-            <div className="flex items-center gap-3 font-mono text-sm tabular-nums">
-              <span className="text-[#ccff00] font-bold text-base min-w-[20px] text-center">
-                {currentCard}
-              </span>
-              <span className="text-[#71717a]">/</span>
-              <span className="text-[#71717a] min-w-[20px] text-center">4</span>
-            </div>
-            
-            {/* BOTTOM LINE */}
-            <div className="w-28 h-[3px] bg-[#27272a] rounded-full mt-3 overflow-hidden">
-              <div 
-                className="h-full bg-[#ccff00] rounded-full transition-all duration-300 ease-out"
-                style={{ width: `${(currentCard / 4) * 100}%` }}
-              />
+              {/* Divider */}
+              <div className="w-px h-4 bg-zinc-700"></div>
+              
+              {/* Segmented Progress */}
+              <div className="flex gap-1.5">
+                {[0, 1, 2, 3].map((segment) => (
+                  <div
+                    key={segment}
+                    className="h-1 w-6 rounded-full transition-all duration-500"
+                    style={{
+                      background: segment <= currentCard ? '#c8ff00' : 'rgba(39, 39, 42, 1)',
+                      opacity: segment < currentCard ? 0.3 : 1,
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
