@@ -105,9 +105,7 @@ export default function Hero() {
       {/* Background */}
       <div className="absolute inset-0 bg-[#050505]">
         <div className="absolute inset-0 grid-pattern opacity-50" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] radial-glow" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#ccff00]/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#a3e635]/5 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] radial-glow opacity-50" />
         <svg className="absolute inset-0 w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
