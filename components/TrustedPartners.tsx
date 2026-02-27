@@ -32,7 +32,7 @@ export default function TrustedPartners() {
     if (!section || !contentEl) return
 
     const ctx = gsap.context(() => {
-      // Fade in content
+      // Fade in content from right
       gsap.from(contentEl, {
         scrollTrigger: {
           trigger: section,
@@ -40,12 +40,12 @@ export default function TrustedPartners() {
           toggleActions: 'play none none reverse',
         },
         opacity: 0,
-        y: 40,
-        duration: 0.6,
+        x: 80,
+        duration: 0.5,
         ease: 'power2.out',
       })
 
-      // Staggered fade for partner items
+      // Staggered fade for partner items from right
       const items = gsap.utils.toArray<HTMLElement>('.partner-item')
       gsap.from(items, {
         scrollTrigger: {
@@ -54,9 +54,9 @@ export default function TrustedPartners() {
           toggleActions: 'play none none reverse',
         },
         opacity: 0,
-        y: 30,
-        duration: 0.5,
-        stagger: 0.08,
+        x: 60,
+        duration: 0.4,
+        stagger: 0.06,
         ease: 'power2.out',
       })
     }, section)
