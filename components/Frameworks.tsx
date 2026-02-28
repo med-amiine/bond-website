@@ -15,16 +15,16 @@ const frameworks = [
 
 export default function Frameworks() {
   return (
-    <section id="frameworks" className="relative py-32 overflow-hidden bg-[#050505]">
+    <section id="frameworks" className="relative py-32 overflow-hidden bg-[var(--bg)]">
       {/* Top border for curtain separation */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#84CC86]/10 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#27279E]/10 to-transparent" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-4">
+          <h2 className="text-4xl sm:text-5xl font-bold text-[var(--text)] tracking-tight mb-4">
             Works with your <span className="text-gradient">favorite tools</span>
           </h2>
-          <p className="text-lg text-[#a1a1aa] max-w-2xl mx-auto">
+          <p className="text-lg text-[var(--text-sub)] max-w-2xl mx-auto">
             Seamlessly integrate with the most popular blockchain development frameworks and libraries.
           </p>
         </div>
@@ -33,13 +33,13 @@ export default function Frameworks() {
           {frameworks.map(fw => (
             <div key={fw.name} className="framework-card">
               <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: fw.color }} />
-              <span className="text-sm font-medium text-white">{fw.name}</span>
+              <span className="text-sm font-medium text-[var(--text)]">{fw.name}</span>
             </div>
           ))}
         </div>
 
         <div className="text-center">
-          <p className="text-sm text-[#71717a] mb-4">Don&apos;t see your framework?</p>
+          <p className="text-sm text-[var(--text-muted)] mb-4">Don&apos;t see your framework?</p>
           <button className="btn-secondary text-sm">Request Integration</button>
         </div>
       </div>

@@ -6,16 +6,17 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Updated code colors for theme support
 const codeLines = [
-  { num: '1', tokens: [{ color: '#84CC86', text: 'import' }, { color: '#fff', text: ' { SnapChain } ' }, { color: '#84CC86', text: 'from' }, { color: '#A3D9A5', text: " 'snapchain'" }, { color: '#fff', text: ';' }] },
+  { num: '1', tokens: [{ color: '#27279E', text: 'import' }, { color: 'var(--text)', text: ' { SnapChain } ' }, { color: '#27279E', text: 'from' }, { color: '#3B3BB8', text: " 'snapchain'" }, { color: 'var(--text)', text: ';' }] },
   { num: '2', tokens: [] },
-  { num: '3', tokens: [{ color: '#84CC86', text: 'const' }, { color: '#fff', text: ' chain = ' }, { color: '#84CC86', text: 'new' }, { color: '#fff', text: ' SnapChain(' }] },
-  { num: '4', tokens: [{ color: '#fff', text: '  network: ' }, { color: '#A3D9A5', text: "'mainnet'" }, { color: '#fff', text: ',' }] },
-  { num: '5', tokens: [{ color: '#fff', text: '  consensus: ' }, { color: '#A3D9A5', text: "'poa'" }, { color: '#fff', text: ',' }] },
-  { num: '6', tokens: [{ color: '#fff', text: '});' }] },
+  { num: '3', tokens: [{ color: '#27279E', text: 'const' }, { color: 'var(--text)', text: ' chain = ' }, { color: '#27279E', text: 'new' }, { color: 'var(--text)', text: ' SnapChain(' }] },
+  { num: '4', tokens: [{ color: 'var(--text)', text: '  network: ' }, { color: '#3B3BB8', text: "'mainnet'" }, { color: 'var(--text)', text: ',' }] },
+  { num: '5', tokens: [{ color: 'var(--text)', text: '  consensus: ' }, { color: '#3B3BB8', text: "'poa'" }, { color: 'var(--text)', text: ',' }] },
+  { num: '6', tokens: [{ color: 'var(--text)', text: '});' }] },
   { num: '7', tokens: [] },
-  { num: '8', tokens: [{ color: '#71717a', text: '// Deploy in seconds' }] },
-  { num: '9', tokens: [{ color: '#84CC86', text: 'await' }, { color: '#fff', text: ' chain.' }, { color: '#84CC86', text: 'deploy' }, { color: '#fff', text: '(); ' }, { color: '#71717a', text: '// Done! 🚀' }] },
+  { num: '8', tokens: [{ color: 'var(--text-muted)', text: '// Deploy in seconds' }] },
+  { num: '9', tokens: [{ color: '#27279E', text: 'await' }, { color: 'var(--text)', text: ' chain.' }, { color: '#27279E', text: 'deploy' }, { color: 'var(--text)', text: '(); ' }, { color: 'var(--text-muted)', text: '// Done! 🚀' }] },
 ]
 
 export default function Hero() {
@@ -85,17 +86,17 @@ export default function Hero() {
   }, [])
 
   return (
-    <section id="hero" ref={sectionRef} className="relative bg-[#050505] min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section id="hero" ref={sectionRef} className="relative bg-[var(--bg)] min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background */}
-      <div className="absolute inset-0 bg-[#050505]">
+      <div className="absolute inset-0 bg-[var(--bg)]">
         <div className="absolute inset-0 grid-pattern opacity-50" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] radial-glow opacity-50" />
         <svg className="absolute inset-0 w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#84CC86" stopOpacity="0" />
-              <stop offset="50%" stopColor="#84CC86" stopOpacity="1" />
-              <stop offset="100%" stopColor="#84CC86" stopOpacity="0" />
+              <stop offset="0%" stopColor="#27279E" stopOpacity="0" />
+              <stop offset="50%" stopColor="#27279E" stopOpacity="1" />
+              <stop offset="100%" stopColor="#27279E" stopOpacity="0" />
             </linearGradient>
           </defs>
           <line x1="0" y1="30%" x2="100%" y2="30%" stroke="url(#lineGrad)" strokeWidth="1" className="animate-pulse" />
@@ -105,19 +106,19 @@ export default function Hero() {
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#111111] border border-[#27272a] mb-8">
-            <span className="w-2 h-2 rounded-full bg-[#84CC86] animate-pulse" />
-            <span className="text-sm text-[#a1a1aa]">Now in Public Beta</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--bg-card)] border border-[var(--border)] mb-8">
+            <span className="w-2 h-2 rounded-full bg-[#27279E] animate-pulse" />
+            <span className="text-sm text-[var(--text-sub)]">Now in Public Beta</span>
           </div>
 
           {/* Headline - starts hidden, fades in */}
-          <h1 ref={headlineRef} style={{ opacity: 0, visibility: 'hidden' }} className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-[1.1] mb-6">
+          <h1 ref={headlineRef} style={{ opacity: 0, visibility: 'hidden' }} className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[var(--text)] tracking-tight leading-[1.1] mb-6">
             Build on <span className="text-gradient">Blockchain</span>
             <br />at Lightning Speed
           </h1>
 
           {/* Subtext - starts hidden, fades in */}
-          <p ref={subtextRef} style={{ opacity: 0, visibility: 'hidden' }} className="text-lg sm:text-xl text-[#a1a1aa] max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p ref={subtextRef} style={{ opacity: 0, visibility: 'hidden' }} className="text-lg sm:text-xl text-[var(--text-sub)] max-w-2xl mx-auto mb-10 leading-relaxed">
             The all-in-one platform for deploying, scaling, and managing blockchain infrastructure.
             From testnet to mainnet in minutes, not months.
           </p>
@@ -131,7 +132,7 @@ export default function Hero() {
               </svg>
             </button>
             <button className="btn-secondary group text-base px-8 py-4">
-              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="text-[#84CC86]">
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="text-[#27279E]">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -142,22 +143,22 @@ export default function Hero() {
 
         {/* Code block - starts hidden, fades in last */}
         <div ref={codeRef} style={{ opacity: 0, visibility: 'hidden' }} className="relative mt-20 mx-auto max-w-5xl">
-          <div className="relative rounded-2xl overflow-hidden border border-[#27272a] bg-[#111111]">
-            {/* Green glow inside code block */}
-            <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-80 h-32 bg-[#84CC86]/20 rounded-full blur-[80px] pointer-events-none" />
-            <div className="flex items-center gap-2 px-4 py-3 bg-[#0a0a0a] border-b border-[#27272a]">
+          <div className="relative rounded-2xl overflow-hidden border border-[var(--border)] bg-[var(--bg-card)]">
+            {/* Indigo glow inside code block */}
+            <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-80 h-32 bg-[#27279E]/20 rounded-full blur-[80px] pointer-events-none" />
+            <div className="flex items-center gap-2 px-4 py-3 bg-[var(--bg-card-2)] border-b border-[var(--border)]">
               <div className="flex gap-1.5">
                 <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
                 <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
                 <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
               </div>
               <div className="flex-1 text-center">
-                <span className="text-xs text-[#71717a]">deploy.js</span>
+                <span className="text-xs text-[var(--text-muted)]">deploy.js</span>
               </div>
             </div>
             <div className="p-6 font-mono text-sm">
               <div className="flex gap-4">
-                <div className="text-[#71717a] select-none leading-6">
+                <div className="text-[var(--text-muted)] select-none leading-6">
                   {codeLines.map(l => <div key={l.num}>{l.num}</div>)}
                 </div>
                 <div className="flex-1 leading-6">

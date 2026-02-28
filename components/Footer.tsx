@@ -56,7 +56,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[#050505] pt-20 pb-10">
+    <footer className="relative bg-[var(--bg)] pt-20 pb-10">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#27272a] to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,12 +64,12 @@ export default function Footer() {
           {/* Brand col */}
           <div className="col-span-2">
             <a href="#" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-[#84CC86] flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-[#27279E] flex items-center justify-center">
                 <span className="text-[#050505] font-bold text-sm">S</span>
               </div>
-              <span className="font-semibold text-white text-lg tracking-tight">SnapChain</span>
+              <span className="font-semibold text-[var(--text)] text-lg tracking-tight">SnapChain</span>
             </a>
-            <p className="text-[#71717a] text-sm mb-6 max-w-xs">
+            <p className="text-[var(--text-muted)] text-sm mb-6 max-w-xs">
               The all-in-one platform for deploying, scaling, and managing blockchain infrastructure.
             </p>
             <div className="flex gap-3">
@@ -84,7 +84,7 @@ export default function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([section, links]) => (
             <div key={section}>
-              <h3 className="text-white font-semibold mb-4">{section}</h3>
+              <h3 className="text-[var(--text)] font-semibold mb-4">{section}</h3>
               <ul className="space-y-3">
                 {links.map(link => (
                   <li key={link.label}>
@@ -100,14 +100,14 @@ export default function Footer() {
         <div className="card-dark p-6 mb-10" data-cursor-default>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-              <h3 className="text-white font-semibold mb-1">Stay updated</h3>
-              <p className="text-[#71717a] text-sm">Get the latest news and updates from SnapChain.</p>
+              <h3 className="text-[var(--text)] font-semibold mb-1">Stay updated</h3>
+              <p className="text-[var(--text-muted)] text-sm">Get the latest news and updates from SnapChain.</p>
             </div>
             <div className="flex gap-2 w-full sm:w-auto">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 sm:w-64 px-4 py-3 rounded-full bg-[#0a0a0a] border border-[#27272a] text-white text-sm placeholder:text-[#71717a] focus:outline-none focus:border-[#84CC86] transition-colors duration-300"
+                className="flex-1 sm:w-64 px-4 py-3 rounded-full bg-[var(--bg-card-2)] border border-[var(--border)] text-[var(--text)] text-sm placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#27279E] transition-colors duration-300"
               />
               <button className="btn-primary py-3 px-6">Subscribe</button>
             </div>
@@ -115,8 +115,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-[#27272a]">
-          <p className="text-[#71717a] text-sm">© {new Date().getFullYear()} SnapChain. All rights reserved.</p>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-[var(--border)]">
+          <p className="text-[var(--text-muted)] text-sm">© {new Date().getFullYear()} SnapChain. All rights reserved.</p>
           <div className="flex items-center gap-6">
             {['Privacy Policy', 'Terms of Service', 'Cookies'].map(item => (
               <a key={item} href="#" className="footer-link text-xs">{item}</a>
