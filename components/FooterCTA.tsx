@@ -39,21 +39,21 @@ export default function FooterCTA() {
   return (
     <section ref={sectionRef} className="relative py-32 overflow-hidden" style={{ position: 'relative', zIndex: 1 }}>
       <div className="absolute inset-0 bg-[#050505]" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#ccff00]/10 rounded-full blur-[150px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#22D3EE]/10 rounded-full blur-[150px]" />
 
       <div ref={contentRef} className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-3xl overflow-hidden">
           {/* Card background */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#111111] to-[#0a0a0a]" />
           <div className="absolute inset-0 border border-[#27272a] rounded-3xl" />
-          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#ccff00]/20 rounded-full blur-[100px]" />
+          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#22D3EE]/20 rounded-full blur-[100px]" />
 
           <div className="relative z-10 px-8 py-16 sm:px-16 sm:py-20 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#ccff00]/10 border border-[#ccff00]/20 mb-8">
-              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#ccff00" strokeWidth={2}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#22D3EE]/10 border border-[#22D3EE]/20 mb-8">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#22D3EE" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
               </svg>
-              <span className="text-sm text-[#ccff00]">Start for free today</span>
+              <span className="text-sm text-[#22D3EE]">Start for free today</span>
             </div>
 
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6">
@@ -78,8 +78,8 @@ export default function FooterCTA() {
             <div className="flex flex-wrap items-center justify-center gap-6 mt-12 pt-8 border-t border-[#27272a]">
               {perks.map(perk => (
                 <div key={perk} className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded-full bg-[#ccff00]/20 flex items-center justify-center">
-                    <svg className="w-2.5 h-2.5 text-[#ccff00]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="w-4 h-4 rounded-full bg-[#22D3EE]/20 flex items-center justify-center">
+                    <svg className="w-2.5 h-2.5 text-[#22D3EE]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
