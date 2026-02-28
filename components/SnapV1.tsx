@@ -176,9 +176,9 @@ export default function SnapV1() {
                   key={feature.id}
                   className="absolute inset-0 rounded-2xl p-8 flex flex-col justify-between transition-all duration-700 ease-out"
                   style={{
-                    background: 'rgba(20, 20, 20, 0.6)',
+                    background: 'var(--bg-card)',
                     backdropFilter: 'blur(12px)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    border: '1px solid var(--border)',
                     opacity: isActive ? 1 : 0,
                     transform: isPast 
                       ? 'translateX(-100%) scale(0.95)' 
@@ -193,8 +193,8 @@ export default function SnapV1() {
                     <div 
                       className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-6"
                       style={{ 
-                        background: 'rgba(39, 39, 42, 0.5)',
-                        border: '1px solid rgba(63, 63, 70, 1)'
+                        background: 'var(--bg-card-2)',
+                        border: '1px solid var(--border)'
                       }}
                     >
                       {feature.icon}
@@ -219,16 +219,16 @@ export default function SnapV1() {
                   <button 
                     className="w-fit px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 mt-6"
                     style={{
-                      border: '1px solid rgba(63, 63, 70, 1)',
-                      color: 'white',
+                      border: '1px solid var(--border)',
+                      color: 'var(--text)',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(39, 39, 158, 0.5)'
-                      e.currentTarget.style.color = '#27279E'
+                      e.currentTarget.style.borderColor = 'var(--primary)'
+                      e.currentTarget.style.color = 'var(--primary)'
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(63, 63, 70, 1)'
-                      e.currentTarget.style.color = 'white'
+                      e.currentTarget.style.borderColor = 'var(--border)'
+                      e.currentTarget.style.color = 'var(--text)'
                     }}
                   >
                     Explore

@@ -44,8 +44,8 @@ export default function TrustedPartners() {
             </div>
             
             {/* Fade masks - positioned absolutely over the grid */}
-            <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-[#050505] to-transparent pointer-events-none z-20" />
-            <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none z-20" />
+            <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-[var(--bg)] to-transparent pointer-events-none z-20" />
+            <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[var(--bg)] to-transparent pointer-events-none z-20" />
           </div>
 
           {/* Right text */}

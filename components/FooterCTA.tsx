@@ -44,7 +44,7 @@ export default function FooterCTA() {
       <div ref={contentRef} className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-3xl overflow-hidden">
           {/* Card background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#111111] to-[#0a0a0a]" />
+          <div className="absolute inset-0 bg-[var(--bg-card)]" />
           <div className="absolute inset-0 border border-[var(--border)] rounded-3xl" />
           <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#27279E]/30 rounded-full blur-[100px]" />
 
