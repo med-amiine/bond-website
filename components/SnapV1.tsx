@@ -92,6 +92,7 @@ export default function SnapV1() {
         start: 'top top',
         end: '+=150%',
         pin: true,
+        pinSpacing: false,
         scrub: 0.3,
         snap: {
           snapTo: (progress) => {
@@ -118,7 +119,7 @@ export default function SnapV1() {
     <section 
       ref={sectionRef}
       id="features"
-      className="relative z-20 bg-[#050505]"
+      className="relative bg-[#050505]"
     >
       <div className="min-h-screen flex items-center px-6 lg:px-24 max-w-[1400px] mx-auto py-20">
         {/* Left Column - Static Content */}

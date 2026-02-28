@@ -14,31 +14,18 @@ export default function Home() {
       <Navbar />
 
       {/* Hero - scrolls normally */}
-      <div className="relative z-10">
-        <Hero />
-        <Partners />
-      </div>
+      <Hero />
+      <Partners />
 
-      {/* SnapV1 - sticky, stays in place while being covered */}
-      <div className="sticky top-0 z-20">
-        <SnapV1 />
-      </div>
+      {/* SnapV1 - pinned with GSAP, Frameworks scrolls over it */}
+      <SnapV1 />
 
-      {/* Frameworks - THE CURTAIN: scrolls up to cover SnapV1 */}
-      <div 
-        className="relative z-30 bg-[#050505]"
-        style={{
-          boxShadow: '0 -30px 60px rgba(0,0,0,0.8)',
-        }}
-      >
-        <div className="border-t border-[#ccff00]/20">
-          <Frameworks />
-          <TrustedPartners />
-          <Testimonials />
-          <FooterCTA />
-          <Footer />
-        </div>
-      </div>
+      {/* Frameworks - scrolls up to cover SnapV1 (curtain effect) */}
+      <Frameworks />
+      <TrustedPartners />
+      <Testimonials />
+      <FooterCTA />
+      <Footer />
     </main>
   )
 }
