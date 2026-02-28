@@ -64,7 +64,7 @@ export default function Footer() {
           {/* Brand col */}
           <div className="col-span-2">
             <a href="#" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-[#ccff00] flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-[#84CC86] flex items-center justify-center">
                 <span className="text-[#050505] font-bold text-sm">S</span>
               </div>
               <span className="font-semibold text-white text-lg tracking-tight">SnapChain</span>
@@ -107,7 +107,7 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 sm:w-64 px-4 py-3 rounded-full bg-[#0a0a0a] border border-[#27272a] text-white text-sm placeholder:text-[#71717a] focus:outline-none focus:border-[#ccff00] transition-colors duration-300"
+                className="flex-1 sm:w-64 px-4 py-3 rounded-full bg-[#0a0a0a] border border-[#27272a] text-white text-sm placeholder:text-[#71717a] focus:outline-none focus:border-[#84CC86] transition-colors duration-300"
               />
               <button className="btn-primary py-3 px-6">Subscribe</button>
             </div>

@@ -20,7 +20,7 @@ function MarqueeRow({ reverse = false }: { reverse?: boolean }) {
       <div className={`marquee-track ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}>
         {items.map((net, i) => (
           <div key={i} className="network-tag mx-3 group">
-            <span className="text-xl text-[#ccff00] group-hover:scale-110 transition-transform duration-300 select-none">{net.icon}</span>
+            <span className="text-xl text-[#84CC86] group-hover:scale-110 transition-transform duration-300 select-none">{net.icon}</span>
             <span className="text-white font-medium whitespace-nowrap text-sm">{net.name}</span>
           </div>
         ))}

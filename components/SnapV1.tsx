@@ -125,14 +125,14 @@ export default function SnapV1() {
         {/* Left Column - Static Content */}
         <div ref={titleRef} className="w-full lg:w-1/2 pr-0 lg:pr-16 z-10">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#ccff00]/30 bg-[#ccff00]/10 text-[#ccff00] text-sm font-medium mb-6 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#84CC86]/30 bg-[#84CC86]/10 text-[#84CC86] text-sm font-medium mb-6 backdrop-blur-sm">
             <span className="animate-pulse">✨</span>
             <span>Snap V1 is here</span>
           </div>
           
           {/* Headline */}
           <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-[1.1] tracking-tight">
-            Everything you need to <span className="text-[#ccff00]">build</span>
+            Everything you need to <span className="text-[#84CC86]">build</span>
           </h2>
           
           {/* Subtext */}
@@ -201,7 +201,7 @@ export default function SnapV1() {
                     </div>
                     
                     {/* Title */}
-                    <h3 className="text-[#c8ff00] font-semibold text-xl mb-1">{feature.title}</h3>
+                    <h3 className="text-[#84CC86] font-semibold text-xl mb-1">{feature.title}</h3>
                     
                     {/* Metric */}
                     <div className="flex items-baseline gap-3 mb-4">
@@ -223,8 +223,8 @@ export default function SnapV1() {
                       color: 'white',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(204, 255, 0, 0.5)'
-                      e.currentTarget.style.color = '#ccff00'
+                      e.currentTarget.style.borderColor = 'rgba(132, 204, 134, 0.5)'
+                      e.currentTarget.style.color = '#84CC86'
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.borderColor = 'rgba(63, 63, 70, 1)'
@@ -245,23 +245,23 @@ export default function SnapV1() {
               <svg width="120" height="24" viewBox="0 0 120 24" fill="none" aria-label={`Block ${String(currentCard + 1).padStart(2, '0')} of 04`}>
                 {/* Connection Lines */}
                 <line x1="12" y1="12" x2="36" y2="12" strokeWidth="2" 
-                  stroke={currentCard >= 1 ? 'rgba(200, 255, 0, 0.3)' : '#27272a'} 
+                  stroke={currentCard >= 1 ? 'rgba(132, 204, 134, 0.3)' : '#27272a'} 
                   className="transition-all duration-500"/>
                 <line x1="44" y1="12" x2="68" y2="12" strokeWidth="2" 
-                  stroke={currentCard >= 2 ? 'rgba(200, 255, 0, 0.3)' : '#27272a'} 
+                  stroke={currentCard >= 2 ? 'rgba(132, 204, 134, 0.3)' : '#27272a'} 
                   className="transition-all duration-500"/>
                 <line x1="76" y1="12" x2="100" y2="12" strokeWidth="2" 
-                  stroke={currentCard >= 3 ? 'rgba(200, 255, 0, 0.3)' : '#27272a'} 
+                  stroke={currentCard >= 3 ? 'rgba(132, 204, 134, 0.3)' : '#27272a'} 
                   className="transition-all duration-500"/>
                 
                 {/* Node 1 */}
                 <circle cx="12" cy="12" r="6" 
-                  fill={currentCard >= 0 ? '#c8ff00' : '#27272a'} 
-                  stroke={currentCard >= 0 ? '#c8ff00' : '#3f3f46'} 
+                  fill={currentCard >= 0 ? '#84CC86' : '#27272a'} 
+                  stroke={currentCard >= 0 ? '#84CC86' : '#3f3f46'} 
                   strokeWidth="1.5"
                   className="transition-all duration-500"/>
                 {currentCard === 0 && (
-                  <circle cx="12" cy="12" r="12" fill="none" stroke="rgba(200, 255, 0, 0.4)" strokeWidth="1" opacity="0.6">
+                  <circle cx="12" cy="12" r="12" fill="none" stroke="rgba(132, 204, 134, 0.4)" strokeWidth="1" opacity="0.6">
                     <animate attributeName="r" values="6;12" dur="2s" repeatCount="indefinite"/>
                     <animate attributeName="opacity" values="0.6;0" dur="2s" repeatCount="indefinite"/>
                   </circle>
@@ -269,12 +269,12 @@ export default function SnapV1() {
                 
                 {/* Node 2 */}
                 <circle cx="40" cy="12" r="6" 
-                  fill={currentCard >= 1 ? '#c8ff00' : '#27272a'} 
-                  stroke={currentCard >= 1 ? '#c8ff00' : '#3f3f46'} 
+                  fill={currentCard >= 1 ? '#84CC86' : '#27272a'} 
+                  stroke={currentCard >= 1 ? '#84CC86' : '#3f3f46'} 
                   strokeWidth="1.5"
                   className="transition-all duration-500"/>
                 {currentCard === 1 && (
-                  <circle cx="40" cy="12" r="12" fill="none" stroke="rgba(200, 255, 0, 0.4)" strokeWidth="1" opacity="0.6">
+                  <circle cx="40" cy="12" r="12" fill="none" stroke="rgba(132, 204, 134, 0.4)" strokeWidth="1" opacity="0.6">
                     <animate attributeName="r" values="6;12" dur="2s" repeatCount="indefinite"/>
                     <animate attributeName="opacity" values="0.6;0" dur="2s" repeatCount="indefinite"/>
                   </circle>
@@ -282,12 +282,12 @@ export default function SnapV1() {
                 
                 {/* Node 3 */}
                 <circle cx="68" cy="12" r="6" 
-                  fill={currentCard >= 2 ? '#c8ff00' : '#27272a'} 
-                  stroke={currentCard >= 2 ? '#c8ff00' : '#3f3f46'} 
+                  fill={currentCard >= 2 ? '#84CC86' : '#27272a'} 
+                  stroke={currentCard >= 2 ? '#84CC86' : '#3f3f46'} 
                   strokeWidth="1.5"
                   className="transition-all duration-500"/>
                 {currentCard === 2 && (
-                  <circle cx="68" cy="12" r="12" fill="none" stroke="rgba(200, 255, 0, 0.4)" strokeWidth="1" opacity="0.6">
+                  <circle cx="68" cy="12" r="12" fill="none" stroke="rgba(132, 204, 134, 0.4)" strokeWidth="1" opacity="0.6">
                     <animate attributeName="r" values="6;12" dur="2s" repeatCount="indefinite"/>
                     <animate attributeName="opacity" values="0.6;0" dur="2s" repeatCount="indefinite"/>
                   </circle>
@@ -295,12 +295,12 @@ export default function SnapV1() {
                 
                 {/* Node 4 */}
                 <circle cx="96" cy="12" r="6" 
-                  fill={currentCard >= 3 ? '#c8ff00' : '#27272a'} 
-                  stroke={currentCard >= 3 ? '#c8ff00' : '#3f3f46'} 
+                  fill={currentCard >= 3 ? '#84CC86' : '#27272a'} 
+                  stroke={currentCard >= 3 ? '#84CC86' : '#3f3f46'} 
                   strokeWidth="1.5"
                   className="transition-all duration-500"/>
                 {currentCard === 3 && (
-                  <circle cx="96" cy="12" r="12" fill="none" stroke="rgba(200, 255, 0, 0.4)" strokeWidth="1" opacity="0.6">
+                  <circle cx="96" cy="12" r="12" fill="none" stroke="rgba(132, 204, 134, 0.4)" strokeWidth="1" opacity="0.6">
                     <animate attributeName="r" values="6;12" dur="2s" repeatCount="indefinite"/>
                     <animate attributeName="opacity" values="0.6;0" dur="2s" repeatCount="indefinite"/>
                   </circle>
@@ -310,7 +310,7 @@ export default function SnapV1() {
               {/* Counter Text */}
               <div className="text-[11px] tracking-wide font-mono">
                 <span className="text-zinc-500">Block </span>
-                <span className="text-[#c8ff00] font-semibold">{String(currentCard + 1).padStart(2, '0')}</span>
+                <span className="text-[#84CC86] font-semibold">{String(currentCard + 1).padStart(2, '0')}</span>
                 <span className="text-zinc-500"> of </span>
                 <span className="text-zinc-600">04</span>
               </div>
