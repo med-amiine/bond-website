@@ -6,12 +6,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const stats = [
-  { value: '10K+', label: 'Developers' },
-  { value: '50M+', label: 'Transactions' },
-  { value: '99.9%', label: 'Uptime' },
-]
-
 const codeLines = [
   { num: '1', tokens: [{ color: '#84CC86', text: 'import' }, { color: '#fff', text: ' { SnapChain } ' }, { color: '#84CC86', text: 'from' }, { color: '#A3D9A5', text: " 'snapchain'" }, { color: '#fff', text: ';' }] },
   { num: '2', tokens: [] },
@@ -29,7 +23,6 @@ export default function Hero() {
   const headlineRef = useRef<HTMLHeadingElement>(null)
   const subtextRef = useRef<HTMLParagraphElement>(null)
   const buttonsRef = useRef<HTMLDivElement>(null)
-  const statsRef = useRef<HTMLDivElement>(null)
   const codeRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -37,14 +30,13 @@ export default function Hero() {
     const headline = headlineRef.current
     const subtext = subtextRef.current
     const buttons = buttonsRef.current
-    const stats = statsRef.current
     const code = codeRef.current
 
-    if (!section || !headline || !subtext || !buttons || !stats || !code) return
+    if (!section || !headline || !subtext || !buttons || !code) return
 
     const ctx = gsap.context(() => {
       // Set initial hidden state (inline styles handle SSR, this ensures JS state)
-      gsap.set([headline, subtext, buttons, stats, code], { opacity: 0, visibility: 'hidden', y: 30 })
+      gsap.set([headline, subtext, buttons, code], { opacity: 0, visibility: 'hidden', y: 30 })
 
       // Create timeline for sequential fade in
       const tl = gsap.timeline({
@@ -73,14 +65,6 @@ export default function Hero() {
       }, '-=0.4')
       // Buttons third
       .to(buttons, {
-        opacity: 1,
-        visibility: 'visible',
-        y: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-      }, '-=0.3')
-      // Stats fourth
-      .to(stats, {
         opacity: 1,
         visibility: 'visible',
         y: 0,
@@ -153,16 +137,6 @@ export default function Hero() {
               </svg>
               Watch Demo
             </button>
-          </div>
-
-          {/* Stats - starts hidden, fades in */}
-          <div ref={statsRef} style={{ opacity: 0, visibility: 'hidden' }} className="grid grid-cols-3 gap-8 mt-16 pt-16 border-t border-[#27272a]">
-            {stats.map(s => (
-              <div key={s.label} className="text-center">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">{s.value}</div>
-                <div className="text-sm text-[#71717a]">{s.label}</div>
-              </div>
-            ))}
           </div>
         </div>
 
