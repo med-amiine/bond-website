@@ -23,8 +23,9 @@
   --border-hover: #9CA3AF;
   
   /* Glow/shadow colors for light mode */
-  --glow-primary: rgba(39, 39, 158, 0.3);
-  --glow-subtle: rgba(39, 39, 158, 0.08);
+  --glow-primary: rgba(39, 39, 158, 0.4);
+  --glow-subtle: rgba(39, 39, 158, 0.15);
+  --glow-strong: rgba(39, 39, 158, 0.25);
 }
 
 /* Dark Mode */
@@ -39,8 +40,9 @@
   --border-hover: #3f3f46;
   
   /* Glow/shadow colors for dark mode */
-  --glow-primary: rgba(39, 39, 158, 0.5);
-  --glow-subtle: rgba(39, 39, 158, 0.15);
+  --glow-primary: rgba(59, 59, 220, 0.6);
+  --glow-subtle: rgba(59, 59, 220, 0.25);
+  --glow-strong: rgba(59, 59, 220, 0.4);
 }
 
 /* ====================================================
@@ -183,6 +185,9 @@ body {
 }
 .radial-glow {
   background: radial-gradient(ellipse at center, var(--glow-subtle) 0%, transparent 70%);
+}
+.radial-glow-strong {
+  background: radial-gradient(ellipse at center, var(--glow-strong) 0%, transparent 65%);
 }
 
 /* ====================================================
