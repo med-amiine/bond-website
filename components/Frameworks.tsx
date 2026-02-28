@@ -17,7 +17,7 @@ export default function Frameworks() {
   return (
     <section id="frameworks" className="relative py-32 overflow-hidden bg-[#050505]">
       {/* Top border for curtain separation */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#22D3EE]/10 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#ccff00]/10 to-transparent" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">

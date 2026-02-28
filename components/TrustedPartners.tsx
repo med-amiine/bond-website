@@ -34,8 +34,8 @@ export default function TrustedPartners() {
               {partners.map((p, i) => (
                 <div key={i} className="partner-logo group">
                   <div className="text-center">
-                    <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a1a1a] flex items-center justify-center mb-2 group-hover:bg-[#22D3EE]/10 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] group-hover:ring-1 group-hover:ring-[#22D3EE]/30 transition-all duration-300">
-                      <span className="text-lg font-bold text-[#71717a] group-hover:text-[#22D3EE] transition-colors duration-300">{p.abbr}</span>
+                    <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a1a1a] flex items-center justify-center mb-2 group-hover:bg-[#ccff00]/10 group-hover:shadow-[0_0_20px_rgba(204,255,0,0.4)] group-hover:ring-1 group-hover:ring-[#ccff00]/30 transition-all duration-300">
+                      <span className="text-lg font-bold text-[#71717a] group-hover:text-[#ccff00] transition-colors duration-300">{p.abbr}</span>
                     </div>
                     <span className="text-xs text-[#71717a] group-hover:text-[#a1a1aa] transition-colors duration-300">{p.name}</span>
                   </div>
@@ -61,8 +61,8 @@ export default function TrustedPartners() {
             <div className="space-y-4 mb-8">
               {bullets.map((b, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-[#22D3EE]/20 flex items-center justify-center flex-shrink-0">
-                    <svg className="w-3 h-3 text-[#22D3EE]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="w-5 h-5 rounded-full bg-[#ccff00]/20 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3 text-[#ccff00]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>

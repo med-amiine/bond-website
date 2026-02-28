@@ -31,7 +31,7 @@ export default function Navbar() {
         <div className={`rounded-full px-4 sm:px-6 py-3 transition-all duration-500 flex items-center justify-between ${scrolled ? 'bg-[#111111]/90 backdrop-blur-xl border border-[#27272a]' : 'bg-transparent'}`}>
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 group" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>
-            <div className="w-8 h-8 rounded-lg bg-[#22D3EE] flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+            <div className="w-8 h-8 rounded-lg bg-[#ccff00] flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
               <span className="text-[#050505] font-bold text-sm">S</span>
             </div>
             <span className="font-semibold text-white text-lg tracking-tight hidden sm:block">SnapChain</span>

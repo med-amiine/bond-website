@@ -127,11 +127,11 @@ export default function CustomCursor() {
           isHovering ? 'w-10 h-10' : 'w-4 h-4'
         }`}
         style={{
-          backgroundColor: isHovering ? 'transparent' : '#22D3EE',
+          backgroundColor: isHovering ? 'transparent' : '#ccff00',
           border: isHovering ? '2px solid #050505' : 'none',
           boxShadow: isHovering 
-            ? '0 0 30px rgba(34, 211, 238, 0.6), 0 0 60px rgba(34, 211, 238, 0.3), inset 0 0 20px rgba(34, 211, 238, 0.2)'
-            : '0 0 20px rgba(34, 211, 238, 0.8), 0 0 40px rgba(34, 211, 238, 0.4)',
+            ? '0 0 30px rgba(204, 255, 0, 0.6), 0 0 60px rgba(204, 255, 0, 0.3), inset 0 0 20px rgba(204, 255, 0, 0.2)'
+            : '0 0 20px rgba(204, 255, 0, 0.8), 0 0 40px rgba(204, 255, 0, 0.4)',
           mixBlendMode: isHovering ? 'normal' : 'difference',
           opacity: isHovering ? 1 : 1,
         }}
@@ -144,7 +144,7 @@ export default function CustomCursor() {
         style={{
           width: isHovering ? 50 : 40,
           height: isHovering ? 50 : 40,
-          background: 'radial-gradient(circle, rgba(34, 211, 238, 0.15) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(204, 255, 0, 0.15) 0%, transparent 70%)',
           filter: 'blur(4px)',
           opacity: isHovering ? 0.3 : 0.5,
           transition: 'width 0.3s ease, height 0.3s ease, opacity 0.3s ease',
@@ -158,7 +158,7 @@ export default function CustomCursor() {
         style={{
           width: 100,
           height: 100,
-          background: 'radial-gradient(circle, rgba(34, 211, 238, 0.1) 0%, transparent 60%)',
+          background: 'radial-gradient(circle, rgba(204, 255, 0, 0.1) 0%, transparent 60%)',
           filter: 'blur(8px)',
         }}
       />
