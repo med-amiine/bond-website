@@ -88,7 +88,7 @@ export default function Testimonials() {
   const t = testimonials[active]
 
   return (
-    <section ref={sectionRef} className="relative py-32 overflow-hidden" style={{ position: 'relative', zIndex: 1 }}>
+    <section ref={sectionRef} className="relative py-16 overflow-hidden" style={{ position: 'relative', zIndex: 1 }}>
       <div className="absolute inset-0 bg-[var(--bg)]" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#27279E]/15 rounded-full blur-[150px]" />
 

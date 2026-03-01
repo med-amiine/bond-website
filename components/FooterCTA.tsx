@@ -37,7 +37,7 @@ export default function FooterCTA() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative py-32 overflow-hidden" style={{ position: 'relative', zIndex: 1 }}>
+    <section ref={sectionRef} className="relative py-16 overflow-hidden" style={{ position: 'relative', zIndex: 1 }}>
       <div className="absolute inset-0 bg-[var(--bg)]" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#27279E]/20 rounded-full blur-[150px]" />
 
@@ -48,7 +48,7 @@ export default function FooterCTA() {
           <div className="absolute inset-0 border border-[var(--border)] rounded-3xl" />
           <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#27279E]/30 rounded-full blur-[100px]" />
 
-          <div className="relative z-10 px-8 py-16 sm:px-16 sm:py-20 text-center">
+          <div className="relative z-10 px-8 py-12 sm:px-16 sm:py-16 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#27279E]/10 border border-[#27279E]/20 mb-8">
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#27279E" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />

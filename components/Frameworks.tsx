@@ -15,7 +15,7 @@ const frameworks = [
 
 export default function Frameworks() {
   return (
-    <section id="frameworks" className="relative py-32 overflow-hidden bg-[var(--bg)]">
+    <section id="frameworks" className="relative py-16 overflow-hidden bg-[var(--bg)]">
       {/* Top border for curtain separation */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#27279E]/10 to-transparent" />
 

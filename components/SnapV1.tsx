@@ -121,7 +121,7 @@ export default function SnapV1() {
       id="features"
       className="relative bg-[var(--bg)]"
     >
-      <div className="min-h-screen flex items-center px-6 lg:px-24 max-w-[1400px] mx-auto py-20">
+      <div className="min-h-[80vh] flex items-center px-6 lg:px-24 max-w-[1400px] mx-auto py-12">
         {/* Left Column - Static Content */}
         <div ref={titleRef} className="w-full lg:w-1/2 pr-0 lg:pr-16 z-10">
           {/* Badge */}
