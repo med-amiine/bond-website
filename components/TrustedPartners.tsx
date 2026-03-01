@@ -1,3 +1,11 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
 const partners = [
   { name: 'a16z', abbr: 'a16z' },
   { name: 'Coinbase Ventures', abbr: 'CB' },
@@ -20,12 +28,39 @@ const bullets = [
 ]
 
 export default function TrustedPartners() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const section = sectionRef.current
+    const content = contentRef.current
+
+    if (!section || !content) return
+
+    const ctx = gsap.context(() => {
+      // Slide in from right with quick fade
+      gsap.from(content, {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+        opacity: 0,
+        x: 100,
+        duration: 0.6,
+        ease: 'power2.out',
+      })
+    }, section)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section className="relative py-16 overflow-hidden">
+    <section ref={sectionRef} className="relative py-16 overflow-hidden">
       <div className="absolute inset-0 bg-[var(--bg)]" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#27272a] to-transparent" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div ref={contentRef} className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Partner logos grid with fade mask */}
           <div className="relative overflow-visible">
