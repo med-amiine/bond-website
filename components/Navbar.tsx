@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import ThemeToggle from './ThemeToggle'
 
@@ -23,23 +23,28 @@ const resources = [
   { href: "/governance", label: "Governance" },
 ]
 
-function scrollToSection(href: string) {
-  const el = document.querySelector(href)
-  if (el) el.scrollIntoView({ behavior: 'smooth' })
-}
-
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [isProductsOpen, setIsProductsOpen] = useState(false)
-  const [isResourcesOpen, setIsResourcesOpen] = useState(false)
-  const [isAgenticAlphaOpen, setIsAgenticAlphaOpen] = useState(false)
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const dropdownTimeout = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  const handleDropdownEnter = (name: string) => {
+    if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current)
+    setOpenDropdown(name)
+  }
+
+  const handleDropdownLeave = () => {
+    dropdownTimeout.current = setTimeout(() => {
+      setOpenDropdown(null)
+    }, 150)
+  }
 
   return (
     <>
@@ -59,13 +64,13 @@ export default function Navbar() {
             {/* Products Dropdown */}
             <div
               className="relative"
-              onMouseEnter={() => setIsProductsOpen(true)}
-              onMouseLeave={() => setIsProductsOpen(false)}
+              onMouseEnter={() => handleDropdownEnter('products')}
+              onMouseLeave={handleDropdownLeave}
             >
               <button className="flex items-center gap-0.5 px-4 py-2 text-sm text-[var(--text-sub)] hover:text-[var(--text)] rounded-lg transition-all hover:bg-[var(--bg-card-2)]">
                 Products
                 <svg
-                  className={`w-4 h-4 transition-transform duration-200 ${isProductsOpen ? 'rotate-180' : ''}`}
+                  className={`w-4 h-4 transition-transform duration-200 ${openDropdown === 'products' ? 'rotate-180' : ''}`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -74,8 +79,12 @@ export default function Navbar() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              {isProductsOpen && (
-                <div className="absolute top-full left-0 mt-2 w-64 rounded-2xl overflow-hidden shadow-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              {openDropdown === 'products' && (
+                <div 
+                  className="absolute top-full left-0 mt-2 w-64 rounded-2xl overflow-hidden shadow-xl border border-[var(--border)] bg-[var(--bg-card)]"
+                  onMouseEnter={() => handleDropdownEnter('products')}
+                  onMouseLeave={handleDropdownLeave}
+                >
                   <div className="p-2 flex flex-col gap-1">
                     {products.map((product, i) => (
                       <Link
@@ -106,13 +115,13 @@ export default function Navbar() {
             {/* Agentic Alpha Dropdown */}
             <div
               className="relative"
-              onMouseEnter={() => setIsAgenticAlphaOpen(true)}
-              onMouseLeave={() => setIsAgenticAlphaOpen(false)}
+              onMouseEnter={() => handleDropdownEnter('agentic')}
+              onMouseLeave={handleDropdownLeave}
             >
               <button className="flex items-center gap-0.5 px-4 py-2 text-sm text-[var(--text-sub)] hover:text-[var(--text)] rounded-lg transition-all hover:bg-[var(--bg-card-2)]">
                 Agentic Alpha
                 <svg
-                  className={`w-4 h-4 transition-transform duration-200 ${isAgenticAlphaOpen ? 'rotate-180' : ''}`}
+                  className={`w-4 h-4 transition-transform duration-200 ${openDropdown === 'agentic' ? 'rotate-180' : ''}`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -121,8 +130,12 @@ export default function Navbar() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              {isAgenticAlphaOpen && (
-                <div className="absolute top-full left-0 mt-2 w-64 rounded-2xl overflow-hidden shadow-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              {openDropdown === 'agentic' && (
+                <div 
+                  className="absolute top-full left-0 mt-2 w-64 rounded-2xl overflow-hidden shadow-xl border border-[var(--border)] bg-[var(--bg-card)]"
+                  onMouseEnter={() => handleDropdownEnter('agentic')}
+                  onMouseLeave={handleDropdownLeave}
+                >
                   <div className="p-2 flex flex-col gap-1">
                     {agenticAlphaItems.map((item, i) => (
                       <Link
@@ -169,13 +182,13 @@ export default function Navbar() {
             {/* Resources Dropdown */}
             <div
               className="relative"
-              onMouseEnter={() => setIsResourcesOpen(true)}
-              onMouseLeave={() => setIsResourcesOpen(false)}
+              onMouseEnter={() => handleDropdownEnter('resources')}
+              onMouseLeave={handleDropdownLeave}
             >
               <button className="flex items-center gap-0.5 px-4 py-2 text-sm text-[var(--text-sub)] hover:text-[var(--text)] rounded-lg transition-all hover:bg-[var(--bg-card-2)]">
                 Resources
                 <svg
-                  className={`w-4 h-4 transition-transform duration-200 ${isResourcesOpen ? 'rotate-180' : ''}`}
+                  className={`w-4 h-4 transition-transform duration-200 ${openDropdown === 'resources' ? 'rotate-180' : ''}`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -184,8 +197,12 @@ export default function Navbar() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              {isResourcesOpen && (
-                <div className="absolute top-full left-0 mt-2 w-52 bg-[var(--bg-card)] rounded-2xl shadow-xl border border-[var(--border)] overflow-hidden">
+              {openDropdown === 'resources' && (
+                <div 
+                  className="absolute top-full left-0 mt-2 w-52 bg-[var(--bg-card)] rounded-2xl shadow-xl border border-[var(--border)] overflow-hidden"
+                  onMouseEnter={() => handleDropdownEnter('resources')}
+                  onMouseLeave={handleDropdownLeave}
+                >
                   {resources.map((item, i) =>
                     item.external ? (
                       <a
@@ -197,7 +214,7 @@ export default function Navbar() {
                       >
                         {item.label}
                         <svg className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
                       </a>
                     ) : (
