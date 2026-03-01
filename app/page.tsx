@@ -10,7 +10,7 @@ import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
-    <main className="bg-[#050505]">
+    <main className="bg-[var(--bg)]">
       <Navbar />
 
       {/* Hero - scrolls normally */}

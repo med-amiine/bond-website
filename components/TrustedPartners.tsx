@@ -34,7 +34,7 @@ export default function TrustedPartners() {
               {partners.map((p, i) => (
                 <div key={i} className="partner-logo group">
                   <div className="text-center">
-                    <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a1a1a] flex items-center justify-center mb-2 group-hover:bg-[#27279E]/10 group-hover:shadow-[0_0_20px_rgba(132,204,134,0.4)] group-hover:ring-1 group-hover:ring-[#27279E]/30 transition-all duration-300">
+                    <div className="w-12 h-12 mx-auto rounded-xl bg-[var(--bg-card-2)] flex items-center justify-center mb-2 group-hover:bg-[#27279E]/10 group-hover:shadow-[0_0_20px_rgba(39,39,158,0.4)] group-hover:ring-1 group-hover:ring-[#27279E]/30 transition-all duration-300">
                       <span className="text-lg font-bold text-[var(--text-muted)] group-hover:text-[#27279E] transition-colors duration-300">{p.abbr}</span>
                     </div>
                     <span className="text-xs text-[var(--text-muted)] group-hover:text-[var(--text-sub)] transition-colors duration-300">{p.name}</span>
