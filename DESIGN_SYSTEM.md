@@ -78,6 +78,17 @@ body {
   color: var(--text);
   -webkit-font-smoothing: antialiased;
 }
+
+/* NOISE TEXTURE OVERLAY (Premium Effect) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.35;
+}
 ```
 
 ### Step 2: Copy Component Classes (REQUIRED)
@@ -299,7 +310,7 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
 ```html
 <!-- Stat Grid Container -->
-<div class="grid grid-cols-2 md:grid-cols-4 gap-1 bg-[var(--border)] rounded-lg overflow-hidden border border-[var(--border)]">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-1 bg-[var(--border)] rounded-2xl overflow-hidden border border-[var(--border)]">
   
   <!-- Stat Card with Accent Top Border -->
   <div class="bg-[var(--bg-card)] p-6 hover:bg-[var(--bg-card-2)] transition-colors border-t-2 border-[#27279E]">
@@ -338,7 +349,7 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
 ```html
 <!-- Table Container -->
-<div class="overflow-x-auto border border-[var(--border)] rounded-lg mb-5">
+<div class="overflow-x-auto border border-[var(--border)] rounded-2xl mb-5">
   <table class="w-full min-w-[750px] border-collapse">
     <thead class="bg-[var(--bg-card)]">
       <tr>
@@ -354,7 +365,7 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       </tr>
     </thead>
     <tbody>
-      <tr class="hover:bg-white/[0.02] transition-colors">
+      <tr class="hover:bg-[var(--text)]/[0.02] transition-colors">
         <td class="py-4 px-4 border-b border-[var(--border)]/50">
           <div class="flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-[#27279E]"></span>
@@ -390,7 +401,7 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
 ```html
 <!-- Horizontal Bar Chart -->
-<div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-6">
+<div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6">
   <div class="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-5">
     Yield by Protocol
   </div>
@@ -463,9 +474,9 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
 ```html
 <!-- Method Box - Formula/Technical Info -->
-<div class="bg-[var(--bg-card)] border border-[var(--border)] border-l-2 border-l-[#27279E] rounded-lg p-5 my-6 text-xs text-[var(--text-muted)] leading-relaxed">
+<div class="bg-[var(--bg-card)] border border-[var(--border)] border-l-2 border-l-[#27279E] rounded-2xl p-5 my-6 text-xs text-[var(--text-muted)] leading-relaxed">
   <strong class="text-[#27279E] font-mono text-[10px] uppercase tracking-wider">Formula</strong> — 
-  <code class="font-mono text-[var(--text-sub)] bg-white/5 px-1 py-0.5 rounded text-[11px]">
+  <code class="font-mono text-[var(--text-sub)] bg-[var(--text)]/5 px-1 py-0.5 rounded text-[11px]">
     APY = (1 + Yield / Capital)^(365/Days) − 1
   </code>
   <br>
@@ -473,17 +484,17 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 </div>
 
 <!-- Warning Box -->
-<div class="bg-[#27279E]/5 border border-[#27279E]/20 rounded-lg p-4 my-5 text-xs text-[var(--text-muted)] leading-relaxed">
+<div class="bg-[#27279E]/5 border border-[#27279E]/20 rounded-2xl p-4 my-5 text-xs text-[var(--text-muted)] leading-relaxed">
   <strong class="text-[#27279E]">Note:</strong> All figures are based on on-chain data. Past performance does not guarantee future results.
 </div>
 
 <!-- Insight Box (Green accent) -->
-<div class="bg-[var(--bg-card)] border border-[var(--border)] border-l-2 border-l-emerald-500 rounded-lg p-4 my-5 text-xs text-[var(--text-muted)] leading-relaxed">
+<div class="bg-[var(--bg-card)] border border-[var(--border)] border-l-2 border-l-emerald-500 rounded-2xl p-4 my-5 text-xs text-[var(--text-muted)] leading-relaxed">
   <strong class="text-emerald-500">Insight:</strong> Native yield represents 63.3% of total returns, indicating strong protocol sustainability.
 </div>
 
 <!-- Risk Box (Amber accent) -->
-<div class="bg-[var(--bg-card)] border border-[var(--border)] border-l-2 border-l-amber-500 rounded-lg p-4 my-5 text-xs text-[var(--text-muted)] leading-relaxed">
+<div class="bg-[var(--bg-card)] border border-[var(--border)] border-l-2 border-l-amber-500 rounded-2xl p-4 my-5 text-xs text-[var(--text-muted)] leading-relaxed">
   <strong class="text-amber-500">Risk Alert:</strong> Incentive yield comprises 36.7% of returns — monitor emission schedules.
 </div>
 ```
@@ -549,7 +560,7 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
 ```html
 <!-- Hero Card -->
-<div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg overflow-hidden">
+<div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl overflow-hidden">
   <!-- Terminal Header -->
   <div class="flex items-center gap-2 px-5 py-4 border-b border-[var(--border)]">
     <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
@@ -589,7 +600,7 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 <!-- Priority Cards Grid -->
 <div class="grid md:grid-cols-3 gap-4">
   
-  <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-7 hover:border-[#27279E]/30 transition-colors">
+  <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 hover:border-[#27279E]/30 transition-colors">
     <div class="font-mono text-4xl font-bold text-[var(--text)]/5 mb-4">01</div>
     <div class="text-sm font-semibold text-[var(--text)] mb-2">Risk Assessment</div>
     <div class="text-xs text-[var(--text-muted)] leading-relaxed">
@@ -597,7 +608,7 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     </div>
   </div>
   
-  <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-7 hover:border-[#27279E]/30 transition-colors">
+  <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 hover:border-[#27279E]/30 transition-colors">
     <div class="font-mono text-4xl font-bold text-[var(--text)]/5 mb-4">02</div>
     <div class="text-sm font-semibold text-[var(--text)] mb-2">Execution Quality</div>
     <div class="text-xs text-[var(--text-muted)] leading-relaxed">
@@ -605,7 +616,7 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     </div>
   </div>
   
-  <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-7 hover:border-[#27279E]/30 transition-colors">
+  <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 hover:border-[#27279E]/30 transition-colors">
     <div class="font-mono text-4xl font-bold text-[var(--text)]/5 mb-4">03</div>
     <div class="text-sm font-semibold text-[var(--text)] mb-2">Yield Optimization</div>
     <div class="text-xs text-[var(--text-muted)] leading-relaxed">
@@ -620,12 +631,12 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
 ```html
 <!-- Brand Strip -->
-<div class="relative bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-5 flex items-center justify-between gap-6 overflow-hidden">
+<div class="relative bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5 flex items-center justify-between gap-6 overflow-hidden">
   <!-- Glow Effect -->
   <div class="absolute -right-10 -top-8 w-32 h-32 bg-[#27279E]/10 rounded-full blur-2xl"></div>
   
   <div class="relative flex items-center gap-4">
-    <div class="w-8 h-8 rounded-lg bg-[#27279E] flex items-center justify-center">
+    <div class="w-8 h-8 rounded-2xl bg-[#27279E] flex items-center justify-center">
       <span class="text-white font-bold text-sm">B</span>
     </div>
     <div class="text-xs text-[var(--text-muted)] leading-relaxed max-w-md">
@@ -1052,10 +1063,10 @@ export default function Navbar() {
           Brand
         </Link>
         <div className="hidden md:flex items-center gap-1">
-          <Link href="#features" className="px-4 py-2 text-sm text-[var(--text-sub)] hover:text-[var(--text)] rounded-lg transition-colors">
+          <Link href="#features" className="px-4 py-2 text-sm text-[var(--text-sub)] hover:text-[var(--text)] rounded-2xl transition-colors">
             Features
           </Link>
-          <Link href="#about" className="px-4 py-2 text-sm text-[var(--text-sub)] hover:text-[var(--text)] rounded-lg transition-colors">
+          <Link href="#about" className="px-4 py-2 text-sm text-[var(--text-sub)] hover:text-[var(--text)] rounded-2xl transition-colors">
             About
           </Link>
         </div>
