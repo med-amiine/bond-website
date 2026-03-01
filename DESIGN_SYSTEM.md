@@ -1,420 +1,596 @@
+---
+title: Bond.Credit Design System
+description: A comprehensive design system for blockchain/DeFi marketing websites with premium dark/light mode theming
+type: design-system
+version: 1.0.0
+target_audience: [developers, designers, ai-agents]
+frameworks: [react, nextjs, tailwindcss, gsap]
+---
+
 # Bond.Credit Design System
 
-A comprehensive design system for blockchain/DeFi marketing websites with premium dark/light mode theming.
+> **Purpose**: Create premium blockchain/DeFi marketing websites with consistent dark/light theming
+> **Tech Stack**: React, Next.js, Tailwind CSS, GSAP
+> **Key Features**: Automatic theme switching, scroll animations, premium UI components
+
+## Table of Contents
+
+1. [Quick Start](#quick-start) - 30 second setup
+2. [Color System](#color-system) - CSS variables for theming
+3. [Typography](#typography) - Font stack and scales
+4. [Components](#components) - Buttons, cards, badges
+5. [Animations](#animations) - GSAP ScrollTrigger patterns
+6. [Layout Patterns](#layout-patterns) - Common section layouts
+7. [Theme System](#theme-system) - Dark/light mode implementation
+8. [Copy-Paste Templates](#copy-paste-templates) - Ready-to-use code
 
 ---
 
-## 1. Color System
+## Quick Start
 
-### CSS Variables (globals.css)
+### Step 1: Copy Base CSS (REQUIRED)
 
 ```css
+/* FILE: globals.css */
+
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* DESIGN TOKENS - Light Mode (Default) */
 :root {
-  /* Primary Accent - Indigo (consistent across modes) */
   --primary: #27279E;
   --primary-light: #3B3BB8;
   --primary-dark: #1E1B4B;
-  
-  /* Light Mode */
-  --bg: #C5CCD4;              /* Warm beige/blue-gray */
-  --bg-card: #F5F7FA;         /* Off-white */
-  --bg-card-2: #E8EBF0;       /* Slightly darker off-white */
-  --text: #1E1B4B;            /* Dark indigo */
-  --text-muted: #6B7280;      /* Gray */
-  --text-sub: #4B5563;        /* Medium gray */
-  --border: #D1D5DB;          /* Light gray */
-  --border-hover: #9CA3AF;    /* Medium gray */
-  
-  /* Glow Effects */
+  --bg: #C5CCD4;
+  --bg-card: #F5F7FA;
+  --bg-card-2: #E8EBF0;
+  --text: #1E1B4B;
+  --text-muted: #6B7280;
+  --text-sub: #4B5563;
+  --border: #D1D5DB;
+  --border-hover: #9CA3AF;
   --glow-primary: rgba(39, 39, 158, 0.4);
   --glow-subtle: rgba(39, 39, 158, 0.15);
   --glow-strong: rgba(39, 39, 158, 0.25);
 }
 
-/* Dark Mode Override */
+/* DESIGN TOKENS - Dark Mode */
 [data-theme="dark"] {
-  --bg: #000000;              /* Pure black */
-  --bg-card: #0a0a0f;         /* Midnight */
-  --bg-card-2: #111118;       /* Dark charcoal */
-  --text: #C5CCD4;            /* Beige */
-  --text-muted: #71717a;      /* Muted gray */
-  --text-sub: #a1a1aa;        /* Light gray */
-  --border: #27272a;          /* Dark border */
-  --border-hover: #3f3f46;    /* Lighter dark border */
-  
-  /* Stronger glows in dark */
+  --bg: #000000;
+  --bg-card: #0a0a0f;
+  --bg-card-2: #111118;
+  --text: #C5CCD4;
+  --text-muted: #71717a;
+  --text-sub: #a1a1aa;
+  --border: #27272a;
+  --border-hover: #3f3f46;
   --glow-primary: rgba(59, 59, 220, 0.6);
   --glow-subtle: rgba(59, 59, 220, 0.25);
   --glow-strong: rgba(59, 59, 220, 0.4);
 }
-```
 
-### Color Usage Rules
+/* BASE STYLES */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-| Element | Variable | Notes |
-|---------|----------|-------|
-| Page Background | `--bg` | Full bleed |
-| Cards/Surfaces | `--bg-card` | Elevated surfaces |
-| Secondary surfaces | `--bg-card-2` | Icons, inner elements |
-| Primary text | `--text` | Headlines, body |
-| Secondary text | `--text-sub` | Descriptions |
-| Muted text | `--text-muted` | Captions, labels |
-| Borders | `--border` | Default borders |
-| Hover borders | `--border-hover` | Interactive states |
-| Primary accent | `#27279E` | CTAs, highlights, links |
-
----
-
-## 2. Typography
-
-### Font Stack
-```css
-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-```
-
-### Type Scale
-
-| Level | Size | Weight | Usage |
-|-------|------|--------|-------|
-| Hero H1 | 5xl-8xl (48-96px) | 700 (bold) | Hero headlines |
-| Section H2 | 4xl-5xl (36-48px) | 700 | Section titles |
-| H3 | xl-2xl (20-24px) | 600 | Card titles |
-| Body Large | lg (18px) | 400 | Hero descriptions |
-| Body | base (16px) | 400 | Default text |
-| Small | sm (14px) | 400 | Labels, metadata |
-| XSmall | xs (12px) | 400-500 | Tags, badges |
-
-### Typography Patterns
-
-```css
-/* Hero Headline */
-.text-hero {
-  @apply text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.1];
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
   color: var(--text);
-}
-
-/* Section Headline */
-.text-section {
-  @apply text-4xl sm:text-5xl font-bold tracking-tight;
-  color: var(--text);
-}
-
-/* Gradient Text (for highlights) */
-.text-gradient {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Body Text */
-.text-body {
-  @apply text-lg leading-relaxed;
-  color: var(--text-sub);
+  -webkit-font-smoothing: antialiased;
 }
 ```
 
----
-
-## 3. Spacing System
-
-### Section Spacing
-```css
-/* Compact sections (reduced from py-32) */
-.section-compact {
-  @apply py-16;
-}
-
-/* Medium padding */
-.section-medium {
-  @apply py-20;
-}
-
-/* Component internal spacing */
-.card-padding {
-  @apply p-6;
-}
-
-/* Grid gaps */
-.grid-gap {
-  @apply gap-6;
-}
-```
-
-### Container
-```css
-.container-main {
-  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-}
-```
-
----
-
-## 4. Components
-
-### Buttons
+### Step 2: Copy Component Classes (REQUIRED)
 
 ```css
-/* Primary Button */
+/* FILE: components.css */
+
+/* BUTTON: Primary CTA */
 .btn-primary {
-  @apply inline-flex items-center gap-2 bg-[#27279E] text-white font-semibold text-sm px-7 py-3.5 rounded-full transition-all;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #27279E;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 14px 28px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  text-decoration: none;
 }
 .btn-primary:hover {
   transform: scale(1.05);
   box-shadow: 0 0 30px var(--glow-primary);
 }
 
-/* Secondary Button */
+/* BUTTON: Secondary */
 .btn-secondary {
-  @apply inline-flex items-center gap-2 bg-transparent font-medium text-sm px-7 py-3.5 rounded-full border transition-all;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
   color: var(--text);
-  border-color: var(--border);
+  font-weight: 500;
+  font-size: 14px;
+  padding: 14px 28px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 .btn-secondary:hover {
   background: var(--bg-card-2);
   border-color: var(--border-hover);
 }
-```
 
-### Cards
-
-```css
-/* Standard Card */
+/* CARD: Standard */
 .card {
-  @apply rounded-2xl p-6 border transition-all;
   background: var(--bg-card);
-  border-color: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .card:hover {
   border-color: var(--primary);
   transform: translateY(-4px);
 }
 
-/* Feature Card with Icon */
-.feature-card {
-  @apply rounded-2xl p-6 border transition-all group;
-  background: var(--bg-card);
-  border-color: var(--border);
-}
-.feature-card:hover {
-  border-color: rgba(39, 39, 158, 0.3);
-  box-shadow: 0 4px 20px rgba(39, 39, 158, 0.1);
+/* TEXT: Gradient */
+.text-gradient {
+  background: linear-gradient(135deg, #27279E 0%, #3B3BB8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Icon container */
-.icon-box {
-  @apply w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-colors;
-  background: rgba(39, 39, 158, 0.1);
-}
-.group:hover .icon-box {
-  background: rgba(39, 39, 158, 0.2);
-}
-```
-
-### Badges/Tags
-
-```css
-/* Primary Badge */
-.badge {
-  @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium;
-  background: rgba(39, 39, 158, 0.1);
-  color: var(--primary);
-}
-
-/* Live Indicator */
-.badge-live {
-  @apply inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium;
-  background: rgba(16, 185, 129, 0.15);
-  color: #059669;
-}
-.badge-live::before {
-  content: '';
-  @apply w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse;
-}
-```
-
----
-
-## 5. Background Effects
-
-### Grid Pattern
-```css
+/* BACKGROUND: Grid Pattern */
 .grid-pattern {
   background-image:
     linear-gradient(rgba(39, 39, 158, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(39, 39, 158, 0.03) 1px, transparent 1px);
   background-size: 60px 60px;
 }
-```
 
-### Radial Glow
-```css
-/* Subtle glow */
+/* BACKGROUND: Radial Glow */
 .radial-glow {
   background: radial-gradient(ellipse at center, var(--glow-subtle) 0%, transparent 70%);
-}
-
-/* Strong glow for hero */
-.radial-glow-strong {
-  background: radial-gradient(ellipse at center, var(--glow-strong) 0%, transparent 65%);
-}
-```
-
-### Gradient Overlays
-```css
-/* Fade masks for grids */
-.fade-mask-top {
-  background: linear-gradient(to bottom, var(--bg), transparent);
-}
-.fade-mask-bottom {
-  background: linear-gradient(to top, var(--bg), transparent);
 }
 ```
 
 ---
 
-## 6. Animations
+## Color System
 
-### GSAP ScrollTrigger Patterns
+### Semantic Color Variables
+
+| Token | Light Mode | Dark Mode | Usage |
+|-------|------------|-----------|-------|
+| `--bg` | #C5CCD4 | #000000 | Page background |
+| `--bg-card` | #F5F7FA | #0a0a0f | Card backgrounds |
+| `--bg-card-2` | #E8EBF0 | #111118 | Secondary surfaces |
+| `--text` | #1E1B4B | #C5CCD4 | Primary text |
+| `--text-sub` | #4B5563 | #a1a1aa | Secondary text |
+| `--text-muted` | #6B7280 | #71717a | Muted/caption text |
+| `--border` | #D1D5DB | #27272a | Default borders |
+| `--primary` | #27279E | #27279E | Brand accent (indigo) |
+
+### CSS Variable Usage Rules
+
+```css
+/* ✅ CORRECT - Use CSS variables */
+.element {
+  background: var(--bg-card);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+/* ❌ INCORRECT - Hardcoded colors */
+.element {
+  background: #ffffff;
+  color: #000000;
+}
+```
+
+---
+
+## Typography
+
+### Font Stack
+```css
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+```
+
+### Type Scale (Tailwind Classes)
+
+| Level | Class | Size | Weight | Usage |
+|-------|-------|------|--------|-------|
+| Hero | `text-5xl md:text-7xl` | 48-72px | 700 | Main headlines |
+| Section | `text-4xl md:text-5xl` | 36-48px | 700 | Section titles |
+| Card Title | `text-xl` | 20px | 600 | Card headings |
+| Body Large | `text-lg` | 18px | 400 | Hero descriptions |
+| Body | `text-base` | 16px | 400 | Default text |
+| Small | `text-sm` | 14px | 400 | Labels, metadata |
+| XSmall | `text-xs` | 12px | 500 | Tags, badges |
+
+### Typography Patterns
+
+```html
+<!-- Hero Headline -->
+<h1 class="text-5xl md:text-7xl font-bold text-[var(--text)] tracking-tight leading-[1.1]">
+  Build on <span class="text-gradient">Blockchain</span>
+</h1>
+
+<!-- Section Title -->
+<h2 class="text-4xl md:text-5xl font-bold text-[var(--text)]">
+  Our <span class="text-gradient">Features</span>
+</h2>
+
+<!-- Body Text -->
+<p class="text-lg text-[var(--text-sub)] leading-relaxed">
+  Description text goes here
+</p>
+```
+
+---
+
+## Components
+
+### Button Variants
+
+```html
+<!-- Primary Button -->
+<button class="btn-primary">
+  Get Started
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+  </svg>
+</button>
+
+<!-- Secondary Button -->
+<button class="btn-secondary">Learn More</button>
+```
+
+### Card Variants
+
+```html
+<!-- Standard Card -->
+<div class="card">
+  <h3 class="text-xl font-semibold text-[var(--text)]">Title</h3>
+  <p class="text-sm text-[var(--text-muted)] mt-2">Description</p>
+</div>
+
+<!-- Feature Card with Icon -->
+<div class="card group">
+  <div class="w-12 h-12 rounded-xl bg-[#27279E]/10 flex items-center justify-center mb-4 group-hover:bg-[#27279E]/20 transition-colors">
+    <span class="text-[#27279E] font-bold">1</span>
+  </div>
+  <h3 class="text-base font-semibold text-[var(--text)]">Feature Title</h3>
+  <p class="text-sm text-[var(--text-muted)] mt-2">Feature description</p>
+</div>
+```
+
+### Badge Variants
+
+```html
+<!-- Primary Badge -->
+<span class="inline-flex items-center gap-2 px-3 py-1 bg-[#27279E]/10 rounded-full text-xs font-medium text-[#27279E]">
+  <span class="w-1.5 h-1.5 rounded-full bg-[#27279E] animate-pulse"></span>
+  Live
+</span>
+
+<!-- Live Indicator -->
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-500/15 text-[10px] font-medium text-emerald-600">
+  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+  Live
+</span>
+```
+
+---
+
+## Animations
+
+### GSAP ScrollTrigger Setup
 
 ```typescript
-// Standard fade up
-const ctx = gsap.context(() => {
-  gsap.from(elementRef.current, {
-    scrollTrigger: {
-      trigger: sectionRef.current,
-      start: 'top 80%',
-      toggleActions: 'play none none reverse',
-    },
-    opacity: 0,
-    y: 40,
-    duration: 0.6,
-    ease: 'power2.out',
-  })
-}, sectionRef)
+// FILE: animations.ts or component file
 
-// Slide from right (fast)
-gsap.from(elementRef.current, {
-  scrollTrigger: {
-    trigger: sectionRef.current,
-    start: 'top 80%',
-    toggleActions: 'play none none reverse',
-  },
-  opacity: 0,
-  x: 100,
-  duration: 0.6,
-  ease: 'power2.out',
-})
+'use client'
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-// Staggered children
-gsap.from('.child-elements', {
-  scrollTrigger: {
-    trigger: sectionRef.current,
-    start: 'top 80%',
-  },
-  opacity: 0,
-  y: 30,
-  duration: 0.5,
-  stagger: 0.1,
-  ease: 'power2.out',
-})
+gsap.registerPlugin(ScrollTrigger)
 
-// Always cleanup
-return () => ctx.revert()
+// ANIMATION: Fade Up
+export function useFadeUp() {
+  const ref = useRef<HTMLElement>(null)
+  
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    
+    const ctx = gsap.context(() => {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+        opacity: 0,
+        y: 40,
+        duration: 0.6,
+        ease: 'power2.out',
+      })
+    }, el)
+    
+    return () => ctx.revert()
+  }, [])
+  
+  return ref
+}
+
+// ANIMATION: Slide From Right
+export function useSlideFromRight() {
+  const ref = useRef<HTMLElement>(null)
+  
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    
+    const ctx = gsap.context(() => {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+        opacity: 0,
+        x: 100,
+        duration: 0.6,
+        ease: 'power2.out',
+      })
+    }, el)
+    
+    return () => ctx.revert()
+  }, [])
+  
+  return ref
+}
+
+// ANIMATION: Staggered Children
+export function useStagger() {
+  const containerRef = useRef<HTMLElement>(null)
+  
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+    
+    const children = container.querySelectorAll('.stagger-child')
+    
+    const ctx = gsap.context(() => {
+      gsap.from(children, {
+        scrollTrigger: {
+          trigger: container,
+          start: 'top 80%',
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: 'power2.out',
+      })
+    }, container)
+    
+    return () => ctx.revert()
+  }, [])
+  
+  return containerRef
+}
 ```
 
 ### Hover Transitions
+
 ```css
-/* Standard hover */
+/* Lift on hover */
 .hover-lift {
-  @apply transition-all duration-300;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .hover-lift:hover {
   transform: translateY(-4px);
 }
 
+/* Scale on hover */
+.hover-scale {
+  transition: transform 0.25s ease;
+}
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
 /* Border color transition */
 .hover-border {
-  @apply transition-colors duration-300;
+  transition: border-color 0.3s ease;
 }
 .hover-border:hover {
   border-color: var(--primary);
 }
-
-/* Group hover (for parent-child effects) */
-.group:hover .group-hover-scale {
-  transform: scale(1.1);
-}
-```
-
-### Page Load Animation
-```typescript
-// Navbar slide down
-initial={{ y: -100 }}
-animate={{ y: 0 }}
-transition={{ duration: 0.5, delay: 0.2 }}
 ```
 
 ---
 
-## 7. Layout Patterns
+## Layout Patterns
 
-### Hero Section
-```
-Structure:
-- Full viewport height (min-h-screen or min-h-[80vh])
-- Centered content with max-width container
-- Background: Grid pattern + radial glow
-- Floating gradient orbs (optional)
+### Hero Section Template
+
+```tsx
+// FILE: Hero.tsx
+
+'use client'
+
+export default function Hero() {
+  return (
+    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-20">
+      {/* Background */}
+      <div className="absolute inset-0 bg-[var(--bg)]">
+        <div className="absolute inset-0 grid-pattern opacity-50" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] radial-glow opacity-50" />
+      </div>
+      
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[var(--text)] tracking-tight leading-[1.1] mb-6">
+          Build on <span class="text-gradient">Blockchain</span>
+        </h1>
+        <p className="text-lg sm:text-xl text-[var(--text-sub)] max-w-2xl mx-auto mb-10 leading-relaxed">
+          Your hero description goes here
+        </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button className="btn-primary">Get Started</button>
+          <button className="btn-secondary">Learn More</button>
+        </div>
+      </div>
+    </section>
+  )
+}
 ```
 
-### Two-Column Layout
-```
-Structure:
-- Grid: lg:grid-cols-2
-- Gap: gap-12 lg:gap-20
-- Left: Visual (grid, image, code block)
-- Right: Text content (headline, description, CTAs)
+### Two-Column Section Template
+
+```tsx
+// FILE: FeatureSection.tsx
+
+<section className="relative py-16">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      {/* Left: Visual */}
+      <div>
+        {/* Grid, image, or code block */}
+      </div>
+      
+      {/* Right: Content */}
+      <div>
+        <h2 className="text-4xl sm:text-5xl font-bold text-[var(--text)] mb-6">
+          Section <span className="text-gradient">Title</span>
+        </h2>
+        <p className="text-lg text-[var(--text-sub)] mb-8 leading-relaxed">
+          Description text
+        </p>
+        <button className="btn-primary">CTA Button</button>
+      </div>
+    </div>
+  </div>
+</section>
 ```
 
-### Feature Grid
-```
-Structure:
-- Grid: md:grid-cols-2 lg:grid-cols-3
-- Gap: gap-6
-- Cards with icon, title, description
-```
+### Feature Grid Template
 
-### Floating Pill Navbar
-```
-Structure:
-- Fixed position, top-4
-- Centered with max-width
-- Rounded-full corners
-- Glassmorphism when scrolled
+```tsx
+// FILE: Features.tsx
+
+<section className="relative py-16">
+  <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <span className="text-xs font-medium text-[#27279E] uppercase tracking-wider mb-4 block">
+        Features
+      </span>
+      <h2 className="text-2xl md:text-3xl font-bold text-[var(--text)]">
+        What We Offer
+      </h2>
+    </div>
+    
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {features.map((feature, i) => (
+        <div key={i} className="card group">
+          <div className="w-12 h-12 rounded-xl bg-[#27279E]/10 flex items-center justify-center mb-4 group-hover:bg-[#27279E]/20 transition-colors">
+            <span className="text-[#27279E] font-bold">{i + 1}</span>
+          </div>
+          <h3 className="text-base font-semibold text-[var(--text)] mb-2">
+            {feature.title}
+          </h3>
+          <p className="text-sm text-[var(--text-muted)]">
+            {feature.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 ```
 
 ---
 
-## 8. Theme Toggle Implementation
+## Theme System
 
-### CSS Setup
-```css
-/* Default (light) */
-:root {
-  --bg: #C5CCD4;
-  /* ... other vars */
-}
+### Theme Toggle Implementation
 
-/* Dark mode */
-[data-theme="dark"] {
-  --bg: #000000;
-  /* ... other vars */
+```tsx
+// FILE: ThemeToggle.tsx
+
+'use client'
+
+import { useState, useEffect } from 'react'
+
+export default function ThemeToggle() {
+  const [isDark, setIsDark] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    const saved = localStorage.getItem('theme')
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const initialDark = saved === 'dark' || (!saved && prefersDark)
+    setIsDark(initialDark)
+    document.documentElement.setAttribute('data-theme', initialDark ? 'dark' : 'light')
+  }, [])
+
+  const toggle = () => {
+    const newDark = !isDark
+    setIsDark(newDark)
+    document.documentElement.setAttribute('data-theme', newDark ? 'dark' : 'light')
+    localStorage.setItem('theme', newDark ? 'dark' : 'light')
+  }
+
+  if (!mounted) return <div className="w-10 h-10" />
+
+  return (
+    <button
+      onClick={toggle}
+      className="w-10 h-10 rounded-xl bg-[var(--bg-card)] border border-[var(--border)] flex items-center justify-center text-[var(--text)] hover:border-[#27279E] transition-colors"
+      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+    >
+      {isDark ? (
+        // Sun icon
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <circle cx="12" cy="12" r="5" />
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+      ) : (
+        // Moon icon
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      )}
+    </button>
+  )
 }
 ```
 
-### Theme Script (prevent flash)
-```typescript
+### Theme Script (Prevent Flash)
+
+```tsx
+// FILE: layout.tsx
+
 const themeScript = `
   (function() {
     const savedTheme = localStorage.getItem('theme')
@@ -423,161 +599,160 @@ const themeScript = `
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light')
   })()
 `
-```
 
-### Toggle Component Logic
-```typescript
-const [isDark, setIsDark] = useState(false)
-
-useEffect(() => {
-  const saved = localStorage.getItem('theme')
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-  setIsDark(saved === 'dark' || (!saved && prefersDark))
-}, [])
-
-const toggle = () => {
-  const newDark = !isDark
-  setIsDark(newDark)
-  document.documentElement.setAttribute('data-theme', newDark ? 'dark' : 'light')
-  localStorage.setItem('theme', newDark ? 'dark' : 'light')
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body>{children}</body>
+    </html>
+  )
 }
 ```
 
 ---
 
-## 9. Responsive Breakpoints
+## Copy-Paste Templates
 
-| Breakpoint | Width | Usage |
-|------------|-------|-------|
-| `sm` | 640px | Mobile landscape |
-| `md` | 768px | Tablet |
-| `lg` | 1024px | Desktop |
-| `xl` | 1280px | Large desktop |
+### Complete Page Template
 
-### Responsive Patterns
-```css
-/* Text scaling */
-.text-responsive {
-  @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl;
-}
+```tsx
+// FILE: app/page.tsx
 
-/* Grid collapsing */
-.grid-responsive {
-  @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
-}
+import Navbar from '@/components/Navbar'
+import Hero from '@/components/Hero'
+import Features from '@/components/Features'
+import Footer from '@/components/Footer'
 
-/* Container padding */
-.container-responsive {
-  @apply px-4 sm:px-6 lg:px-8;
+export default function Home() {
+  return (
+    <main className="bg-[var(--bg)]">
+      <Navbar />
+      <Hero />
+      <Features />
+      <Footer />
+    </main>
+  )
 }
 ```
 
----
+### Navbar Template
 
-## 10. Quick Start Template
+```tsx
+// FILE: components/Navbar.tsx
 
-### HTML Structure
-```html
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
-<head>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #27279E;
-      --primary-light: #3B3BB8;
-      --bg: #C5CCD4;
-      --bg-card: #F5F7FA;
-      --bg-card-2: #E8EBF0;
-      --text: #1E1B4B;
-      --text-muted: #6B7280;
-      --text-sub: #4B5563;
-      --border: #D1D5DB;
-      --border-hover: #9CA3AF;
-      --glow-primary: rgba(39, 39, 158, 0.4);
-    }
-    
-    [data-theme="dark"] {
-      --bg: #000000;
-      --bg-card: #0a0a0f;
-      --bg-card-2: #111118;
-      --text: #C5CCD4;
-      --text-muted: #71717a;
-      --text-sub: #a1a1aa;
-      --border: #27272a;
-      --border-hover: #3f3f46;
-      --glow-primary: rgba(59, 59, 220, 0.6);
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-  </style>
-</head>
-<body>
-  <!-- Your content here -->
-</body>
-</html>
+'use client'
+
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  return (
+    <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl">
+      <div className={`rounded-full px-4 sm:px-6 py-3 flex items-center justify-between transition-all duration-500 ${scrolled ? 'bg-[var(--bg-card)]/90 backdrop-blur-xl border border-[var(--border)]' : 'bg-transparent'}`}>
+        <Link href="/" className="font-semibold text-[var(--text)] text-lg">
+          Brand
+        </Link>
+        <div className="hidden md:flex items-center gap-1">
+          <Link href="#features" className="px-4 py-2 text-sm text-[var(--text-sub)] hover:text-[var(--text)] rounded-lg transition-colors">
+            Features
+          </Link>
+          <Link href="#about" className="px-4 py-2 text-sm text-[var(--text-sub)] hover:text-[var(--text)] rounded-lg transition-colors">
+            About
+          </Link>
+        </div>
+        <button className="btn-primary text-sm py-2 px-4">
+          Get Started
+        </button>
+      </div>
+    </div>
+  )
+}
+```
+
+### Stats Section Template
+
+```tsx
+// FILE: components/Stats.tsx
+
+<section className="py-16">
+  <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-[var(--bg-card)] rounded-3xl p-8 md:p-12 border border-[var(--border)]">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        {[
+          { value: '99.7%', label: 'Accuracy' },
+          { value: '<1s', label: 'Speed' },
+          { value: '2M+', label: 'Users' },
+          { value: '$500M', label: 'Volume' },
+        ].map((stat, i) => (
+          <div key={i}>
+            <div className="text-3xl md:text-4xl font-bold text-[#27279E] mb-2">{stat.value}</div>
+            <div className="text-sm text-[var(--text-muted)]">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+### CTA Section Template
+
+```tsx
+// FILE: components/CTA.tsx
+
+<section className="py-16">
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-gradient-to-r from-[#27279E] to-[#3B3BB8] rounded-3xl p-10 text-center">
+      <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+        Ready to get started?
+      </h2>
+      <p className="text-white/80 mb-8 max-w-md mx-auto">
+        Join thousands of users already using our platform.
+      </p>
+      <button className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#27279E] rounded-xl font-semibold hover:shadow-xl transition-all">
+        Get Started
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
 ```
 
 ---
 
-## 11. Design Principles
+## Design Principles Summary
 
-1. **Consistency**: Always use CSS variables, never hardcode colors
-2. **Hierarchy**: Clear distinction between text, subtext, and muted text
-3. **Spacing**: Generous whitespace with consistent rhythm
-4. **Glow Effects**: Subtle indigo glows for premium feel
-5. **Transitions**: Smooth 300ms transitions for all interactive elements
-6. **Depth**: Use cards, shadows, and layering to create depth
-7. **Accessibility**: High contrast ratios, focus states on interactive elements
-
----
-
-## 12. File Structure for New Projects
-
-```
-project/
-├── styles/
-│   ├── globals.css       # CSS variables + base styles
-│   ├── components.css    # Button, card, badge styles
-│   └── animations.css    # Keyframes + GSAP utilities
-├── components/
-│   ├── Navbar.tsx
-│   ├── ThemeToggle.tsx
-│   └── ...
-├── hooks/
-│   └── useTheme.ts
-└── lib/
-    └── utils.ts
-```
+1. **Always use CSS variables** - Never hardcode colors
+2. **Consistent spacing** - Use py-16 for sections, gap-6 for grids
+3. **Primary accent is #27279E** (indigo) - Use for CTAs, highlights, links
+4. **Smooth transitions** - 300ms for hovers, 0.6s for scroll animations
+5. **Generous whitespace** - Let content breathe
+6. **Clear hierarchy** - Hero → Section title → Card title → Body
+7. **Accessible contrast** - Ensure text is readable on all backgrounds
 
 ---
 
-## 13. Installation for Existing Projects
+## Installation Checklist
 
-### Step 1: Add CSS Variables
-Copy the `:root` and `[data-theme="dark"]` blocks to your global CSS.
-
-### Step 2: Add Font
-```html
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-```
-
-### Step 3: Copy Component Classes
-Add `.btn-primary`, `.btn-secondary`, `.card`, `.text-gradient` to your CSS.
-
-### Step 4: Add Theme Toggle
-Copy the ThemeToggle component and theme script.
-
-### Step 5: Apply Classes
-Replace hardcoded colors with `var(--*)` references.
+- [ ] Add Google Fonts (Inter)
+- [ ] Copy CSS variables to globals.css
+- [ ] Copy component classes (btn-primary, btn-secondary, card)
+- [ ] Add grid-pattern and radial-glow backgrounds
+- [ ] Install GSAP + ScrollTrigger for animations
+- [ ] Add ThemeToggle component
+- [ ] Add theme script to layout
+- [ ] Replace all hardcoded colors with var(--*) references
+- [ ] Test both light and dark modes
