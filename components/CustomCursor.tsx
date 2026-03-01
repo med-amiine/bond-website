@@ -128,11 +128,11 @@ export default function CustomCursor() {
         }`}
         style={{
           backgroundColor: isHovering ? 'transparent' : '#27279E',
-          border: isHovering ? '2px solid #050505' : 'none',
+          border: isHovering ? '2px solid #27279E' : 'none',
           boxShadow: isHovering 
             ? '0 0 30px rgba(39, 39, 158, 0.6), 0 0 60px rgba(39, 39, 158, 0.3), inset 0 0 20px rgba(39, 39, 158, 0.2)'
             : '0 0 20px rgba(39, 39, 158, 0.8), 0 0 40px rgba(39, 39, 158, 0.4)',
-          mixBlendMode: isHovering ? 'normal' : 'difference',
+          mixBlendMode: 'normal',
           opacity: isHovering ? 1 : 1,
         }}
       />
