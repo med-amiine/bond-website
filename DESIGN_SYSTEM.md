@@ -291,6 +291,394 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
 ---
 
+## Data Visualization & Report Components
+
+> **Source**: Adapted from Agentic Alpha Genesis Report for data-heavy dashboards and reports
+
+### Stat Cards with Colored Accents
+
+```html
+<!-- Stat Grid Container -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-1 bg-[var(--border)] rounded-lg overflow-hidden border border-[var(--border)]">
+  
+  <!-- Stat Card with Accent Top Border -->
+  <div class="bg-[var(--bg-card)] p-6 hover:bg-[var(--bg-card-2)] transition-colors border-t-2 border-[#27279E]">
+    <div class="text-xs font-medium uppercase tracking-wider text-[var(--text-muted)] mb-2">
+      Season Volume
+    </div>
+    <div class="text-2xl font-semibold text-[#27279E] mb-1">$549,466</div>
+    <div class="text-xs text-[var(--text-muted)]">5 agents · 107-day window</div>
+    <div class="text-[10px] text-[var(--text-muted)] mt-2 pt-2 border-t border-[var(--border)] font-mono">
+      Source: Dune @abdelhaks
+    </div>
+  </div>
+  
+  <!-- Stat Card: Green -->
+  <div class="bg-[var(--bg-card)] p-6 border-t-2 border-emerald-500">
+    <div class="text-xs font-medium uppercase tracking-wider text-[var(--text-muted)] mb-2">
+      Total Yield
+    </div>
+    <div class="text-2xl font-semibold text-emerald-500 mb-1">$277.32</div>
+    <div class="text-xs text-[var(--text-muted)]">$175.56 native · $101.76 incentive</div>
+  </div>
+  
+  <!-- Stat Card: No accent -->
+  <div class="bg-[var(--bg-card)] p-6">
+    <div class="text-xs font-medium uppercase tracking-wider text-[var(--text-muted)] mb-2">
+      Transactions
+    </div>
+    <div class="text-2xl font-semibold text-[var(--text)] mb-1">432</div>
+    <div class="text-xs text-[var(--text-muted)]">Verified onchain</div>
+  </div>
+  
+</div>
+```
+
+### Data Table
+
+```html
+<!-- Table Container -->
+<div class="overflow-x-auto border border-[var(--border)] rounded-lg mb-5">
+  <table class="w-full min-w-[750px] border-collapse">
+    <thead class="bg-[var(--bg-card)]">
+      <tr>
+        <th class="text-left py-3 px-4 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)] border-b border-[var(--border)]">
+          Protocol
+        </th>
+        <th class="text-right py-3 px-4 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)] border-b border-[var(--border)]">
+          Volume
+        </th>
+        <th class="text-right py-3 px-4 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)] border-b border-[var(--border)]">
+          APY
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="hover:bg-white/[0.02] transition-colors">
+        <td class="py-4 px-4 border-b border-[var(--border)]/50">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#27279E]"></span>
+            <span class="text-sm font-medium text-[var(--text)]">Aave</span>
+          </div>
+        </td>
+        <td class="py-4 px-4 border-b border-[var(--border)]/50 text-right font-mono text-xs text-[var(--text-sub)]">
+          $124,532
+        </td>
+        <td class="py-4 px-4 border-b border-[var(--border)]/50 text-right font-mono text-xs text-emerald-500">
+          +12.4%
+        </td>
+      </tr>
+    </tbody>
+    <tfoot class="border-t border-[var(--border)] bg-[var(--bg-card)]">
+      <tr>
+        <td class="py-4 px-4 font-mono text-[11px] font-semibold text-[var(--text)]">
+          Total
+        </td>
+        <td class="py-4 px-4 text-right font-mono text-[11px] font-semibold text-[var(--text)]">
+          $549,466
+        </td>
+        <td class="py-4 px-4 text-right font-mono text-[11px] text-[var(--text-muted)]">
+          —
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+```
+
+### Horizontal Bar Chart
+
+```html
+<!-- Horizontal Bar Chart -->
+<div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-6">
+  <div class="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-5">
+    Yield by Protocol
+  </div>
+  
+  <!-- Bar Row -->
+  <div class="flex items-center gap-3 mb-3">
+    <div class="text-[11px] font-medium w-20 flex-shrink-0">Aave</div>
+    <div class="flex-1 h-1 bg-[var(--border)] rounded-full overflow-hidden">
+      <div class="h-full bg-[#27279E] rounded-full" style="width: 85%"></div>
+    </div>
+    <div class="font-mono text-[10px] text-[var(--text-muted)] w-16 text-right">
+      $45,230
+    </div>
+  </div>
+  
+  <div class="flex items-center gap-3 mb-3">
+    <div class="text-[11px] font-medium w-20 flex-shrink-0">Compound</div>
+    <div class="flex-1 h-1 bg-[var(--border)] rounded-full overflow-hidden">
+      <div class="h-full bg-[#3B3BB8] rounded-full" style="width: 65%"></div>
+    </div>
+    <div class="font-mono text-[10px] text-[var(--text-muted)] w-16 text-right">
+      $32,110
+    </div>
+  </div>
+  
+  <div class="flex items-center gap-3">
+    <div class="text-[11px] font-medium w-20 flex-shrink-0">Morpho</div>
+    <div class="flex-1 h-1 bg-[var(--border)] rounded-full overflow-hidden">
+      <div class="h-full bg-emerald-500 rounded-full" style="width: 40%"></div>
+    </div>
+    <div class="font-mono text-[10px] text-[var(--text-muted)] w-16 text-right">
+      $18,450
+    </div>
+  </div>
+</div>
+```
+
+### Stacked Bar Chart
+
+```html
+<!-- Stacked Bar Chart -->
+<div class="space-y-4">
+  
+  <div>
+    <div class="flex justify-between text-[10px] text-[var(--text-muted)] mb-1 font-mono">
+      <span>Aave Allocation</span>
+      <span>45%</span>
+    </div>
+    <div class="flex h-1.5 rounded-full overflow-hidden">
+      <div class="bg-[#27279E]" style="width: 45%"></div>
+      <div class="bg-[var(--border)]" style="width: 55%"></div>
+    </div>
+  </div>
+  
+  <div>
+    <div class="flex justify-between text-[10px] text-[var(--text-muted)] mb-1 font-mono">
+      <span>Compound Allocation</span>
+      <span>30%</span>
+    </div>
+    <div class="flex h-1.5 rounded-full overflow-hidden">
+      <div class="bg-[#3B3BB8]" style="width: 30%"></div>
+      <div class="bg-[var(--border)]" style="width: 70%"></div>
+    </div>
+  </div>
+  
+</div>
+```
+
+### Info Boxes (Method, Warning, Insight)
+
+```html
+<!-- Method Box - Formula/Technical Info -->
+<div class="bg-[var(--bg-card)] border border-[var(--border)] border-l-2 border-l-[#27279E] rounded-lg p-5 my-6 text-xs text-[var(--text-muted)] leading-relaxed">
+  <strong class="text-[#27279E] font-mono text-[10px] uppercase tracking-wider">Formula</strong> — 
+  <code class="font-mono text-[var(--text-sub)] bg-white/5 px-1 py-0.5 rounded text-[11px]">
+    APY = (1 + Yield / Capital)^(365/Days) − 1
+  </code>
+  <br>
+  Verification: $2,000 deposit · $34 yield · 100 days → 6.36% APY
+</div>
+
+<!-- Warning Box -->
+<div class="bg-[#27279E]/5 border border-[#27279E]/20 rounded-lg p-4 my-5 text-xs text-[var(--text-muted)] leading-relaxed">
+  <strong class="text-[#27279E]">Note:</strong> All figures are based on on-chain data. Past performance does not guarantee future results.
+</div>
+
+<!-- Insight Box (Green accent) -->
+<div class="bg-[var(--bg-card)] border border-[var(--border)] border-l-2 border-l-emerald-500 rounded-lg p-4 my-5 text-xs text-[var(--text-muted)] leading-relaxed">
+  <strong class="text-emerald-500">Insight:</strong> Native yield represents 63.3% of total returns, indicating strong protocol sustainability.
+</div>
+
+<!-- Risk Box (Amber accent) -->
+<div class="bg-[var(--bg-card)] border border-[var(--border)] border-l-2 border-l-amber-500 rounded-lg p-4 my-5 text-xs text-[var(--text-muted)] leading-relaxed">
+  <strong class="text-amber-500">Risk Alert:</strong> Incentive yield comprises 36.7% of returns — monitor emission schedules.
+</div>
+```
+
+### Protocol Badges
+
+```html
+<!-- Protocol Badge -->
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded text-[9px] font-semibold tracking-wide font-mono border bg-purple-500/10 text-purple-400 border-purple-500/25">
+  Morpho
+</span>
+
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded text-[9px] font-semibold tracking-wide font-mono border bg-blue-500/10 text-blue-400 border-blue-500/25">
+  Aave
+</span>
+
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded text-[9px] font-semibold tracking-wide font-mono border bg-cyan-500/10 text-cyan-400 border-cyan-500/25">
+  Euler
+</span>
+
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded text-[9px] font-semibold tracking-wide font-mono border bg-emerald-500/10 text-emerald-400 border-emerald-500/25">
+  Fluid
+</span>
+
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded text-[9px] font-semibold tracking-wide font-mono border bg-amber-500/10 text-amber-400 border-amber-500/25">
+  Moonwell
+</span>
+```
+
+### Timeline
+
+```html
+<!-- Timeline Container -->
+<div class="relative pl-7">
+  <!-- Timeline Line -->
+  <div class="absolute left-[7px] top-2 bottom-2 w-px bg-[var(--border)]"></div>
+  
+  <!-- Milestone -->
+  <div class="relative mb-8">
+    <!-- Dot -->
+    <div class="absolute -left-[21px] top-1 w-2 h-2 rounded-full bg-[#27279E] border-2 border-[var(--bg)] shadow-[0_0_8px_rgba(39,39,158,0.4)]"></div>
+    <div class="font-mono text-[10px] text-[#27279E] tracking-wider mb-1">Nov 5, 2024</div>
+    <div class="text-sm font-semibold text-[var(--text)] mb-1">Genesis Launch</div>
+    <div class="text-xs text-[var(--text-muted)] leading-relaxed">
+      Initial $10,000 deployment across 5 autonomous agents
+    </div>
+  </div>
+  
+  <!-- Milestone (Green) -->
+  <div class="relative mb-8">
+    <div class="absolute -left-[21px] top-1 w-2 h-2 rounded-full bg-emerald-500 border-2 border-[var(--bg)] shadow-[0_0_8px_rgba(34,197,94,0.4)]"></div>
+    <div class="font-mono text-[10px] text-emerald-500 tracking-wider mb-1">Dec 15, 2024</div>
+    <div class="text-sm font-semibold text-[var(--text)] mb-1">First Milestone</div>
+    <div class="text-xs text-[var(--text-muted)] leading-relaxed">
+      Achieved $100K cumulative volume
+    </div>
+  </div>
+  
+</div>
+```
+
+### Hero Card with Terminal Header
+
+```html
+<!-- Hero Card -->
+<div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg overflow-hidden">
+  <!-- Terminal Header -->
+  <div class="flex items-center gap-2 px-5 py-4 border-b border-[var(--border)]">
+    <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+    <div class="w-2.5 h-2.5 rounded-full bg-amber-400"></div>
+    <div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>
+  </div>
+  
+  <!-- Card Body -->
+  <div class="p-6">
+    <p class="text-[15px] text-[var(--text-sub)] leading-relaxed italic mb-5 border-l-2 border-[#27279E] pl-4">
+      "$10,000. 107 days. Five agents. 17 DeFi venues. Every transaction onchain."
+    </p>
+    <div class="flex items-center gap-2 text-[11px] font-mono text-[var(--text-muted)]">
+      <span>bond.credit</span>
+      <span>·</span>
+      <span>Agentic Alpha Genesis</span>
+    </div>
+  </div>
+  
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-2 gap-px bg-[var(--border)] border-t border-[var(--border)]">
+    <div class="bg-[var(--bg-card)] p-4">
+      <div class="font-mono text-xl font-semibold text-[#27279E] mb-1">9.78%</div>
+      <div class="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Portfolio APY</div>
+    </div>
+    <div class="bg-[var(--bg-card)] p-4">
+      <div class="font-mono text-xl font-semibold text-[var(--text)] mb-1">$277.32</div>
+      <div class="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Total Yield</div>
+    </div>
+  </div>
+</div>
+```
+
+### Priority Cards
+
+```html
+<!-- Priority Cards Grid -->
+<div class="grid md:grid-cols-3 gap-4">
+  
+  <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-7 hover:border-[#27279E]/30 transition-colors">
+    <div class="font-mono text-4xl font-bold text-[var(--text)]/5 mb-4">01</div>
+    <div class="text-sm font-semibold text-[var(--text)] mb-2">Risk Assessment</div>
+    <div class="text-xs text-[var(--text-muted)] leading-relaxed">
+      Multi-dimensional risk scoring using machine learning models
+    </div>
+  </div>
+  
+  <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-7 hover:border-[#27279E]/30 transition-colors">
+    <div class="font-mono text-4xl font-bold text-[var(--text)]/5 mb-4">02</div>
+    <div class="text-sm font-semibold text-[var(--text)] mb-2">Execution Quality</div>
+    <div class="text-xs text-[var(--text-muted)] leading-relaxed">
+      Smart transaction batching to minimize gas costs
+    </div>
+  </div>
+  
+  <div class="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-7 hover:border-[#27279E]/30 transition-colors">
+    <div class="font-mono text-4xl font-bold text-[var(--text)]/5 mb-4">03</div>
+    <div class="text-sm font-semibold text-[var(--text)] mb-2">Yield Optimization</div>
+    <div class="text-xs text-[var(--text-muted)] leading-relaxed">
+      AI-driven allocation across multiple vaults
+    </div>
+  </div>
+  
+</div>
+```
+
+### Brand Strip
+
+```html
+<!-- Brand Strip -->
+<div class="relative bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-5 flex items-center justify-between gap-6 overflow-hidden">
+  <!-- Glow Effect -->
+  <div class="absolute -right-10 -top-8 w-32 h-32 bg-[#27279E]/10 rounded-full blur-2xl"></div>
+  
+  <div class="relative flex items-center gap-4">
+    <div class="w-8 h-8 rounded-lg bg-[#27279E] flex items-center justify-center">
+      <span class="text-white font-bold text-sm">B</span>
+    </div>
+    <div class="text-xs text-[var(--text-muted)] leading-relaxed max-w-md">
+      Building the credit history of the agentic economy through verified onchain transactions
+    </div>
+  </div>
+  
+  <div class="relative text-right">
+    <div class="text-[10px] font-mono text-[var(--text-muted)] leading-relaxed">
+      <div>Genesis Report</div>
+      <div>Nov 2024 – Feb 2025</div>
+    </div>
+  </div>
+</div>
+```
+
+### CSS for Data Viz Components
+
+```css
+/* FILE: data-viz.css - Add to your globals.css */
+
+/* Mono font stack */
+.font-mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+
+/* Rank number badge */
+.rank-badge {
+  @apply font-mono text-[10px] text-[var(--text-muted)] bg-[var(--bg-card-2)] px-1.5 py-0.5 rounded;
+}
+
+/* Protocol dot */
+.proto-dot {
+  @apply w-2 h-2 rounded-full flex-shrink-0;
+}
+
+/* Positive/negative indicators */
+.positive { @apply text-emerald-500; }
+.negative { @apply text-red-500; }
+.neutral { @apply text-[var(--text-muted)]; }
+
+/* Pulse animation for live indicators */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px currentColor; }
+  50% { opacity: 0.6; box-shadow: 0 0 16px currentColor; }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+```
+
+---
+
 ## Animations
 
 ### GSAP ScrollTrigger Setup
