@@ -1,6 +1,8 @@
 'use client'
 
 import Link from 'next/link'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
 const features = [
   { title: 'Real-Time Analytics', description: 'Continuous monitoring of on-chain activity, transaction history, and wallet behavior to assess creditworthiness.' },
@@ -21,6 +23,7 @@ const stats = [
 export default function ACEPage() {
   return (
     <div className="min-h-screen bg-[var(--bg)] relative overflow-hidden">
+      <Navbar />
       <main className="pt-32 pb-12 relative z-10">
         {/* Hero Section */}
         <section className="py-16">
@@ -148,6 +151,7 @@ export default function ACEPage() {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   )
 }

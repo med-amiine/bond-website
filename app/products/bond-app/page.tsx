@@ -1,6 +1,8 @@
 'use client'
 
 import Link from 'next/link'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
 const features = [
   { title: 'One-Click Deposit', description: 'Simple and intuitive interface. Deposit USDC in seconds and start earning immediately.' },
@@ -16,6 +18,7 @@ const protocols = ['Aave', 'Compound', 'Morpho', 'Euler', 'Moonwell', 'Spark', '
 export default function BondAppPage() {
   return (
     <div className="min-h-screen bg-[var(--bg)] relative overflow-hidden">
+      <Navbar />
       <main className="pt-32 pb-12 relative z-10">
         {/* Hero Section */}
         <section className="py-16">
@@ -177,6 +180,7 @@ export default function BondAppPage() {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   )
 }

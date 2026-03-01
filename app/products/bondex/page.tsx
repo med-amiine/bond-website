@@ -1,6 +1,8 @@
 'use client'
 
 import Link from 'next/link'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
 const features = [
   { title: 'AI-Powered Decisions', description: 'Machine learning algorithms analyze market conditions and automatically decide when to rebalance.' },
@@ -185,6 +187,7 @@ export default function BondexPage() {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   )
 }
