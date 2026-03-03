@@ -24,14 +24,14 @@ export default function Home() {
       {/* Curtain effect: Frameworks slides over SnapV1 like a curtain closing */}
       <div 
         className="relative z-[20] bg-[var(--bg)]" 
-        style={{ marginTop: '-100vh' }}
+        style={{ marginTop: '-35vh' }}
       >
         {/* Shadow edge for curtain effect */}
         <div 
-          className="absolute top-0 left-0 right-0 h-48 pointer-events-none z-10"
+          className="absolute top-0 left-0 right-0 h-32 pointer-events-none"
           style={{
-            background: 'linear-gradient(to bottom, transparent 0%, var(--bg) 100%)',
-            transform: 'translateY(-99%)'
+            background: 'linear-gradient(to bottom, transparent, var(--bg))',
+            transform: 'translateY(-100%)'
           }}
         />
         <Frameworks />
