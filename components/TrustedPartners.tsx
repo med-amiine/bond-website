@@ -58,7 +58,10 @@ export default function TrustedPartners() {
   return (
     <section ref={sectionRef} className="relative py-16 overflow-hidden">
       <div className="absolute inset-0 bg-[var(--bg)]" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#27272a] to-transparent" />
+      {/* Top separator */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="h-px bg-gradient-to-r from-transparent via-[var(--border)] to-transparent" />
+      </div>
 
       <div ref={contentRef} className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -110,7 +113,10 @@ export default function TrustedPartners() {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#27272a] to-transparent" />
+      {/* Bottom separator */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="h-px bg-gradient-to-r from-transparent via-[var(--border)] to-transparent" />
+      </div>
     </section>
   )
 }

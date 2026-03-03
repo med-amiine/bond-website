@@ -54,7 +54,11 @@ const socialLinks = [
   },
 ]
 
-export default function Footer() {
+interface FooterProps {
+  hideNewsletter?: boolean
+}
+
+export default function Footer({ hideNewsletter = false }: FooterProps) {
   return (
     <footer className="relative bg-[var(--bg)] pt-20 pb-10">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#27272a] to-transparent" />
@@ -97,22 +101,24 @@ export default function Footer() {
         </div>
 
         {/* Newsletter card */}
-        <div className="card-dark p-6 mb-10" data-cursor-default>
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-              <h3 className="text-[var(--text)] font-semibold mb-1">Stay updated</h3>
-              <p className="text-[var(--text-muted)] text-sm">Get the latest news and updates from SnapChain.</p>
-            </div>
-            <div className="flex gap-2 w-full sm:w-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 sm:w-64 px-4 py-3 rounded-full bg-[var(--bg-card-2)] border border-[var(--border)] text-[var(--text)] text-sm placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#27279E] transition-colors duration-300"
-              />
-              <button className="btn-primary py-3 px-6">Subscribe</button>
+        {!hideNewsletter && (
+          <div className="card-dark p-6 mb-10" data-cursor-default>
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <h3 className="text-[var(--text)] font-semibold mb-1">Stay updated</h3>
+                <p className="text-[var(--text-muted)] text-sm">Get the latest news and updates from SnapChain.</p>
+              </div>
+              <div className="flex gap-2 w-full sm:w-auto">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="flex-1 sm:w-64 px-4 py-3 rounded-full bg-[var(--bg-card-2)] border border-[var(--border)] text-[var(--text)] text-sm placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[#27279E] transition-colors duration-300"
+                />
+                <button className="btn-primary py-3 px-6">Subscribe</button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-[var(--border)]">

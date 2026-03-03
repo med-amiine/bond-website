@@ -61,7 +61,7 @@ export default function CustomCursor() {
     // Animation loop with lerp for smooth following
     const animate = () => {
       // Cursor follows mouse almost instantly (very high speed)
-      const cursorSpeed = 0.8
+      const cursorSpeed = 0.9
       cursorPos.current.x += (mousePos.current.x - cursorPos.current.x) * cursorSpeed
       cursorPos.current.y += (mousePos.current.y - cursorPos.current.y) * cursorSpeed
 
