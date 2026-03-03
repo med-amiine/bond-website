@@ -144,7 +144,7 @@ export default function SnapV1() {
     <section
       ref={sectionRef}
       id="features"
-      className="relative bg-[var(--bg)]"
+      className="relative z-10 bg-[var(--bg)]"
     >
       <div className="min-h-[80vh] flex items-center px-6 lg:px-24 max-w-[1400px] mx-auto py-12">
         {/* Left Column */}

@@ -21,9 +21,19 @@ export default function Home() {
       {/* SnapV1 - pinned with GSAP */}
       <SnapV1 />
 
-      {/* Curtain: -15vh lifts Frameworks just past card 4's snap point (80% pin progress);
-          z-[20] stacks its solid bg above the GSAP-pinned SnapV1 */}
-      <div className="relative z-[20]" style={{ marginTop: '-15vh' }}>
+      {/* Curtain effect: Frameworks slides over SnapV1 like a curtain closing */}
+      <div 
+        className="relative z-[20] bg-[var(--bg)]" 
+        style={{ marginTop: '-35vh' }}
+      >
+        {/* Shadow edge for curtain effect */}
+        <div 
+          className="absolute top-0 left-0 right-0 h-32 pointer-events-none"
+          style={{
+            background: 'linear-gradient(to bottom, transparent, var(--bg))',
+            transform: 'translateY(-100%)'
+          }}
+        />
         <Frameworks />
       </div>
 
