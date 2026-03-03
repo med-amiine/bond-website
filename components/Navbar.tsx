@@ -23,15 +23,74 @@ const resources = [
   { href: "/governance", label: "Governance" },
 ]
 
+// Sections to track for current location
+const sections = [
+  { id: 'hero', label: 'Home' },
+  { id: 'features', label: 'Features' },
+  { id: 'frameworks', label: 'Frameworks' },
+  { id: 'partners', label: 'Partners' },
+  { id: 'testimonials', label: 'Testimonials' },
+  { id: 'blog', label: 'Blog' },
+]
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const [visible, setVisible] = useState(true)
+  const [currentSection, setCurrentSection] = useState('Home')
   const [menuOpen, setMenuOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const dropdownTimeout = useRef<NodeJS.Timeout | null>(null)
+  const lastScrollY = useRef(0)
+  const ticking = useRef(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', onScroll)
+    const onScroll = () => {
+      if (!ticking.current) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY
+          
+          // Show/hide based on scroll direction
+          if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+            // Scrolling down - hide
+            setVisible(false)
+          } else {
+            // Scrolling up - show
+            setVisible(true)
+          }
+          
+          setScrolled(currentScrollY > 50)
+          lastScrollY.current = currentScrollY
+          
+          // Determine current section
+          const sectionElements = sections.map(s => ({
+            ...s,
+            element: document.getElementById(s.id)
+          })).filter(s => s.element)
+          
+          // Find the section closest to top of viewport
+          let closestSection = sections[0]
+          let minDistance = Infinity
+          
+          sectionElements.forEach(({ id, label, element }) => {
+            if (element) {
+              const rect = element.getBoundingClientRect()
+              const distance = Math.abs(rect.top - 100)
+              if (distance < minDistance && rect.top < window.innerHeight / 2) {
+                minDistance = distance
+                closestSection = { id, label }
+              }
+            }
+          })
+          
+          setCurrentSection(closestSection.label)
+          
+          ticking.current = false
+        })
+        ticking.current = true
+      }
+    }
+    
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
@@ -49,7 +108,11 @@ export default function Navbar() {
   return (
     <>
       {/* Floating pill navbar */}
-      <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 w-[95%] max-w-6xl">
+      <div 
+        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 w-[95%] max-w-6xl ${
+          visible ? 'translate-y-0 opacity-100' : '-translate-y-[150%] opacity-0'
+        }`}
+      >
         <div className={`rounded-full px-4 sm:px-6 py-3 transition-all duration-500 flex items-center justify-between ${scrolled ? 'navbar-scrolled' : 'bg-transparent'}`}>
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
@@ -58,6 +121,11 @@ export default function Navbar() {
             </div>
             <span className="font-semibold text-[var(--text)] text-lg tracking-tight hidden sm:block">bond.credit</span>
           </Link>
+
+          {/* Current Section Indicator - Shows when scrolled */}
+          <div className={`hidden md:flex items-center justify-center transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-0'}`}>
+            <span className="text-sm font-medium text-[var(--text-muted)]">{currentSection}</span>
+          </div>
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1">
