@@ -47,7 +47,7 @@ export default function Partners() {
 
       <div className="relative z-10">
         <div ref={titleRef} className="text-center mb-12 px-4" style={{ opacity: 0, transform: 'translateY(30px)', transition: 'opacity 0.7s ease, transform 0.7s ease' }}>
-          <p className="text-[var(--text-muted)] text-xs uppercase tracking-[0.2em] mb-3">Trusted by leading chains</p>
+          <p className="text-[var(--text-muted)] text-xs uppercase tracking-[0.2em] mb-3">Built on Battle-Tested DeFi Infrastructure</p>
           <h2 className="text-2xl sm:text-3xl font-semibold text-[var(--text)]">
             Integrated with the <span className="text-gradient">best ecosystems</span>
           </h2>

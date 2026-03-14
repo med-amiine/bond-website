@@ -8,15 +8,11 @@ gsap.registerPlugin(ScrollTrigger)
 
 // Updated code colors for theme support
 const codeLines = [
-  { num: '1', tokens: [{ color: '#27279E', text: 'import' }, { color: 'var(--text)', text: ' { SnapChain } ' }, { color: '#27279E', text: 'from' }, { color: '#3B3BB8', text: " 'snapchain'" }, { color: 'var(--text)', text: ';' }] },
-  { num: '2', tokens: [] },
-  { num: '3', tokens: [{ color: '#27279E', text: 'const' }, { color: 'var(--text)', text: ' chain = ' }, { color: '#27279E', text: 'new' }, { color: 'var(--text)', text: ' SnapChain(' }] },
-  { num: '4', tokens: [{ color: 'var(--text)', text: '  network: ' }, { color: '#3B3BB8', text: "'mainnet'" }, { color: 'var(--text)', text: ',' }] },
-  { num: '5', tokens: [{ color: 'var(--text)', text: '  consensus: ' }, { color: '#3B3BB8', text: "'poa'" }, { color: 'var(--text)', text: ',' }] },
-  { num: '6', tokens: [{ color: 'var(--text)', text: '});' }] },
-  { num: '7', tokens: [] },
-  { num: '8', tokens: [{ color: 'var(--text-muted)', text: '// Deploy in seconds' }] },
-  { num: '9', tokens: [{ color: '#27279E', text: 'await' }, { color: 'var(--text)', text: ' chain.' }, { color: '#27279E', text: 'deploy' }, { color: 'var(--text)', text: '(); ' }, { color: 'var(--text-muted)', text: '// Done! 🚀' }] },
+  { num: '1', tokens: [{ color: '#27279E', text: 'import' }, { color: 'var(--text)', text: ' { Watchtower } ' }, { color: '#27279E', text: 'from' }, { color: '#3B3BB8', text: ' "@bond/watchtower"' }, { color: 'var(--text)', text: ';' }] },
+  { num: '2', tokens: [{ color: '#27279E', text: 'const' }, { color: 'var(--text)', text: ' watchtower = ' }, { color: '#27279E', text: 'new' }, { color: 'var(--text)', text: ' Watchtower();' }] },
+  { num: '3', tokens: [] },
+  { num: '4', tokens: [{ color: '#27279E', text: 'const' }, { color: 'var(--text)', text: ' risk = ' }, { color: '#27279E', text: 'await' }, { color: 'var(--text)', text: ' watchtower.' }, { color: '#27279E', text: 'monitor' }, { color: 'var(--text)', text: '(' }, { color: '#3B3BB8', text: '"0xAgentVault"' }, { color: 'var(--text)', text: ');' }] },
+  { num: '5', tokens: [{ color: '#27279E', text: 'console.log' }, { color: 'var(--text)', text: '(risk);' }] },
 ]
 
 export default function Hero() {
@@ -108,25 +104,23 @@ export default function Hero() {
         <div className="text-center max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--bg-card)] border border-[var(--border)] mb-8">
             <span className="w-2 h-2 rounded-full bg-[#27279E] animate-pulse" />
-            <span className="text-sm text-[var(--text-sub)]">Now in Public Beta</span>
+            <span className="text-sm text-[var(--text-sub)]">Finance Is Becoming Autonomous</span>
           </div>
 
           {/* Headline - starts hidden, fades in */}
-          <h1 ref={headlineRef} style={{ opacity: 0, visibility: 'hidden' }} className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[var(--text)] tracking-tight leading-[1.1] mb-6">
-            Build on <span className="text-gradient">Blockchain</span>
-            <br />at Lightning Speed
+          <h1 ref={headlineRef} style={{ opacity: 0, visibility: 'hidden' }} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[var(--text)] tracking-tight leading-[1.1] mb-6">
+            <span className="text-gradient">credit layer</span> for the agentic economy
           </h1>
 
           {/* Subtext - starts hidden, fades in */}
           <p ref={subtextRef} style={{ opacity: 0, visibility: 'hidden' }} className="text-lg sm:text-xl text-[var(--text-sub)] max-w-2xl mx-auto mb-10 leading-relaxed">
-            The all-in-one platform for deploying, scaling, and managing blockchain infrastructure.
-            From testnet to mainnet in minutes, not months.
+            AI and DeFi agents are building businesses onchain. But capital allocators lack the tools to assess risk. bond.credit provides the credit layer that allows markets to fund autonomous agents safely.
           </p>
 
           {/* Buttons - starts hidden, fades in */}
           <div ref={buttonsRef} style={{ opacity: 0, visibility: 'hidden' }} className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button className="btn-primary group text-base px-8 py-4">
-              Start Building Free
+              Start Earning
               <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="transition-transform duration-300 group-hover:translate-x-1">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>

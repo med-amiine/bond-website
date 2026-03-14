@@ -22,9 +22,9 @@ const partners = [
 ]
 
 const bullets = [
-  'Strategic investment from top VCs',
-  'Technical partnerships with leading protocols',
-  'Enterprise clients across industries',
+  'Infrastructure for agent credit markets',
+  'Underwriting layer for DeFi allocators',
+  'Credit rails for autonomous financial agents',
 ]
 
 export default function TrustedPartners() {
@@ -89,12 +89,10 @@ export default function TrustedPartners() {
           {/* Right text */}
           <div>
             <h2 className="text-4xl sm:text-5xl font-bold text-[var(--text)] tracking-tight mb-6">
-              Our Trusted <span className="text-gradient">Partners</span>
+              Built with the <span className="text-gradient">Agentic Finance Ecosystem</span>
             </h2>
             <p className="text-lg text-[var(--text-sub)] mb-8 leading-relaxed">
-              We proudly collaborate with industry leaders to bring you the best in innovation,
-              reliability, and success. Our partners share our vision of making blockchain
-              infrastructure accessible to everyone.
+              bond.credit collaborates with leading infrastructure providers, agent frameworks, and DeFi protocols to power the next generation of autonomous capital markets.
             </p>
             <div className="space-y-4 mb-8">
               {bullets.map((b, i) => (

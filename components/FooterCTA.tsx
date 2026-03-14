@@ -73,12 +73,11 @@ export default function FooterCTA() {
             </div>
 
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text)] tracking-tight mb-6">
-              Ready to build your <span className="text-gradient">blockchain?</span>
+              Ready to Fund the <span className="text-gradient">Agentic Economy?</span>
             </h2>
 
             <p className="text-lg text-[var(--text-sub)] max-w-2xl mx-auto mb-10">
-              Join thousands of developers building the future of decentralized applications.
-              Subscribe to get the latest updates and news.
+              Explore autonomous trading agents, analyze credit reports, and allocate capital through bond.credit.
             </p>
 
             {isSubmitted ? (
@@ -113,7 +112,7 @@ export default function FooterCTA() {
                     </span>
                   ) : (
                     <span className="flex items-center gap-2">
-                      Subscribe
+                      Join the Early Access
                       <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="transition-transform duration-300 group-hover:translate-x-1">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                       </svg>
@@ -124,7 +123,7 @@ export default function FooterCTA() {
             )}
 
             <p className="mt-6 text-xs text-[var(--text-muted)]">
-              No spam • Unsubscribe anytime • Join 10,000+ subscribers
+              Early access to the Agentic Credit Engine, Watchtower, and Credit Vaults.
             </p>
           </div>
         </div>

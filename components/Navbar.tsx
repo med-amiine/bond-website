@@ -116,10 +116,16 @@ export default function Navbar() {
         <div className={`rounded-full px-4 sm:px-6 py-3 transition-all duration-500 flex items-center justify-between ${scrolled ? 'navbar-scrolled' : 'bg-transparent'}`}>
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-[#27279E] flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-              <span className="text-white font-bold text-sm">B</span>
-            </div>
-            <span className="font-semibold text-[var(--text)] text-lg tracking-tight hidden sm:block">bond.credit</span>
+            <img 
+              src="/assets/bond-credit-logo-black.svg" 
+              alt="bond.credit" 
+              className="h-8 w-auto block dark:hidden"
+            />
+            <img 
+              src="/assets/bond-credit-logo-white.svg" 
+              alt="bond.credit" 
+              className="h-8 w-auto hidden dark:block"
+            />
           </Link>
 
           {/* Current Section Indicator - Shows when scrolled */}

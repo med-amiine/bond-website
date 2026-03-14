@@ -8,68 +8,71 @@ gsap.registerPlugin(ScrollTrigger)
 
 const features = [
   {
-    id: 'fast',
+    id: 'credit-engine',
     number: '01',
-    tag: 'Performance',
-    title: 'Lightning Fast',
-    description: 'Deploy your blockchain in under 60 seconds with our optimized infrastructure.',
-    stat: '< 60s',
-    statLabel: 'Deployment Time',
+    tag: 'CREDIT ENGINE',
+    title: 'Agentic Credit Engine',
+    description: 'Evaluate agent performance using 30+ metrics including Sharpe ratio, drawdown, liquidity risk, and execution behavior.',
+    stat: '30+',
+    statLabel: 'Metrics',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
       </svg>
     ),
   },
   {
-    id: 'security',
+    id: 'watchtower',
     number: '02',
-    tag: 'Security',
-    title: 'Enterprise Security',
-    description: 'Bank-grade protection with multi-sig wallets, audit trails, and compliance tools.',
-    stat: '99.99%',
-    statLabel: 'Security Uptime',
+    tag: 'WATCHTOWER',
+    title: 'Real-Time Risk Monitoring',
+    description: 'Monitor agent vault health with live credit reports and automated risk alerts.',
+    stat: 'Live',
+    statLabel: 'Credit Reports',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+        <circle cx="12" cy="12" r="3" />
       </svg>
     ),
   },
   {
-    id: 'scale',
+    id: 'credit-vaults',
     number: '03',
-    tag: 'Infrastructure',
-    title: 'Scalable Infra',
-    description: 'Scale from testnet to mainnet seamlessly with auto-scaling that grows with your needs.',
-    stat: '∞',
-    statLabel: 'Scalability',
+    tag: 'CREDIT VAULTS',
+    title: 'Agent Credit Vaults',
+    description: 'Capital allocators deposit into vaults that route liquidity to high-performing agents.',
+    stat: '$1B+',
+    statLabel: 'TVL',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-        <polyline points="16 7 22 7 22 13" />
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+        <line x1="3" y1="9" x2="21" y2="9" />
+        <line x1="9" y1="21" x2="9" y2="9" />
       </svg>
     ),
   },
   {
-    id: 'support',
+    id: 'stablecoin',
     number: '04',
-    tag: 'Support',
-    title: '24/7 Support',
-    description: 'Round-the-clock expert support from our team of blockchain engineers.',
-    stat: '24/7',
-    statLabel: 'Expert Support',
+    tag: 'STABLECOIN',
+    title: 'Agentic Stablecoin',
+    description: 'Mint agUSD against agent credit lines, enabling capital-efficient leverage.',
+    stat: 'agUSD',
+    statLabel: 'Native Stablecoin',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        <line x1="12" y1="1" x2="12" y2="23" />
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
       </svg>
     ),
   },
 ]
 
 const snapStats = [
-  { value: '10K+', label: 'Developers' },
-  { value: '$2B+', label: 'TVL Secured' },
-  { value: '100+', label: 'Enterprise Clients' },
+  { value: '30+', label: 'Agent Risk Metrics' },
+  { value: '$50M+', label: 'Agent Capital Tested' },
+  { value: '7-15%', label: 'Agentic Yield vs Passive DeFi' },
 ]
 
 export default function SnapV1() {
@@ -151,20 +154,20 @@ export default function SnapV1() {
         <div ref={titleRef} className="w-full lg:w-1/2 pr-0 lg:pr-16 z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#27279E]/30 bg-[#27279E]/10 text-[#27279E] text-sm font-medium mb-6 backdrop-blur-sm">
             <span className="animate-pulse">✨</span>
-            <span>Snap V1 is here</span>
+            <span>Core Protocol Primitives</span>
           </div>
 
           <h2 className="text-4xl lg:text-6xl font-bold text-[var(--text)] mb-6 leading-[1.1] tracking-tight">
-            Everything you need to <span className="text-[#27279E]">build</span>
+            The <span className="text-[#27279E]">credit layer</span> for agents
           </h2>
 
           <p className="text-[var(--text-muted)] text-lg mb-8 max-w-md leading-relaxed">
-            From deployment to scaling, SnapChain provides all the tools you need to launch and manage blockchain infrastructure at any scale.
+            Each primitive powers a specific function of the agentic credit system.
           </p>
 
           <div className="flex flex-wrap gap-4 mb-12">
             <button className="btn-primary group">
-              Get Started Free
+              Start Earning
               <span className="group-hover:translate-x-1 transition-transform inline-block ml-1">→</span>
             </button>
             <button className="btn-secondary">View Documentation</button>
