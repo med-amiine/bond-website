@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import AAHeader from '../components/AAHeader';
+import AAFooter from '../components/AAFooter';
 
 /* ── Static data ─────────────────────────────────────────────────────────── */
 
@@ -209,13 +209,13 @@ function Sidebar() {
     padding: '12px 28px', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase',
     letterSpacing: '0.06em', cursor: 'pointer',
     borderBottom: active ? '2px solid var(--lime)' : '2px solid transparent',
-    color: active ? 'var(--text)' : 'var(--text-muted)',
+    color: active ? 'var(--white)' : 'var(--s2)',
     background: 'transparent', transition: 'color 0.15s, border-color 0.15s',
     whiteSpace: 'nowrap', border: 'none',
   });
 
   return (
-    <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '8px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '8px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex', borderBottom: '1px solid var(--border)' }}>
         <button style={tabStyle(tab === 'about')}   onClick={() => setTab('about')}>About</button>
         <button style={tabStyle(tab === 'genesis')} onClick={() => setTab('genesis')}>Genesis</button>
@@ -223,39 +223,39 @@ function Sidebar() {
 
       <div style={{ flex: 1, overflowY: 'auto', padding: '20px 16px 16px' }}>
         {tab === 'about' && (
-          <div style={{ fontSize: '0.8125rem', lineHeight: 1.65, color: 'var(--text-sub)' }}>
-            <h2 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text)', marginBottom: '4px' }}>
+          <div style={{ fontSize: '0.8125rem', lineHeight: 1.65, color: 'var(--s1)' }}>
+            <h2 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--white)', marginBottom: '4px' }}>
               The Credit Layer for the Agentic Economy
             </h2>
-            <div style={{ width: '32px', height: '2px', background: 'var(--primary)', marginBottom: '16px', borderRadius: '1px' }} />
+            <div style={{ width: '32px', height: '2px', background: 'var(--lime)', marginBottom: '16px', borderRadius: '1px' }} />
             <p style={{ marginBottom: '12px' }}>
               Agents outperform static vaults. In Genesis of Agentic Alpha, we put that to the test — deploying real capital to onchain autonomous agents competing for the highest risk-adjusted yield.
             </p>
             <p style={{ marginBottom: '16px' }}>
               Every trade, vault update, and rebalance is recorded onchain and fed into our credit engine, laying the foundation for programmable credit and the{' '}
-              <strong style={{ color: 'var(--primary)' }}>Bond Score</strong>.
+              <strong style={{ color: 'var(--lime)' }}>Bond Score</strong>.
             </p>
-            <div style={{ borderLeft: '2px solid var(--primary)', paddingLeft: '12px', marginBottom: '16px', background: 'var(--lime-03)', padding: '10px 12px', borderRadius: '0 4px 4px 0' }}>
-              <div style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>Bond Score Formula</div>
-              <div style={{ fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--text-sub)' }}>
+            <div style={{ borderLeft: '2px solid var(--lime)', paddingLeft: '12px', marginBottom: '16px', background: 'var(--lime-03)', padding: '10px 12px', borderRadius: '0 4px 4px 0' }}>
+              <div style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--lime)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>Bond Score Formula</div>
+              <div style={{ fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--s1)' }}>
                 0.30×Perf + 0.25×Risk + 0.20×Stab + 0.15×Sent + 0.10×Prov
               </div>
             </div>
-            <h3 style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--text)', marginBottom: '8px' }}>Why It Matters</h3>
+            <h3 style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--white)', marginBottom: '8px' }}>Why It Matters</h3>
             <ul style={{ listStyle: 'none', padding: 0, marginBottom: '16px' }}>
               {ABOUT_BULLETS.map(item => (
                 <li key={item} style={{ display: 'flex', gap: '8px', marginBottom: '6px' }}>
-                  <span style={{ color: 'var(--primary)', fontWeight: 700, flexShrink: 0 }}>→</span>
+                  <span style={{ color: 'var(--lime)', fontWeight: 700, flexShrink: 0 }}>→</span>
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
             <p style={{ marginBottom: '8px' }}>Which agents can be trusted with credit?</p>
-            <p style={{ fontWeight: 700, color: 'var(--text)', fontSize: '0.875rem', marginBottom: '12px' }}>
+            <p style={{ fontWeight: 700, color: 'var(--white)', fontSize: '0.875rem', marginBottom: '12px' }}>
               bond.credit is building that answer. And it starts here.
             </p>
-            <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid var(--border)', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-              Powered by <span style={{ color: 'var(--text)', fontWeight: 600 }}>bond.credit</span> × <span style={{ color: 'var(--text)', fontWeight: 600 }}>iExec</span>
+            <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid var(--border)', fontSize: '0.75rem', color: 'var(--s2)' }}>
+              Powered by <span style={{ color: 'var(--white)', fontWeight: 600 }}>bond.credit</span> × <span style={{ color: 'var(--white)', fontWeight: 600 }}>iExec</span>
             </div>
           </div>
         )}
@@ -264,7 +264,7 @@ function Sidebar() {
           <div>
             <div style={{ marginBottom: '16px' }}>
               <div className="stag" style={{ marginBottom: '8px' }}>Genesis Final Report</div>
-              <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+              <p style={{ fontSize: '0.75rem', color: 'var(--s2)' }}>
                 Nov 5, 2024 – Feb 19, 2025 · 107 days · $10,000 deployed
               </p>
             </div>
@@ -275,33 +275,33 @@ function Sidebar() {
                 { label: 'Native Yield',     value: '62.9%',    sub: '$186.02 of $295.75 total', color: 'var(--lime)' },
                 { label: 'Reward Dep.',      value: '37.1%',    sub: '$109.73 in emissions',     color: 'var(--amber)' },
               ].map(k => (
-                <div key={k.label} style={{ background: 'var(--bg-card-2)', border: '1px solid var(--border)', borderRadius: '6px', padding: '10px' }}>
+                <div key={k.label} style={{ background: 'var(--card2)', border: '1px solid var(--border)', borderRadius: '6px', padding: '10px' }}>
                   <div className="kpi-label" style={{ fontSize: '0.625rem', marginBottom: '4px' }}>{k.label}</div>
                   <div className="kpi-value" style={{ color: k.color, fontSize: '1.125rem' }}>{k.value}</div>
-                  <div style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', marginTop: '2px' }}>{k.sub}</div>
+                  <div style={{ fontSize: '0.6875rem', color: 'var(--s2)', marginTop: '2px' }}>{k.sub}</div>
                 </div>
               ))}
             </div>
-            <div style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '8px' }}>
+            <div style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--s2)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '8px' }}>
               Agent Rankings
             </div>
             <div style={{ border: '1px solid var(--border)', borderRadius: '6px', overflow: 'hidden' }}>
               {AGENT_META.map((a, idx) => (
                 <div key={a.name} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', borderBottom: idx < AGENT_META.length - 1 ? '1px solid var(--border)' : 'none' }}>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', width: '16px', flexShrink: 0 }}>{idx + 1}</span>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--s2)', width: '16px', flexShrink: 0 }}>{idx + 1}</span>
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: a.color, flexShrink: 0 }} />
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--text)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--white)', display: 'flex', alignItems: 'center', gap: '6px' }}>
                       {a.name}
                       <span className={`grade ${a.gradeClass}`}>{a.grade}</span>
                     </div>
-                    <div style={{ fontSize: '0.625rem', color: 'var(--text-muted)', marginTop: '1px' }}>
+                    <div style={{ fontSize: '0.625rem', color: 'var(--s2)', marginTop: '1px' }}>
                       APY {a.capitalApy} · Sharpe {a.sharpe.toFixed(2)}
                     </div>
                   </div>
                   <div style={{ textAlign: 'right', flexShrink: 0 }}>
                     <div style={{ fontSize: '0.875rem', fontFamily: 'var(--mono)', fontWeight: 700, color: a.color }}>{a.bondScore}</div>
-                    <div style={{ fontSize: '0.5625rem', color: 'var(--text-muted)' }}>SCORE</div>
+                    <div style={{ fontSize: '0.5625rem', color: 'var(--s2)' }}>SCORE</div>
                   </div>
                 </div>
               ))}
@@ -319,13 +319,13 @@ export default function AgentsPage() {
   const [chartTab, setChartTab] = useState(0);
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg)', color: 'var(--text)', display: 'flex', flexDirection: 'column' }}>
-      <Navbar />
+    <div style={{ minHeight: '100vh', background: 'var(--bg)', color: 'var(--white)', display: 'flex', flexDirection: 'column' }}>
+      <AAHeader />
 
       {/* Ticker bar */}
-      <div className="relative overflow-hidden hidden lg:block" style={{ borderBottom: '1px solid var(--border)', background: 'var(--bg-card)', height: '36px' }}>
-        <div className="absolute inset-y-0 left-0 w-16 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, var(--bg-card), transparent)' }} />
-        <div className="absolute inset-y-0 right-0 w-16 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, var(--bg-card), transparent)' }} />
+      <div className="relative overflow-hidden hidden lg:block" style={{ borderBottom: '1px solid var(--border)', background: 'var(--card)', height: '36px' }}>
+        <div className="absolute inset-y-0 left-0 w-16 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, var(--card), transparent)' }} />
+        <div className="absolute inset-y-0 right-0 w-16 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, var(--card), transparent)' }} />
         <div style={{ overflow: 'hidden', height: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center', height: '100%', whiteSpace: 'nowrap' }} className="animate-scroll-ticker">
             {[...Array(3)].flatMap((_, gi) =>
@@ -336,8 +336,8 @@ export default function AgentsPage() {
                 { symbol: 'GIZA', price: '$0.0200', change: '+7.82%', up: true  },
               ].map((t, i) => (
                 <div key={`${gi}-${i}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', margin: '0 24px' }}>
-                  <span style={{ color: 'var(--text-muted)', fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.05em' }}>${t.symbol}</span>
-                  <span style={{ color: 'var(--text)', fontSize: '0.75rem', fontFamily: 'var(--mono)', fontWeight: 600 }}>{t.price}</span>
+                  <span style={{ color: 'var(--s2)', fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.05em' }}>${t.symbol}</span>
+                  <span style={{ color: 'var(--white)', fontSize: '0.75rem', fontFamily: 'var(--mono)', fontWeight: 600 }}>{t.price}</span>
                   <span style={{ color: t.up ? '#22c55e' : '#ef4444', fontSize: '0.6875rem', fontFamily: 'var(--mono)' }}>{t.change}</span>
                 </div>
               ))
@@ -347,7 +347,7 @@ export default function AgentsPage() {
       </div>
 
       {/* Status bar */}
-      <div style={{ borderBottom: '1px solid var(--border)', background: 'var(--bg-card)' }}>
+      <div style={{ borderBottom: '1px solid var(--border)', background: 'var(--card)' }}>
         <div className="wt-container" style={{ paddingTop: '16px', paddingBottom: '16px' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -355,7 +355,7 @@ export default function AgentsPage() {
                 <span className="chip-dot" />
                 Genesis Complete
               </span>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--s2)' }}>
                 Nov 5, 2024 – Feb 19, 2025
               </span>
             </div>
@@ -365,8 +365,8 @@ export default function AgentsPage() {
                 { label: 'CAPITAL',     value: '$10,000' },
                 { label: 'NEXT SEASON', value: 'TBA', accent: true },
               ].map(s => (
-                <span key={s.label} style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', fontWeight: 600, letterSpacing: '0.05em' }}>
-                  {s.label}: <span style={{ color: s.accent ? 'var(--primary)' : 'var(--text)', fontFamily: 'var(--mono)' }}>{s.value}</span>
+                <span key={s.label} style={{ fontSize: '0.6875rem', color: 'var(--s2)', fontWeight: 600, letterSpacing: '0.05em' }}>
+                  {s.label}: <span style={{ color: s.accent ? 'var(--lime)' : 'var(--white)', fontFamily: 'var(--mono)' }}>{s.value}</span>
                 </span>
               ))}
             </div>
@@ -379,13 +379,13 @@ export default function AgentsPage() {
         <div className="wt-container">
           <div className="kpi-grid">
             {SEASON_KPIS.map(k => (
-              <div key={k.label} style={{ background: 'var(--bg-card)', padding: '22px 24px', transition: 'background 0.15s' }}
-                onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-card-2)')}
-                onMouseLeave={e => (e.currentTarget.style.background = 'var(--bg-card)')}
+              <div key={k.label} style={{ background: 'var(--card)', padding: '22px 24px', transition: 'background 0.15s' }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'var(--card2)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'var(--card)')}
               >
                 <div className="kpi-label">{k.label}</div>
                 <div className="kpi-value" style={{ color: k.color }}>{k.value}</div>
-                <div style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', marginTop: '6px' }}>{k.sub}</div>
+                <div style={{ fontSize: '0.6875rem', color: 'var(--s2)', marginTop: '6px' }}>{k.sub}</div>
               </div>
             ))}
           </div>
@@ -397,19 +397,19 @@ export default function AgentsPage() {
         <div className="page-grid">
 
           {/* Chart panel */}
-          <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '8px', overflow: 'hidden' }}>
+          <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '8px', overflow: 'hidden' }}>
             <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                <span style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--s2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                   Genesis Performance Overview
                 </span>
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', display: 'inline-block', boxShadow: '0 0 8px #22c55e' }} />
               </div>
-              <span style={{ fontSize: '0.6875rem', color: 'var(--text-muted)' }}>AUA · Genesis</span>
+              <span style={{ fontSize: '0.6875rem', color: 'var(--s2)' }}>AUA · Genesis</span>
             </div>
 
             {/* Chart switcher tabs */}
-            <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', background: 'var(--bg-card-2)' }}>
+            <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', background: 'var(--card2)' }}>
               {CHART_TABS.map((t, i) => (
                 <button
                   key={t.label}
@@ -417,15 +417,15 @@ export default function AgentsPage() {
                   style={{
                     padding: '10px 20px', fontSize: '11px', fontWeight: 600,
                     letterSpacing: '0.06em', textTransform: 'uppercase',
-                    color: chartTab === i ? 'var(--text)' : 'var(--text-muted)',
+                    color: chartTab === i ? 'var(--white)' : 'var(--s2)',
                     background: 'transparent', border: 'none',
-                    borderBottom: chartTab === i ? '2px solid var(--primary)' : '2px solid transparent',
+                    borderBottom: chartTab === i ? '2px solid var(--lime)' : '2px solid transparent',
                     marginBottom: '-1px', cursor: 'pointer', transition: 'all 0.15s',
                     fontFamily: 'inherit',
                   }}
                 >
                   {t.label}
-                  <span style={{ fontSize: '9px', color: 'var(--text-muted)', marginLeft: '6px', fontWeight: 400, letterSpacing: 0 }}>
+                  <span style={{ fontSize: '9px', color: 'var(--s2)', marginLeft: '6px', fontWeight: 400, letterSpacing: 0 }}>
                     {t.sub}
                   </span>
                 </button>
@@ -451,15 +451,15 @@ export default function AgentsPage() {
             { label: 'Avg Transactions / Day',  value: '5.33' },
             { label: 'Avg Yield / Transaction', value: '$0.519' },
           ].map(m => (
-            <div key={m.label} style={{ background: 'var(--bg-card)', padding: '14px 18px' }}>
+            <div key={m.label} style={{ background: 'var(--card)', padding: '14px 18px' }}>
               <div className="kpi-label">{m.label}</div>
-              <div style={{ fontSize: '1.125rem', fontFamily: 'var(--mono)', fontWeight: 700, color: 'var(--text)', lineHeight: 1, marginTop: '4px' }}>{m.value}</div>
+              <div style={{ fontSize: '1.125rem', fontFamily: 'var(--mono)', fontWeight: 700, color: 'var(--white)', lineHeight: 1, marginTop: '4px' }}>{m.value}</div>
             </div>
           ))}
         </div>
       </div>
 
-      <Footer />
+      <AAFooter />
     </div>
   );
 }
