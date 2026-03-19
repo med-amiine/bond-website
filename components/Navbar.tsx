@@ -25,8 +25,6 @@ const resources = [
 
 // Sections to track for current location
 const sections = [
-  { id: 'hero', label: 'Home' },
-  { id: 'features', label: 'Features' },
   { id: 'frameworks', label: 'Frameworks' },
   { id: 'partners', label: 'Partners' },
   { id: 'testimonials', label: 'Testimonials' },
@@ -242,8 +240,8 @@ export default function Navbar() {
                           </div>
                           <p className="text-[11px] text-[var(--text-muted)] mt-0.5">{item.tagline}</p>
                         </div>
-                        <svg className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[#27279E] group-hover:translate-x-0.5 transition-all flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                        <svg className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[#27279E] transition-all flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
                       </Link>
                     ))}

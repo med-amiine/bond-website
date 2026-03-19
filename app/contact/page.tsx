@@ -1,13 +1,8 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
-import Link from 'next/link'
+import { useState, useRef } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
 
 // ============================================
 // CONTACT METHOD CARD
@@ -18,44 +13,16 @@ function ContactMethodCard({
   title,
   value,
   href,
-  delay = 0,
-  animate = true,
 }: {
   icon: React.ReactNode
   title: string
   value: string
   href: string
-  delay?: number
-  animate?: boolean
 }) {
-  const cardRef = useRef<HTMLAnchorElement>(null)
-
-  useEffect(() => {
-    if (!cardRef.current || !animate) return
-    
-    const ctx = gsap.context(() => {
-      gsap.from(cardRef.current, {
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.6,
-        delay,
-        ease: 'power2.out',
-      })
-    })
-    
-    return () => ctx.revert()
-  }, [delay, animate])
-
   const isExternal = href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel')
 
   return (
     <a
-      ref={cardRef}
       href={href}
       target={isExternal ? '_blank' : undefined}
       rel={isExternal ? 'noopener noreferrer' : undefined}
@@ -91,39 +58,13 @@ function SocialLink({
   icon,
   label,
   href,
-  delay = 0,
 }: {
   icon: React.ReactNode
   label: string
   href: string
-  delay?: number
 }) {
-  const linkRef = useRef<HTMLAnchorElement>(null)
-
-  useEffect(() => {
-    if (!linkRef.current) return
-    
-    const ctx = gsap.context(() => {
-      gsap.from(linkRef.current, {
-        scrollTrigger: {
-          trigger: linkRef.current,
-          start: 'top 90%',
-          toggleActions: 'play none none reverse',
-        },
-        opacity: 0,
-        scale: 0.8,
-        duration: 0.4,
-        delay,
-        ease: 'back.out(1.7)',
-      })
-    })
-    
-    return () => ctx.revert()
-  }, [delay])
-
   return (
     <a
-      ref={linkRef}
       href={href}
       target="_blank"
       rel="noopener noreferrer"
@@ -225,65 +166,6 @@ function ContactForm() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const formRef = useRef<HTMLDivElement>(null)
-  const headerRef = useRef<HTMLDivElement>(null)
-  const inputsRef = useRef<HTMLDivElement>(null)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-
-  useEffect(() => {
-    if (!formRef.current) return
-    
-    const ctx = gsap.context(() => {
-      // Animate header separately
-      if (headerRef.current) {
-        gsap.from(headerRef.current.children, {
-          scrollTrigger: {
-            trigger: formRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse',
-          },
-          opacity: 0,
-          y: 20,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: 'power2.out',
-        })
-      }
-      
-      // Animate inputs separately
-      if (inputsRef.current) {
-        gsap.from(inputsRef.current.children, {
-          scrollTrigger: {
-            trigger: inputsRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-          opacity: 0,
-          y: 20,
-          duration: 0.5,
-          stagger: 0.08,
-          ease: 'power2.out',
-        })
-      }
-      
-      // Animate button separately
-      if (buttonRef.current) {
-        gsap.from(buttonRef.current, {
-          scrollTrigger: {
-            trigger: buttonRef.current,
-            start: 'top 90%',
-            toggleActions: 'play none none reverse',
-          },
-          opacity: 0,
-          y: 15,
-          duration: 0.5,
-          ease: 'power2.out',
-        })
-      }
-    })
-    
-    return () => ctx.revert()
-  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -303,16 +185,13 @@ function ContactForm() {
   }
 
   return (
-    <div
-      ref={formRef}
-      className="relative bg-[var(--bg-card)] border border-[var(--border)] rounded-3xl p-8 overflow-hidden"
-    >
+    <div className="relative bg-[var(--bg-card)] border border-[var(--border)] rounded-3xl p-8 overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-[#27279E]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#3B3BB8]/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
       <div className="relative z-10">
-        <div ref={headerRef}>
+        <div>
           <h2 className="text-xl font-semibold text-[var(--text)] mb-2">Send us a message</h2>
           <p className="text-sm text-[var(--text-muted)] mb-8">
             We&apos;d love to hear from you. Fill out the form below.
@@ -333,7 +212,7 @@ function ContactForm() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-5">
-            <div ref={inputsRef}>
+            <div>
               <div className="grid sm:grid-cols-2 gap-5 mb-5">
                 <AnimatedInput
                   label="Your Name"
@@ -375,7 +254,6 @@ function ContactForm() {
             </div>
 
             <button
-              ref={buttonRef}
               type="submit"
               disabled={isSubmitting}
               className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-[#27279E] text-white rounded-xl text-sm font-medium transition-all hover:bg-[#3B3BB8] disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
@@ -413,40 +291,14 @@ function FAQItem({
   answer,
   isOpen,
   onClick,
-  delay = 0,
 }: {
   question: string
   answer: string
   isOpen: boolean
   onClick: () => void
-  delay?: number
 }) {
-  const itemRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!itemRef.current) return
-    
-    const ctx = gsap.context(() => {
-      gsap.from(itemRef.current, {
-        scrollTrigger: {
-          trigger: itemRef.current,
-          start: 'top 90%',
-          toggleActions: 'play none none reverse',
-        },
-        opacity: 0,
-        y: 20,
-        duration: 0.5,
-        delay,
-        ease: 'power2.out',
-      })
-    })
-    
-    return () => ctx.revert()
-  }, [delay])
-
   return (
     <div
-      ref={itemRef}
       className={`border-b border-[var(--border)] last:border-0 transition-colors ${isOpen ? 'bg-[#27279E]/5' : ''}`}
     >
       <button onClick={onClick} className="w-full flex items-center justify-between py-5 px-4 text-left">
@@ -473,23 +325,6 @@ function FAQItem({
 
 export default function ContactPage() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(0)
-  const heroRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    if (!heroRef.current) return
-    
-    const ctx = gsap.context(() => {
-      gsap.from('.contact-hero-content', {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power2.out',
-      })
-    }, heroRef)
-    
-    return () => ctx.revert()
-  }, [])
 
   const contactMethods = [
     {
@@ -592,7 +427,7 @@ export default function ContactPage() {
 
       <main className="pt-24 pb-12 relative z-10">
         {/* Hero Section */}
-        <section ref={heroRef} className="relative py-16">
+        <section className="relative py-16">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="contact-hero-content text-center mb-16">
               <span className="inline-flex items-center gap-2 px-3 py-1 bg-[#27279E]/10 rounded-full mb-4">
@@ -610,12 +445,7 @@ export default function ContactPage() {
             {/* Contact Methods Grid */}
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
               {contactMethods.map((method, i) => (
-                <ContactMethodCard 
-                  key={i} 
-                  {...method} 
-                  delay={i * 0.1} 
-                  animate={method.title === 'Email'}
-                />
+                <ContactMethodCard key={i} {...method} />
               ))}
             </div>
           </div>
@@ -705,7 +535,6 @@ export default function ContactPage() {
                   answer={faq.answer}
                   isOpen={openFAQ === i}
                   onClick={() => setOpenFAQ(openFAQ === i ? null : i)}
-                  delay={i * 0.1}
                 />
               ))}
             </div>
